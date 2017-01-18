@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style type="text/css">
+#button {
+	background-color: #DBDBDB;
+	height:30px;
+	width:70px;
+}
+#div1 {
+	text-align: center;
+}
+</style>
+<body>
+<div id="div1">
+<form id="form1" name="form1" method="post" action="<?php echo PUB;?>Home/Log/addLog/">
+<p>
+添加禁用的IP：</p>
+<p>
+    <label>
+      
+      <input type="text" name="log_ip" value="<?php echo $loginfo['log_ip']?$loginfo['log_ip']:'IP地址'; ?>" id="log_ip" required="required" />
+  </label> </p>
+  <p>
+  
+    <input type="submit" name="button" id="button" value="提交" />
+   
+  </p>
+</form>
+</div>
+</body>
+</html>
