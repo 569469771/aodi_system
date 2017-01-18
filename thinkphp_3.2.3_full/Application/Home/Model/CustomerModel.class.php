@@ -18,7 +18,8 @@ class CustomerModel extends Model {
 		if($id=='0'){
 			$flag=$customer->where('`customer_code` ="'.$code.'" or `customer_name` = "'.$name.'"')->find();
 		}else{
-			$flag=$customer->where('`customer_code` ="'.$code.'" or `customer_name` = "'.$name.'" and `$id` != "'.$id.'"')->find();
+			$flag=$customer->
+			where('`customer_code` ="'.$code.'" or `customer_name` = "'.$name.'" and `$id` != "'.$id.'"')->find();
 		}
 			
 		// $result=$User->result();
@@ -31,7 +32,8 @@ class CustomerModel extends Model {
 		$arr=$customer->where('`id` = "'.$id.'"')->find();
 		return $arr;
 	}
-	public function addById($id,$date){
+	
+	public function saveById($id,$date){
 		$customer = M('Customer');
 		$flag=$customer->where('`id` = "'.$id.'"')->save($date);
 		return $flag;

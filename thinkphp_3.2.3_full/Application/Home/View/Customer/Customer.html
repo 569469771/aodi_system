@@ -41,7 +41,7 @@
     <td><?php echo $arr['customer_adress']; ?></td>
     <td><?php echo $arr['customer_state']; ?></td>
 	<td>
-	<a href='<?php echo PUB; ?>Home/Customer/addCus/id/<?php echo $arr['id']; ?>'>
+	<a href='<?php echo PUB; ?>Home/Customer/editCus/id/<?php echo $arr['id']; ?>'>
 	
 	修改</a>
 	</td>

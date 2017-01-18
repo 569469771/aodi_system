@@ -27,9 +27,7 @@ class CustomerController extends FatherController {
 		
 	}
 	public function addCus($id='0'){
-		if($id=='0'){
-
-
+		
 			if($_POST && cookie('name')){
 				// dump($_POST);die;
 				$cusinfo['customer_name']=strtr(I('post.customer_name'), array(' '=>''));
@@ -56,21 +54,7 @@ class CustomerController extends FatherController {
 			}else{
 				$this->display('Addcus');
 			}
-		}else{
-			
-			// echo $id;die;
-			$id=I('get.id');
-			// echo $id;die;
-			$cus=D('Customer');
-			$cusfind=$cus->getById($id);
-			// dump($cusfind);die;
-			if($cusfind){
-				$this->assign('customer',$cusfind);
-				$this->display('Editcus');
-			}else{
-				$this->error('客户ID不存在','/Home/Customer/addCus/',3);
-			}
-		}
+		
 	}
 	public function delCus(){
 		$this->display('Addqxian');
@@ -91,19 +75,33 @@ class CustomerController extends FatherController {
 				$cusinfo['customer_state']=I('post.customer_state');
 				$cusinfo['up_date'] = time();
 				$cus=D('Customer');
-				$cusfind=$cus->getCus($cusinfo['customer_code'],$cusinfo['customer_name'],$id);
+				$cusfind=$cus->getById(intval($id));
 				if($cusfind){
-					
-					$this->error('与其他客户重名','/Home/Customer/index/',3);
-								
+					$cusflag=$cus->saveById(intval($id),$cusinfo);
+					if($cusflag){
+						$this->success('修改成功', '/Home/Customer/index/',2);
+					}else{
+						$this->error('添加失败','/Home/Customer/index/',3);
+					}
 				}else{
-					$cusflag=$cus->addById($cusfind['id'],$cusinfo);
-					$this->success('添加成功', '/Home/Customer/index/',2);
+					$this->error('没有此客户id','/Home/Customer/index/',3);
+					
 				}
 			
 			}else{
-				$this->display('Addcus');
+				$id=I('get.id');
+			// echo $id;die;
+				$cus=D('Customer');
+				$cusfind=$cus->getById($id);
+				// dump($cusfind);die;
+				if($cusfind){
+					$this->assign('customer',$cusfind);
+					$this->display('Editcus');
+				}else{
+					$this->error('客户ID不存在','/Home/Customer/addCus/',3);
+				}
 			}
+			
 		}else{
 			
 			$this->error('操作失败','/Home/Customer/index/',3);
