@@ -20,7 +20,7 @@ class CustomerController extends FatherController {
 		// var_dump(array_keys($list[0])[0]); 
 		// var_dump($list);die;
 		// echo $show;
-		// die;
+		// die;123
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 		$this->display('Customer');
