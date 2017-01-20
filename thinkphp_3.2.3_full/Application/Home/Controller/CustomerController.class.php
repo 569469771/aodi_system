@@ -62,8 +62,6 @@ class CustomerController extends FatherController {
 	
 	public function editCus($id='0'){
 		if($id!='0'){
-
-
 			if($_POST && cookie('name')){
 				// dump($_POST);die;
 				$cusinfo['customer_name']=strtr(I('post.customer_name'), array(' '=>''));
