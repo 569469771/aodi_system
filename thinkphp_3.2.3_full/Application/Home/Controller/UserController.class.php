@@ -80,13 +80,7 @@ class UserController extends FatherController {
 				$userup=D('User');
 				$finduser=$userup->getUser(I('post.name'),$flagid='1');
 				if($finduser){
-					$inflag=$userup->upInfo($userinfo,$finduser['id']);
-					if($inflag){
-						$this->success('修改成功', '/Home/User/index/',3);
-					}else{
-						$this->error('操作失败','/Home/User/index/',3);
-					}
-						
+						$this->error('操作失败,系统已经有该用户','/Home/User/index/',3);		
 				}else{
 					$inflag=$userup->inserInfo($userinfo);
 					if($inflag){
@@ -99,6 +93,60 @@ class UserController extends FatherController {
 				$this->error('操作失败','/Home/User/uadd/',3);
 			}
 		}	
+	}
+	public function uedit($id='0'){
+		if(empty($_POST)){
+			$user=D('User');
+			$info=$user->getId($id);
+			
+			$company=D('Company');
+			$group=D('Group');
+			$com=$company->getCompany();
+			$gp=$group->getGroup();
+			// var_dump($gp);die;
+			$this->assign('com',$com);
+			$this->assign('gp',$gp);
+			
+			
+			// var_dump($arrs);die;
+			$this->assign('info',$info);
+			$this->display('Useredit');
+		}else{
+			if(I('post.psw1')==I('post.psw2')&& strlen(I('post.psw1'))>3){
+				// var_dump($_POST);
+				$userinfo=[];
+				$userinfo['company_id']=I('post.company_id');
+				$userinfo['group_id'] = I('post.group_id');
+				$userinfo['user_state'] = I('post.user_state');
+				$userinfo['u_name']=strtr(I('post.name'), array(' '=>''));
+				$userinfo['full_name']=strtr(I('post.full_name'), array(' '=>''));
+				
+				$user_pass_str =strtr(I('post.psw1'), array(' '=>''));
+				$user_pass_str      = substr_replace($user_pass_str, '', 0, 1);//破坏原始数据
+				$user_pass_str      = substr_replace($user_pass_str, '', -1, 1);//破坏原始数据
+				$userinfo['u_passward']   = md5(md5($user_pass_str).'Bs7RmJ');
+				
+				
+				$userinfo['u_id'] = cookie('ud');
+				$userinfo['up_date'] = time();
+				// var_dump($userinfo);die;
+				$userup=D('User');
+				$finduser=$userup->getUser(I('post.name'),$flagid='1');
+				if($finduser){
+					$inflag=$userup->upInfo($userinfo,$finduser['id']);
+					if($inflag){
+						$this->success('修改成功', '/Home/User/index/',3);
+					}else{
+						$this->error('操作失败','/Home/User/index/',3);
+					}
+						
+				}else{
+						$this->error('操作失败，没有该用户','/Home/User/index/',3);	
+				}
+			}else{	
+				$this->error('操作失败，两密码不服规则','/Home/User/uadd/',3);
+			}
+		}
 	}
 	public function udel($id){
 		// echo $id;die;

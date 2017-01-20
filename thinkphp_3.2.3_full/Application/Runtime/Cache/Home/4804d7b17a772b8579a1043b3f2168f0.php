@@ -12,7 +12,7 @@
 <script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 <body>
 
-<div id='div1' >
+<div id='div1' align="center">
   <p align="center">公司：
     <select name="" >
       <option value="" >安庆</option>
