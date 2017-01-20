@@ -49,10 +49,7 @@
     <td><?php echo $arr['action']; ?></td>
     <td><?php echo $arr['group_id']; ?></td>
     <td><?php echo $arr['state']; ?></td>
-    <td><a href="<?php echo PUB; ?>Home/Qxian/qxedit/id/<?php echo $arr['id'] ; ?>" >修改</a>&nbsp;
-	
-	<a href="<?php echo PUB; ?>Home/Qxian/qxdel/id/<?php echo $arr['id'] ; ?>" >删除</a></td>
-   
+    <td><a href="<?php echo PUB; ?>Home/Qxian/qxedit/id/<?php echo $arr['id'] ; ?>" >修改</a>  
   </tr>
 	<?php endforeach; ?>
 </table>

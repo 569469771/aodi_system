@@ -19,9 +19,7 @@
     <th width="12%" scope="col" >名称</th>
     <th width="12%" scope="col">组id</th>
     <th width="12%" scope="col">所属公司id</th>
-    <th width="12%" scope="col">用户状态</th>
-	<th width="12%" scope="col">操作</th>
-    
+    <th width="12%" scope="col">用户状态</th>   
   </tr><?php $i=0;?>
   <?php foreach($list as $arr): ?>
    <?php $i++ ?>
@@ -31,13 +29,7 @@
     <td><?php echo $arr['full_name']; ?></td>
     <td><?php echo $arr['group_id']; ?></td>
     <td><?php echo $arr['company_id']; ?></td>
-    <td><?php echo $arr['user_state']; ?></td>
-	<td><a href='<?php echo PUB; ?>Home/User/uadd/id/<?php echo $arr['id']; ?>'>修改</a>&nbsp
-	<a href='<?php echo PUB; ?>Home/User/udel/id/<?php echo $arr['id']; ?>'>
-	
-	删除</a>
-	</td>
-    
+    <td><?php echo $arr['user_state']; ?></td>    
   </tr>
 	<?php endforeach; ?>
 </table>

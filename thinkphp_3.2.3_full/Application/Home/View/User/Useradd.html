@@ -13,7 +13,7 @@
 </style>
 <body>
 <div>
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/User/uadd/">
+<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/User/uadd/id/<?php echo $info['id'];?>">
 	所属公司：<select name="company_id" id="select2">
 	<?php foreach($com as $co):?>
     <option <?php echo $info['company_id']== $co['id']?'selected=selected':''; ?> value="<?php echo $co['id']; ?>"><?php echo $co['company_name']; ?></option>

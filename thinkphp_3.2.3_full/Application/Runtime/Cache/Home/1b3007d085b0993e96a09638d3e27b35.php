@@ -32,7 +32,7 @@
     <td><?php echo $arr['group_id']; ?></td>
     <td><?php echo $arr['company_id']; ?></td>
     <td><?php echo $arr['user_state']; ?></td>
-	<td><a href='<?php echo PUB; ?>Home/User/uedit/id/<?php echo $arr['id']; ?>'>修改</a>&nbsp
+	<td><a href='<?php echo PUB; ?>Home/User/uadd/id/<?php echo $arr['id']; ?>'>修改</a>&nbsp
 	<a href='<?php echo PUB; ?>Home/User/udel/id/<?php echo $arr['id']; ?>'>
 	
 	删除</a>
