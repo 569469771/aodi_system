@@ -32,8 +32,8 @@
     <td><?php echo $arr['group_id']; ?></td>
     <td><?php echo $arr['company_id']; ?></td>
     <td><?php echo $arr['user_state']; ?></td>
-	<td><a href='<?php echo PUB; ?>Home/User/uadd/id/<?php echo $arr['id']; ?>'>修改</a>&nbsp
-	<a href='<?php echo PUB; ?>Home/User/udel/id/<?php echo $arr['id']; ?>'>
+	<td><a href='<?php echo PUB; ?>Home/User/uadd/id/<?php echo $arr['id']; ?>'>修改</a>&nbsp;
+	<a  href='javascript:if(confirm("你确定要删除吗？")) location.href="<?php echo PUB; ?>Home/User/udel/id/<?php echo $arr['id']; ?>"' style="cursor:pointer;" >
 	
 	删除</a>
 	</td>
@@ -43,5 +43,7 @@
 </table>
 <?php echo $page; ?>
 </div>
+<script type="text/javascript">
+</script>
 </body>
 </html>
