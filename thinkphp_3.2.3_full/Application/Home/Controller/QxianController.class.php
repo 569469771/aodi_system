@@ -79,8 +79,8 @@ class QxianController extends FatherController {
 		}
 		
 	}
-	public function qxedit($id = '0'){
-		if($id!='0'){
+	public function qxedit($id = '0' ){
+		if($id==null){
 			$qxian=D('Qxian');
 			$iddata=$qxian->getQxian($id);
 			if($iddata){
