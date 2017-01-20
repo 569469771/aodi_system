@@ -22,6 +22,7 @@
   <p>
     
     所属父类ID：<select name="p_id" id="select1">
+    <option value="0">父类</option>
 	<?php foreach($qx_name as $name): ?>
 	<?php if($name['p_id']=='0'): ?>
 		<option value="<?php echo $name['id']; ?>"><?php echo $name['qx_name']; ?></option>

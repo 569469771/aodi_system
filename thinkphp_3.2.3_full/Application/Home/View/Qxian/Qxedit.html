@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 
-
+<?php //var_dump($qxdata); die;?>
 </head>
 <style type="text/css">
 	div {
@@ -22,12 +22,19 @@
   <p>
     
     所属父类ID：<select name="p_id" id="select1">
+    <option value="0" <?php echo $qxdata['p_id']=='0'?'selected=selected':''; ?>>父类</option>
 	<?php foreach($qx_name as $name): ?>
-	<?php if($name['p_id']=='0'): ?>
-	
-		<option value="<?php echo $name['id']; ?>" <?php echo $name['id']==$qxdata['id']?'selected=selected':''; ?>>
-		<?php echo $name['qx_name']; ?>
-		</option>
+  	<?php if($name['p_id']=='0' ): ?>
+  	
+  		<option value="<?php echo $name['id']; ?>" <?php 
+
+        if($qxdata['p_id']!='0' && $name['id']==$qxdata['p_id']){
+           echo 'selected=selected'; 
+        }
+       
+      ?> >
+  		<?php echo $name['qx_name']; ?>
+  		</option>
     <?php endif; ?>
 	<?php endforeach; ?>
 	

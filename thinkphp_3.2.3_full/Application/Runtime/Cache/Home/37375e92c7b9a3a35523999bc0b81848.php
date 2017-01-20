@@ -61,7 +61,7 @@
 <script type="text/javascript">
 function link(){
 var selval=$('#select1').val();
-this.location.href='<?php echo PUB; ?>Home/Qxian/qxedit/id/'+selval;
+this.location.href='<?php echo PUB; ?>Home/Qxian/listshow/id/'+selval;
 }
 
 </script>
