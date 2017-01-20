@@ -28,32 +28,32 @@ class CustomerController extends FatherController {
 	}
 	public function addCus($id='0'){
 		
-			if($_POST && cookie('name')){
-				// dump($_POST);die;
-				$cusinfo['customer_name']=strtr(I('post.customer_name'), array(' '=>''));
-				$cusinfo['customer_code']=strtr(I('post.customer_code'), array(' '=>''));
-				$cusinfo['customer_adress']=I('post.customer_adress');
-				$cusinfo['customer_fname']=I('post.customer_fname');
-				$cusinfo['u_id'] = cookie('ud');
-				$cusinfo['company_id'] = cookie('cd');
-				$cusinfo['customer_state']=I('post.customer_state');
-				$cusinfo['up_date'] = time();
-				$cus=D('Customer');
-				$cusfind=$cus->getCus($cusinfo['customer_code'],$cusinfo['customer_name']);
-				if(!$cusfind){
-					$cusflag=$cus->insertCus($cusinfo);
-					if($cusflag){
-						$this->success('添加成功', '/Home/Customer/index/',1);	
-					}else{
-						$this->error('操作失败','/Home/Customer/addCus/',3);
-					}			
+		if($_POST && cookie('name')){
+			// dump($_POST);die;
+			$cusinfo['customer_name']=strtr(I('post.customer_name'), array(' '=>''));
+			$cusinfo['customer_code']=strtr(I('post.customer_code'), array(' '=>''));
+			$cusinfo['customer_adress']=I('post.customer_adress');
+			$cusinfo['customer_fname']=I('post.customer_fname');
+			$cusinfo['u_id'] = cookie('ud');
+			$cusinfo['company_id'] = cookie('cd');
+			$cusinfo['customer_state']=I('post.customer_state');
+			$cusinfo['up_date'] = time();
+			$cus=D('Customer');
+			$cusfind=$cus->getCus($cusinfo['customer_code'],$cusinfo['customer_name']);
+			if(!$cusfind){
+				$cusflag=$cus->insertCus($cusinfo);
+				if($cusflag){
+					$this->success('添加成功', '/Home/Customer/index/',1);	
 				}else{
-					$this->error('客户已存在！','/Home/Customer/index/',3);
-				}
-			
+					$this->error('操作失败','/Home/Customer/addCus/',3);
+				}			
 			}else{
-				$this->display('Addcus');
+				$this->error('客户已存在！','/Home/Customer/index/',3);
 			}
+		
+		}else{
+			$this->display('Addcus');
+		}
 		
 	}
 	public function delCus(){
