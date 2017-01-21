@@ -103,7 +103,7 @@ function apimg(){
 		url: "<?php echo PUB ; ?>Home/Login/ajaxVerify",
 		data: "code="+vcode,
 		success: function(msg){
-			console.log( "Data Saved: " + msg ); 
+			// console.log( "Data Saved: " + msg );  
 			if(msg=='11'){
 				$("span > image").remove();
 				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/right.jpg" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 

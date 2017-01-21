@@ -18,15 +18,22 @@
 <script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 <body>
 <div>
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Customer/addCus/">
+<form id="form1" name="form1" onsubmit="return check();"  method="post" action="<?php echo PUB; ?>Home/Customer/addCus/">
   <p>
     客户名称：
-    <input type="text" name="customer_name" id="name" value="<?php echo $customer['customer_name']; ?>" required="required"/>
+    <input type="text" name="customer_name" id="name" onblur='checkname();' 
+	value="<?php echo $customer['customer_name']; ?>" required="required"/>
+	<span id="spname" style="color:red" ></span>
+	<span id="ckname" style="color:red" ></span>
   </p>
  
   <p>
     客户编号：
-    <input type="text" name="customer_code" id="code" value="<?php echo $customer['customer_code']; ?>" required="required" />
+    <input type="text" name="customer_code" id="code"  onblur='checktex();' 
+	value="<?php echo $customer['customer_code']; ?>" required="required" />
+	<span id="spcode" style="color:red" ></span>
+	<span id="ckcode" style="color:red" ></span>
+	
   </p>
   <p>
     客户地址：
@@ -46,12 +53,102 @@
      </select>
    
   </p>
-  
+  <input type="hidden" id="flagc" value="0">
+  <input type="hidden" id="flagn" value="0">
   <p>
     <input type="submit" name="button" id="button" value="提交" />
 	<input type="reset" name="button2" id="button2" value="重置" />
+	
   </p>
+  
 </form>
 </div>
 </body>
+<script type="text/javascript">
+	function check(){
+	    var nval=$("#flagn").val();
+	    var cval=$("#flagc").val();
+		
+		if( checkname() && checktex() && cval!="0" && nval!='0'){
+			console.log('11');
+			return true;
+		}else{
+			console.log('00');
+			return false;
+		}
+	}
+	function checkname(){
+		var parm = 'name';
+		var cname=$("#name").val();
+		var cstrt=cname.match(/\s+/g);
+		//console.log(cname);
+		//console.log(cstrt);
+		ajaxcheck(parm,cname);
+		if(cstrt){
+			$("#spname").html("不能有空格"); 
+			return false;
+		}else{
+			$("#spname").html("");
+			return true;			
+		}
+	}
+	function checktex(){
+		var parm = 'code';
+		var code=$("#code").val();
+		var str=code.match(/^\w+/g);
+		var strt=code.match(/\s+/g);
+		//console.log(strt);
+		//console.log(str[0].length);
+		ajaxcheck(parm,str[0]);
+		if(strt){
+			$("#spcode").html("不能有空格"); 
+			return false;
+		}
+		if(str){
+		$("#spcode").html("");
+			return true;
+		}
+	}
+	function ajaxcheck(parm,val){ 
+		$.ajax({
+			type: "POST",
+			url: "<?php echo PUB ; ?>Home/Ajax/checkcode",
+			data: parm+"="+val,
+			success: function(msg){
+				//console.log( "Data Saved: " + msg ); 
+				if(msg=='name'){
+					//console.log(msg);
+					//$("#apimg").html(""); 
+					$("#ckname").html(""); 
+					$("#flagn").attr("value","0");
+					$("#ckname").html("系统中该客户名称存在"); 
+					
+				}
+				if(msg=='code'){
+					//console.log(msg);
+					$("#ckcode").html(""); 
+					$("#flagc").attr("value","0");
+					$("#ckcode").html("系统中该编码已存在"); 
+					
+				}
+				if(msg=='name1'){
+					//console.log(msg);
+					$("#flagn").attr("value","1");
+					$("#ckname").html(""); 
+					
+				}
+				if(msg=='code1'){
+					//console.log(msg);
+					$("#ckcode").html(""); 
+					$("#flagc").attr("value","1");
+					
+				}
+				
+			}
+		});
+		
+
+	}
+
+</script>
 </html>

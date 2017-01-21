@@ -13,10 +13,8 @@ class UserModel extends Model {
 		}else{
 			$data=$User->where('u_name = "'.$username.'"')->find();
 		}
-		
 		// echo $this->getLastSql();die;
 		// $result=$User->result();
-	
 		return $data;
 		// echo $this->getLastSql();die;
 	}
@@ -36,11 +34,8 @@ class UserModel extends Model {
 	}
 	public function upInfo($info,$id){
 		$userdata=D('User');
-		
 			$data = $userdata->where('`id` = "'.$id.'"')->save($info);
-		
 			// echo $this->getLastSql();die;
-
 		return $data;
 	}
 }

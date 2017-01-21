@@ -38,5 +38,15 @@ class CustomerModel extends Model {
 		$flag=$customer->where('`id` = "'.$id.'"')->save($date);
 		return $flag;
 	}
+	public function checkcus($name,$code){
+		$cus=M("Customer");
+		if(empty($name)){
+			$data=$cus->where("`customer_code` = '".$code."'")->find();
+		}else{
+			$data=$cus->where("`customer_name` = '".$name."'")->find();
+		}
+		 // echo $this->getLastSql();
+		return $data;
+	}
 	
 }
