@@ -6,17 +6,13 @@ class FatherController extends Controller{
 	protected $groupname;
 	public function __construct(){
 		parent::__construct();
-		
-		if(!$this->pregURL($_SERVER['REQUEST_URI'])){
-			
-		
-					if(cookie('name')!=null){
-						$qxian = D('Qxian');
-						$this->groupname=$qxian->getQxian();
-					}else{
-						echo '<script type="text/javascript">top.location.href="'.PUB.'";</script>';
-						
-					}
+		if(!$this->pregURL($_SERVER['REQUEST_URI'])){	
+			if(cookie('name')!=null){
+				$qxian = D('Qxian');
+				$this->groupname=$qxian->getQxian();
+			}else{
+				echo '<script type="text/javascript">top.location.href="'.PUB.'";</script>';				
+			}
 		}
 	}
 	function pregURL($test){  
