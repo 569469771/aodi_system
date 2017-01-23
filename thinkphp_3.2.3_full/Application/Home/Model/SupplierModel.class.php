@@ -7,10 +7,15 @@ class SupplierModel extends Model {
 	//实例化模型
 	public function getById($id){
 		$User = M("Supplier"); // 实例化User对象
-		$data=$User->where('`id` = "'.$id.'"')->find();
-		// $result=$User->result();
-	
-		return $data;
+		$data = $User->where('`id` = "'.$id.'"')->find();
+		
 		// echo $this->getLastSql();die;
+		return $data;
+		
+	}
+	public function addsup($data){
+		$msup=M('Supplier');
+		$mflag = $msup->add($data);
+		return $mflag;
 	}
 }

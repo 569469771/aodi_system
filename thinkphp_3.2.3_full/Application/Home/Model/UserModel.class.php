@@ -13,10 +13,9 @@ class UserModel extends Model {
 		}else{
 			$data=$User->where('u_name = "'.$username.'"')->find();
 		}
-		// echo $this->getLastSql();die;
-		// $result=$User->result();
+		
 		return $data;
-		// echo $this->getLastSql();die;
+		
 	}
 	
 	public function getId($id){

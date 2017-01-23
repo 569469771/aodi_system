@@ -31,7 +31,13 @@ class SupplierController extends FatherController {
 				$supdata['u_id'] = cookie('ud');
 				$supdata['up_date'] = time();
 				// dump($supdata);die;
-				
+				$sup=D("Supplier");
+				$supflag=$sup->addsup($supdata);
+				if($supflag){
+					$this->success('新增成功', '/Home/Supplier/addsup/',3);
+				}else{
+					$this->error('操作失败','/Home/Supplier/addsup/',3);
+				}
 		}else{
 			$this->display('Addsup');
 		}
