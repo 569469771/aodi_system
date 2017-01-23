@@ -53,11 +53,11 @@ class FatherController extends Controller{
     }
 	public function _empty($name){
 		
-		$this->error('操作失败','/',3);
+		// $this->error('操作失败',PUB,3);
 		// echo '当前城市' . $name;
         //把所有城市的操作解析到city方法
 		
-        // redirect('/Home/Login/login/');
+        redirect('/Home/Login/latout/');
     }
 	public function check_ip($ip){
 		if(ip2long($ip)) return true;

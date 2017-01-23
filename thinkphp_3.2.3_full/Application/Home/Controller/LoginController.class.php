@@ -79,12 +79,12 @@ class LoginController extends FatherController{
 		
 	}
 	public function latOut(){
-		cookie('name',null);
-		cookie('gd',null);
-		cookie('cd',null);
-		cookie('ud',null);
+		cookie('name',null); 
+		cookie('ud',null); 
+		cookie('gd',null); 
+		cookie('cd',null); 
 		// redirect('/Home/Login/login/');
-		echo '<script type="text/javascript">top.location.href="'.PUB.'";</script>';
+		echo '<script type="text/javascript">window.top.location.href="'.PUB.'";</script>';
 	}
 	private function logInfo(){
 		
@@ -95,14 +95,6 @@ class LoginController extends FatherController{
 		$key        =   $this->authcode($this->seKey2);
 		$secode = session($key);
 		if($this->authcode(strtoupper($code)) == $secode['verify_code']){
-        // $code       =   $this->authcode(strtoupper(implode('', $code)));
-        // $secode     =   array();
-        // $secode['verify_code'] = $code; // 把校验码保存到session
-        // $secode['verify_time'] = NOW_TIME;  // 验证码创建时间
-        // session($key.$id, $secode);
-		//efeaeb2bb965700ed3ea1d916a011cb9
-		//d2d977c58444271d9c780187e93f80e5	
-		// echo session('verify_code');die;
 			echo '11';
 		}else{
 			echo '00';

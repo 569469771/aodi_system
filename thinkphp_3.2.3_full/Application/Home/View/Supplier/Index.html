@@ -13,33 +13,37 @@
 <body>
 
 <div id='div1' align="center">
-<table width="60%" height="" border="0" align="center">
+<table width="90%" height="" border="0" align="center">
   <tr width="12%" bgcolor="#CCCCCC">
     <th width="12%" scope="col">id</th>
-    <th width="12%" scope="col" >全名</th>
-    <th width="12%" scope="col">用户id</th>
-    <th width="12%" scope="col">ip地址</th>
-    <th width="12%" scope="col">登陆时间</th>
-	<th width="12%" scope="col">操作</th>
+    <th width="12%" scope="col" >名称</th>
+    <th width="12%" scope="col">地址</th>
+    <th width="12%" scope="col">描述</th>
+    <th width="12%" scope="col">状态</th>
+    <th width="12%" scope="col">操作</th>
     
-  </tr><?php $i=0;?>
-  <?php foreach($list as $arr): ?>
-   <?php $i++ ?>
+  </tr>
+    <?php $i=0;?>
+      <?php foreach($list as $arr): ?>
+    <?php $i++ ?>
    
   <tr style="text-align: center;" bgcolor="<?php echo $i%2==0?'#CCCCCC':''; ?>">
     <th scope="row"><?php echo $arr['id']; ?></th>
-    <td><?php echo $arr['log_name']; ?></td>
-    <td><?php echo $arr['u_id']; ?></td>
-    <td><?php echo $arr['log_ip']; ?></td>
-    <td><?php echo date("Y-m-d h:i:sa", $arr['up_date']); ?></td>
-	<td>
-	<a href='<?php echo PUB; ?>Home/Log/addLog/id/<?php echo $arr['id']; ?>'>
-	
-	删除</a>
-	</td>
+    <td><?php echo $arr['sup_name']; ?>
+    </td>
+    <td><?php echo $arr['sup_adress'];  ?>
+    </td>
+    <td><?php echo $arr['sup_des']; ?>
+    </td>
+    <td><?php echo $arr['sup_state']; ?>
+    </td>
+	<td ><a href="<?php echo PUB; ?>Home/Supplier/editsup/id/<?php echo $arr['id']; ?>" >修改</a>
+    </td>
     
   </tr>
-	<?php endforeach; ?>
+
+	<?php endforeach;
+   ?>
 </table>
 <?php echo $page; ?>
 </div>

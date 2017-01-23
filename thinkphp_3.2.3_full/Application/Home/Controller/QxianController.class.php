@@ -65,7 +65,7 @@ class QxianController extends FatherController {
 					// $this->error('输入重名了！','/Home/Qxian/qxadd/',3);
 				}
 			}else{
-				redirect('/Home/Login/latOut/');
+				$this->error('操作失败','/Home/Login/latout/',3);
 			}
 			
 			// var_dump($_POST);die;
