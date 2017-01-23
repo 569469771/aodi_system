@@ -73,10 +73,10 @@
 	    var cval=$("#flagc").val();
 		
 		if( checkname() && checktex() && cval!="0" && nval!='0'){
-			console.log('11');
+			//console.log('11');
 			return true;
 		}else{
-			console.log('00');
+			//console.log('00');
 			return false;
 		}
 	}
@@ -124,29 +124,24 @@
 					//$("#apimg").html(""); 
 					$("#ckname").html(""); 
 					$("#flagn").attr("value","0");
-					$("#ckname").html("系统中该客户名称存在"); 
-					
+					$("#ckname").html("系统中该客户名称存在"); 				
 				}
 				if(msg=='code'){
 					//console.log(msg);
 					$("#ckcode").html(""); 
 					$("#flagc").attr("value","0");
-					$("#ckcode").html("系统中该编码已存在"); 
-					
+					$("#ckcode").html("系统中该编码已存在"); 			
 				}
 				if(msg=='name1'){
 					//console.log(msg);
 					$("#flagn").attr("value","1");
-					$("#ckname").html(""); 
-					
+					$("#ckname").html(""); 		
 				}
 				if(msg=='code1'){
 					//console.log(msg);
 					$("#ckcode").html(""); 
-					$("#flagc").attr("value","1");
-					
+					$("#flagc").attr("value","1");			
 				}
-				
 			}
 		});
 		
