@@ -36,6 +36,7 @@ class CustomerModel extends Model {
 	public function saveById($id,$date){
 		$customer = M('Customer');
 		$flag=$customer->where('`id` = "'.$id.'"')->save($date);
+		// echo $this->getLastSql();die;
 		return $flag;
 	}
 	public function checkcus($name,$code){
@@ -48,5 +49,9 @@ class CustomerModel extends Model {
 		 // echo $this->getLastSql();
 		return $data;
 	}
-	
+	public function getcusinfo(){
+		$mcus = M("Customer");
+		$data=$mcus->field('id,customer_name')->select();
+		return $data;
+	}
 }

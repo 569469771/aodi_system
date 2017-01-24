@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-01-23 09:08:59
+-- Generation Time: 2017-01-24 09:46:04
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `aodi_company` (
   `company_state` enum('0','1','3') NOT NULL DEFAULT '1' COMMENT '状态（0是删除，1存在）',
   `u_id` int(10) NOT NULL COMMENT '添加者',
   `company_area` varchar(50) NOT NULL COMMENT '公司地区',
-  `up_date` int(10) NOT NULL COMMENT '添加时间',
+  `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='公司表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='公司表' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `aodi_company`
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `aodi_company` (
 
 INSERT INTO `aodi_company` (`id`, `company_name`, `company_adress`, `company_state`, `u_id`, `company_area`, `up_date`) VALUES
 (1, '宁波奥迪斯丹有限责任公司', '浙江省宁波市北仑区', '1', 2, '浙江省', 122),
-(2, '安庆奥迪斯丹有限责任公司', '安徽省安庆市望江县', '1', 2, '安徽省', 545455);
+(2, '安庆奥迪斯丹有限责任公司', '安徽省安庆市望江县', '1', 2, '安徽省', 545455),
+(3, '连云港奥迪斯丹有限责任公司', '连云港经济开发区', '1', 1, '连云港', 0);
 
 -- --------------------------------------------------------
 
@@ -61,10 +62,12 @@ CREATE TABLE IF NOT EXISTS `aodi_customer` (
   `customer_fname` varchar(100) NOT NULL COMMENT '客户全称',
   `company_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '公司id',
   `u_id` int(10) unsigned NOT NULL COMMENT '添加者id',
+  `u_cit` int(10) NOT NULL DEFAULT '0' COMMENT '修改信用额者id',
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '添加日期',
   PRIMARY KEY (`id`),
   KEY `customer_name` (`customer_name`),
   KEY `company_id` (`company_id`),
+  KEY `customer_code` (`customer_code`),
   FULLTEXT KEY `customer_fname` (`customer_fname`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户表' AUTO_INCREMENT=10 ;
 
@@ -72,16 +75,13 @@ CREATE TABLE IF NOT EXISTS `aodi_customer` (
 -- 转存表中的数据 `aodi_customer`
 --
 
-INSERT INTO `aodi_customer` (`id`, `customer_code`, `customer_adress`, `customer_credit`, `customer_name`, `customer_state`, `customer_fname`, `company_id`, `u_id`, `up_date`) VALUES
-(1, 'D1', '安徽省望江县', '51200.000', '亚控', '1', '', 2, 0, 0),
-(2, 'D43', '安徽省太湖县', '500000.000', '宏宇', '1', '安徽宏宇五洲医用器械有限公司', 2, 0, 0),
-(3, 'D2', '安徽省太湖县', '5000.000', '大山', '1', '大山科技', 2, 2, 1484730471),
-(4, 'D3', '望江', '5000.000', '聚达', '1', '聚达电商', 2, 2, 1483345510),
-(5, 'D107', '安庆市', '5000.000', '美迪尔', '1', '安庆美迪尔吊顶', 2, 2, 1484894927),
-(6, 'D118', '安徽省安庆市', '5000.000', '安心', '1', '安心纸业有限公司', 2, 2, 1484728546),
-(7, 'D13', '', '5000.000', '宏宇1', '1', '', 2, 2, 1484981712),
-(8, 'D14', '', '5000.000', '美迪尔1', '1', '', 2, 2, 1484984283),
-(9, 'D107d', '', '5000.000', '美迪尔44', '1', '', 2, 2, 1484984471);
+INSERT INTO `aodi_customer` (`id`, `customer_code`, `customer_adress`, `customer_credit`, `customer_name`, `customer_state`, `customer_fname`, `company_id`, `u_id`, `u_cit`, `up_date`) VALUES
+(1, 'D1', '安徽省望江县', '51200.000', '亚控', '1', '', 2, 0, 0, 0),
+(2, 'D43', '安徽省太湖县', '600000.000', '宏宇', '1', '安徽宏宇五洲医用器械有限公司', 2, 0, 2, 0),
+(3, 'D2', '安徽省太湖县', '123654.302', '大山', '1', '大山科技', 2, 2, 2, 1484730471),
+(4, 'D3', '望江', '65656.000', '聚达', '1', '聚达电商', 2, 2, 2, 1483345510),
+(5, 'D107', '安庆市', '5000.000', '美迪尔', '1', '安庆美迪尔吊顶', 2, 2, 0, 1484894927),
+(6, 'D118', '安徽省安庆市', '5000.000', '安心', '1', '安心纸业有限公司', 2, 2, 0, 1484728546);
 
 -- --------------------------------------------------------
 
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=44 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=53 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -255,7 +255,16 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (40, '李', 2, '127.0.0.1', 1485153594),
 (41, '李', 2, '127.0.0.1', 1485157242),
 (42, '李', 2, '127.0.0.1', 1485157766),
-(43, '李', 2, '127.0.0.1', 1485157844);
+(43, '李', 2, '127.0.0.1', 1485157844),
+(44, '李', 2, '127.0.0.1', 1485219518),
+(45, '李', 2, '127.0.0.1', 1485222867),
+(46, '李', 2, '127.0.0.1', 1485226484),
+(47, '李', 2, '127.0.0.1', 1485230695),
+(48, '李', 2, '127.0.0.1', 1485234687),
+(49, '李', 2, '127.0.0.1', 1485238382),
+(50, '李', 2, '127.0.0.1', 1485239607),
+(51, '李', 2, '127.0.0.1', 1485243380),
+(52, '李', 2, '127.0.0.1', 1485247170);
 
 -- --------------------------------------------------------
 
@@ -484,7 +493,7 @@ CREATE TABLE IF NOT EXISTS `aodi_qxian` (
   KEY `p_id` (`p_id`),
   KEY `group_id` (`group_id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=34 ;
 
 --
 -- 转存表中的数据 `aodi_qxian`
@@ -515,7 +524,8 @@ INSERT INTO `aodi_qxian` (`id`, `qx_name`, `p_id`, `action`, `group_id`, `state`
 (28, '修改客户', 3, 'Home/Customer/editCus/', '1', '1', 2, 1484893884),
 (29, '删除用户', 4, 'Home/User/udel/', '1', '0', 2, 1484898819),
 (30, '添加供应商', 5, 'Home/Supplier/addsup/', '1', '1', 2, 1485138344),
-(31, '修改供应商', 5, 'Home/Supplier/editsup/', '1', '0', 2, 1485153939);
+(31, '修改供应商', 5, 'Home/Supplier/editsup/', '1', '0', 2, 1485153939),
+(33, '添加信用额', 3, 'Home/Customer/addcit/', '1', '1', 2, 1485241117);
 
 -- --------------------------------------------------------
 
@@ -618,7 +628,7 @@ CREATE TABLE IF NOT EXISTS `aodi_supplier` (
   `up_date` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `sup_name` (`sup_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='供应商表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='供应商表' AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `aodi_supplier`
@@ -628,7 +638,8 @@ INSERT INTO `aodi_supplier` (`id`, `sup_name`, `sup_adress`, `sup_des`, `sup_sta
 (1, '大群', '合肥', 'good', '1', 0, 0),
 (2, '龙发', '安徽省', 'best or thing', '1', 0, 0),
 (3, '隆昌', '安庆市怀宁县', 'very good', '1', 0, 0),
-(4, '奥迪', '安庆市', 'not good', '0', 2, 0);
+(4, '奥迪', '安庆市', 'not good', '1', 2, 1485219536),
+(5, '大龙', '安徽安庆市', '宜秀区xx路', '1', 2, 1485159890);
 
 -- --------------------------------------------------------
 

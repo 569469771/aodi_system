@@ -26,8 +26,8 @@
     <th width="" scope="col">客户编码</th>
     <th width="" scope="col" >客户名称</th>
     <th width="" scope="col">客户信用额</th>
-    <th width="" scope="col">客户地址</th>
-    <th width="" scope="col">客户是否可用</th>
+    <th width="" scope="col">操作</th>
+    
 
     
   </tr><?php $i=0;?>
@@ -38,8 +38,10 @@
     <th scope="row"><?php echo $arr['customer_code']; ?></th>
     <td><?php echo $arr['customer_name']; ?></td>
     <td><?php echo $arr['customer_credit']; ?></td>
-    <td><?php echo $arr['customer_adress']; ?></td>
-    <td><?php echo $arr['customer_state']; ?></td>
+    <td>
+        <a href="<?php echo PUB; ?>Home/Customer/editcit/id/<?php echo $arr['id']; ?>">修改</a>
+    </td>
+    
     
   </tr>
 	<?php endforeach; ?>

@@ -18,4 +18,9 @@ class SupplierModel extends Model {
 		$mflag = $msup->add($data);
 		return $mflag;
 	}
+	public function insup($id,$data){
+		$msup=M('Supplier');
+		$inflag = $msup->where("`id` = '".$id."'")->save($data);
+		return $inflag;
+	}
 }

@@ -87,6 +87,38 @@ class CustomerController extends FatherController {
 			// $this->error('操作失败','/Home/Customer/index/',3);
 		}
 	}
+	public function addcit(){
+		if($_POST){
+			if(cookie('name') && cookie('ud')){
+				// dump($_POST);die;
+				$cusid=I('post.customer_id');
+				$cusdata['customer_credit']=I('post.new_credit');
+				$cus_code=I('post.customer_code');
+				$cusdata["u_cit"]=cookie('ud');
+				$cus = D('Customer');
+				$idflag=$cus->getById($cusid);
+				if($idflag){
+					$cusflag = $cus->saveById($cusid,$cusdata);
+					if($cusflag){
+							$this->success('修改成功', '/Home/Customer/index/',2);
+					}else{
+						$this->error('添加失败','/Home/Customer/index/',3);
+					}
+				}else{
+					$this->error('没有此客户！','/Home/Customer/index/',3);
+				}
+				
+				
+			}else{
+				$this->error('cookie过期！','/Home/Customer/index/',3);
+			}
+		}else{
+			$cus = D('Customer');
+			$cusdata=$cus->getcusinfo();
+			$this->assign('arrs',$cusdata);
+			$this->display('Addcit');
+		}
+	}
 	/**
 	获取客户分页数据
 	**/

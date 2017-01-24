@@ -21,23 +21,22 @@ class SupplierController extends FatherController {
 		$this->display('Index');
 	}
 	public function addsup(){
-		if( cookie('ud')&& $_POST){
-				// redirect('/Home/Login/latOut/');die;
-				$supdata =[];
-				$supdata['sup_name']=I('post.sup_name');
-				$supdata['sup_adress']=I('post.sup_adress');
-				$supdata['sup_des']=I('post.sup_des');
-				$supdata['sup_state']=I('post.sup_state');
-				$supdata['u_id'] = cookie('ud');
-				$supdata['up_date'] = time();
-				// dump($supdata);die;
-				$sup=D("Supplier");
-				$supflag=$sup->addsup($supdata);
-				if($supflag){
-					$this->success('新增成功', '/Home/Supplier/addsup/',3);
-				}else{
-					$this->error('操作失败','/Home/Supplier/addsup/',3);
-				}
+		if( cookie('ud')&& $_POST){	
+			$supdata =[];
+			$supdata['sup_name']=I('post.sup_name');
+			$supdata['sup_adress']=I('post.sup_adress');
+			$supdata['sup_des']=I('post.sup_des');
+			$supdata['sup_state']=I('post.sup_state');
+			$supdata['u_id'] = cookie('ud');
+			$supdata['up_date'] = time();
+			// dump($supdata);die;
+			$sup=D("Supplier");
+			$supflag=$sup->addsup($supdata);
+			if($supflag){
+				$this->success('新增成功', '/Home/Supplier/addsup/',3);
+			}else{
+				$this->error('操作失败','/Home/Supplier/addsup/',3);
+			}
 		}else{
 			$this->display('Addsup');
 		}
@@ -48,10 +47,27 @@ class SupplierController extends FatherController {
 		}else{
 			$id=I('get.id');
 			if($_POST){
-				
+				$supdata =[];
+				$supdata['sup_name']=I('post.sup_name');
+				$supdata['sup_adress']=I('post.sup_adress');
+				$supdata['sup_des']=I('post.sup_des');
+				$supdata['sup_state']=I('post.sup_state');
+				$supdata['u_id'] = cookie('ud');
+				$supdata['up_date'] = time();
+				// dump($supdata);die;
+				$sup=D("Supplier");
+				$idflag = $sup->getById($id);
+				if($idflag){
+					$sflag = $sup->insup($id,$supdata);
+					if($sflag){
+						$this->success('修改成功', '/Home/Supplier/addsup/',3);
+					}
+				}else{	
+					$this->error('ID不存在','/Home/Supplier/index/',3);
+				}
 			}else{
 				$supplier=D('Supplier');
-				$sflag=$supplier->getById($id);
+				$sflag = $supplier->getById($id);
 				if($sflag){
 					$this->assign("data",$sflag);
 					$this->display('Editsup');
@@ -61,5 +77,6 @@ class SupplierController extends FatherController {
 			}
 		}
 	}
+	
 	
 }
