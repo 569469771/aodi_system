@@ -23,4 +23,9 @@ class SupplierModel extends Model {
 		$inflag = $msup->where("`id` = '".$id."'")->save($data);
 		return $inflag;
 	}
+	public function getAll(){
+		$msup=M('Supplier');
+		$data = $msup->field('id,sup_name')->where("`sup_state` = '1' ")->select();
+		return $data;
+	}
 }
