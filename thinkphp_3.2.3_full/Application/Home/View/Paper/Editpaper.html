@@ -15,7 +15,7 @@
 <body>
   <div style="height: 50px;"></div>
 <div >
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Paper/addPaper/" onsubmit="return checkAll();">
+<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Paper/editPaper/id/<?php echo $arr['id']; ?>" onsubmit="return checkAll();">
   <p>添加纸板</p>
   <p id='flag' style="color:red;"></p>
    <p>
@@ -23,29 +23,36 @@
     供应商：<select name="sup_id" id="sup_id" onchange="checkSup();" >
     <option value="0">请选择</option>
     <?php foreach ($suplist as $sup): ?>
-      <option value="<?php echo $sup['id']?>"><?php echo $sup['sup_name']; ?></option>
+
+      <option <?php echo $arr['sup_id']==$sup['id']?"selected='selected'":""; ?> value="<?php echo $sup['id']?>">
+        <?php echo $sup['sup_name']; ?>
+      </option>
+
    <?php endforeach; ?>
     </select>
   </p>
   <p>
     纸板材质名称：
-    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" />
+    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" value=
+    <?php echo $arr['paper_property'] ; ?> />
   </p>
   <p>
     
     纸板瓦楞类型：
-    <input type="text" name="paper_name" id="paper_name" onblur="checkname();" />
+    <input type="text" name="paper_name" id="paper_name" onblur="checkname();" value=
+    <?php echo $arr['paper_name']; ?> />
   </p>
   <p>
     纸板价格：
-    <input type="text" name="paper_price" id="paper_price" onblur="checkprice();" />
+    <input type="text" name="paper_price" id="paper_price" onblur="checkprice();" value=
+    <?php echo $arr['paper_price']; ?> />
   </p>
    <p>
     
     可用与否：<select name="paper_state" id="paper_state">
-    <option value="0">不显示</option>
-    <option selected='selected' value="1">显示</option>
-    <option value="2">其他</option>
+    <option <?php echo $arr['paper_state']=='0'?"selected='selected'":""; ?> value="0">不显示</option>
+    <option <?php echo $arr['paper_state']=='1'?"selected='selected'":""; ?> value="1">显示</option>
+    <option <?php echo $arr['paper_state']=='2'?"selected='selected'":""; ?> value="2">其他</option>
     </select>
   </p>
   <p>
@@ -102,7 +109,7 @@ function checkprop(){
 }
 function checkSup(){
   var sup=$("#sup_id").val();
-  console.log(sup);
+  // console.log(sup);
   if(sup!=0){
      $("#flag").text('');
       return true;

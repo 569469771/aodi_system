@@ -32,7 +32,7 @@
     </p>
     <p>
       添加信誉额：
-      <input type="text" name="new_credit" id="new_credit" onblur="checkcit();" value='' />
+      <input type="text" name="new_credit" id="new_credit" onblur="checkcit();" value='' /><span id="apimg"></span>
     </p>
     <p>
       <input type="submit" name="button" id="button" value="提交" />
@@ -115,7 +115,7 @@ function checkcit(){
 
     return true;
   }else{
-   
+   //$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.jpg" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 
     alert("输入的金额格式不对，要纯数字！");
     return false;
   }
