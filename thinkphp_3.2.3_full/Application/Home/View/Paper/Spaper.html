@@ -15,18 +15,20 @@
 <div id='div1' align="center">
   <div id="flag" style="color:red"></div>
   <p>
-  <form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Paper/schPaper" onsubmit="return checkAll();" >
+  <form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Paper/schPaper" 
+    onsubmit="return checkAll();" >
 供应商：<select name="sup_id" id="sup_id" onchange="checkprop();" >
     <option value="0">请选择</option>
     <?php foreach ($suplist as $sup): ?>
 
-      <option  value="<?php echo $sup['id']?>">
+      <option <?php echo $pdata['sup_id']==$sup['id']?"selected='selected'":""; ?> value="<?php echo $sup['id']?>">
         <?php echo $sup['sup_name']; ?>
       </option>
 
    <?php endforeach; ?>
     </select>
-  &nbsp;纸板材质：<input type="text" name="paper_property" id="paper_property" onblur="checkprop();" />
+  &nbsp;纸板材质：<input type="text" name="paper_property" id="paper_property" onblur="checkprop();" value=
+  <?php echo $pdata['paper_property']; ?> >
     &nbsp;<input type="submit" name="button" id="button" value="提交" />
   </form>
 </p>
@@ -73,14 +75,14 @@
 </div>
 </body>
 <script type="text/javascript">
-  function checkprop(){
 
+  function checkprop(){
     var sup=$("#sup_id").val();
     var prop=$("#paper_property").val();
     var pval=prop.match(/\s+/g);
     // console.log(pval);
     // console.log(prop.length);
-    if(sup!=0 || (pval==null && prop.length>0) ){
+    if(sup!=0 || (pval==null && prop.length>0)){
        $("#flag").text('');
       return true;
     }else{
@@ -91,17 +93,14 @@
 
   }
 
+  
 
   function checkAll(){
-    if( checkprop() ){
+    if(checkprop() ){
       return true;
     }else{
       return false;
-    }  
+    } 
   }
-
-    
-
-  
 </script>
 </html>

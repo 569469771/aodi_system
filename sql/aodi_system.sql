@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-01-24 09:46:04
+-- Generation Time: 2017-02-05 10:15:18
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `aodi_customer` (
 --
 
 INSERT INTO `aodi_customer` (`id`, `customer_code`, `customer_adress`, `customer_credit`, `customer_name`, `customer_state`, `customer_fname`, `company_id`, `u_id`, `u_cit`, `up_date`) VALUES
-(1, 'D1', '安徽省望江县', '51200.000', '亚控', '1', '', 2, 0, 0, 0),
+(1, 'D1', '安徽省望江县', '60000.000', '亚控', '1', '', 2, 0, 2, 0),
 (2, 'D43', '安徽省太湖县', '600000.000', '宏宇', '1', '安徽宏宇五洲医用器械有限公司', 2, 0, 2, 0),
 (3, 'D2', '安徽省太湖县', '123654.302', '大山', '1', '大山科技', 2, 2, 2, 1484730471),
 (4, 'D3', '望江', '65656.000', '聚达', '1', '聚达电商', 2, 2, 2, 1483345510),
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=53 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=74 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -264,7 +264,28 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (49, '李', 2, '127.0.0.1', 1485238382),
 (50, '李', 2, '127.0.0.1', 1485239607),
 (51, '李', 2, '127.0.0.1', 1485243380),
-(52, '李', 2, '127.0.0.1', 1485247170);
+(52, '李', 2, '127.0.0.1', 1485247170),
+(53, '李', 2, '127.0.0.1', 1486166765),
+(54, '李', 2, '127.0.0.1', 1486171033),
+(55, '李', 2, '127.0.0.1', 1486172529),
+(56, '李', 2, '127.0.0.1', 1486172557),
+(57, '李', 2, '127.0.0.1', 1486176533),
+(58, '李', 2, '127.0.0.1', 1486180802),
+(59, '李', 2, '127.0.0.1', 1486184624),
+(60, '李', 2, '127.0.0.1', 1486188680),
+(61, '李', 2, '127.0.0.1', 1486192524),
+(62, '李', 2, '127.0.0.1', 1486196157),
+(63, '李', 2, '127.0.0.1', 1486252987),
+(64, '李', 2, '127.0.0.1', 1486256627),
+(65, '李', 2, '127.0.0.1', 1486260393),
+(66, '李', 2, '127.0.0.1', 1486264186),
+(67, '李', 2, '127.0.0.1', 1486267845),
+(68, '李', 2, '127.0.0.1', 1486269427),
+(69, '李', 2, '127.0.0.1', 1486273053),
+(70, '李', 2, '127.0.0.1', 1486274397),
+(71, '李', 2, '127.0.0.1', 1486274416),
+(72, '李', 2, '127.0.0.1', 1486278393),
+(73, '李', 2, '127.0.0.1', 1486284935);
 
 -- --------------------------------------------------------
 
@@ -334,9 +355,9 @@ CREATE TABLE IF NOT EXISTS `aodi_orderone` (
   `order_state` enum('0','1') NOT NULL DEFAULT '1' COMMENT '取消与否',
   `order_num` int(10) unsigned NOT NULL COMMENT '订单数量',
   `order_price` decimal(8,3) unsigned NOT NULL COMMENT '订单单个纸箱价格',
-  `order_otherprice` decimal(8,3) unsigned NOT NULL COMMENT '版费+模具费',
+  `order_otherprice` decimal(8,3) unsigned NOT NULL DEFAULT '0.000' COMMENT '版费+模具费',
   `is_paper` enum('0','1') NOT NULL DEFAULT '0' COMMENT '是否是用统板，0不是',
-  `del_date` int(10) unsigned NOT NULL COMMENT '送货日期',
+  `del_date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '送货日期',
   PRIMARY KEY (`id`),
   KEY `mant_num` (`mant_num`),
   KEY `job_num` (`job_num`),
@@ -369,6 +390,7 @@ CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
   `box_width` smallint(5) NOT NULL COMMENT '纸箱宽',
   `box_height` smallint(5) unsigned NOT NULL COMMENT '箱高',
   `paper_property` varchar(50) NOT NULL COMMENT '材质',
+  `box_prop` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '0是普通箱，2上公差',
   `order_map` enum('0','1') CHARACTER SET armscii8 NOT NULL DEFAULT '0' COMMENT '是否需要制图（0不需要）',
   `map_color` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '几色印刷',
   `up_date` int(10) unsigned NOT NULL DEFAULT '0',
@@ -384,9 +406,9 @@ CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
 -- 转存表中的数据 `aodi_ordertwo`
 --
 
-INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `order_map`, `map_color`, `up_date`) VALUES
-(1, '0', '0', '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '0', 1, 1245637891),
-(2, '0', '0', '针头', '3.000', 580, 480, 380, 'ntf321', '0', 4, 0);
+INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `box_prop`, `order_map`, `map_color`, `up_date`) VALUES
+(1, '0', '0', '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '0', '0', 1, 1245637891),
+(2, '0', '0', '针头', '3.000', 580, 480, 380, 'ntf321', '0', '0', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -397,16 +419,33 @@ INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_
 CREATE TABLE IF NOT EXISTS `aodi_paper` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `sup_id` int(10) unsigned NOT NULL COMMENT '工厂id',
-  `paper_property` varchar(100) NOT NULL COMMENT '纸板材质名称',
+  `paper_property` varchar(50) NOT NULL COMMENT '纸板材质名称',
   `paper_name` varchar(50) NOT NULL COMMENT '纸板瓦楞类型',
-  `paper_price` decimal(8,3) unsigned NOT NULL COMMENT '纸板价格',
-  `price_state` enum('0','1') NOT NULL COMMENT '0存在，1不存在',
+  `paper_price` decimal(8,3) unsigned NOT NULL COMMENT '纸板价格（元）',
+  `paper_state` enum('0','1') NOT NULL DEFAULT '1' COMMENT '1存在，0不存在',
   `up_date` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `paper_name` (`paper_property`),
-  KEY `factory_id` (`sup_id`),
-  KEY `sup_id` (`sup_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='纸板价格表' AUTO_INCREMENT=1 ;
+  KEY `sup_id` (`sup_id`),
+  KEY `paper_property` (`paper_property`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='纸板价格表' AUTO_INCREMENT=12 ;
+
+--
+-- 转存表中的数据 `aodi_paper`
+--
+
+INSERT INTO `aodi_paper` (`id`, `sup_id`, `paper_property`, `paper_name`, `paper_price`, `paper_state`, `up_date`) VALUES
+(1, 1, 'N3N5Q', 'AB', '8.000', '1', 0),
+(2, 2, 'N3Q3N', 'AB', '7.000', '1', 0),
+(3, 2, 'F3N1T4Q', 'ABC', '12.000', '1', 0),
+(4, 1, 'N3N5T', 'AB', '18.000', '1', 0),
+(5, 1, 'N3N5W', 'AB', '18.320', '1', 0),
+(6, 1, 'N5T3T', 'AB', '10.000', '1', 0),
+(7, 2, 'N3N5T', 'AB', '12.000', '1', 0),
+(8, 3, 'N3N5T', 'AB', '12.000', '1', 0),
+(9, 4, 'N3N5T', 'AB', '12.000', '1', 1486195324),
+(10, 5, 'N3N5T', 'AB', '12.000', '1', 1486195348),
+(11, 3, 'N3N5W', 'AB', '13.000', '1', 1486195450);
 
 -- --------------------------------------------------------
 
@@ -493,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `aodi_qxian` (
   KEY `p_id` (`p_id`),
   KEY `group_id` (`group_id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=34 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=37 ;
 
 --
 -- 转存表中的数据 `aodi_qxian`
@@ -525,7 +564,10 @@ INSERT INTO `aodi_qxian` (`id`, `qx_name`, `p_id`, `action`, `group_id`, `state`
 (29, '删除用户', 4, 'Home/User/udel/', '1', '0', 2, 1484898819),
 (30, '添加供应商', 5, 'Home/Supplier/addsup/', '1', '1', 2, 1485138344),
 (31, '修改供应商', 5, 'Home/Supplier/editsup/', '1', '0', 2, 1485153939),
-(33, '添加信用额', 3, 'Home/Customer/addcit/', '1', '1', 2, 1485241117);
+(33, '添加信用额', 3, 'Home/Customer/addcit/', '1', '1', 2, 1485241117),
+(34, '添加纸板', 6, 'Home/Paper/addPaper/', '1', '1', 2, 1486171363),
+(35, '修改纸板', 6, 'Home/Paper/editPaper/', '1', '0', 2, 1486172365),
+(36, '搜索纸板', 6, 'Home/Paper/schPaper/', '1', '0', 2, 1486254010);
 
 -- --------------------------------------------------------
 

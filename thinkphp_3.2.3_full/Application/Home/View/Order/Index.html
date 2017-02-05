@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+
+</head>
+<style type="text/css">
+	th{ font-size:25px;}
+</style>
+
+<script type="text/javascript" src="<?php echo PUB; ?>Public/jeDate/jedate.js"></script>
+<script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
+<body>
+
+<div id='div1' align="center">
+  <div id="flag" style="color:red"></div>
+  <p style='height:20px'>
+  <form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Order/schOrder" onsubmit="return checkAll();" >
+客户名称：<input type="text" name="customer_name" id="customer_name" onblur="checkprop();" style='width:70px' />
+
+  &nbsp;纸板材质：<input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style='width:70px'/>
+  &nbsp;管理号：<input type="text" name="mant_num" id="mant_num" onblur="checkprop();" style='width:70px'/>
+
+  &nbsp;工单号：<input type="text" name="job_num" id="job_num" onblur="checkprop();" style='width:150px'/>
+
+  &nbsp;开始日期：<input type="text" name="star_date" id="star_date" 
+  onclick="jeDate({dateCell:'#star_date',isTime:true,format:'YYYY-MM-DD'})"
+  style='width:150px' readonly />
+
+&nbsp;截止日期：<input type="text" name="over_date" id="over_date" 
+  onclick="jeDate({dateCell:'#over_date',isTime:true,format:'YYYY-MM-DD'})"
+  style='width:150px' readonly />
+    &nbsp;<input type="submit" name="button" id="button" value="提交" />
+  </form>
+</p>
+<p style='height:20px' >
+<table width="98%" height="" border="0" align="center">
+  <tr width="" bgcolor="#CCCCCC" style="height:30px;border:0px;" >
+    <th width="" scope="col">id</th>
+    <th width="" scope="col" >工单号</th>
+    <th width="" scope="col" >管理号</th>
+    <th width="" scope="col" >客户名称</th>
+    <th width="" scope="col">产品名称</th>
+    <th width="" scope="col">产品规格</th>
+    <th width="" scope="col">生产数量</th>
+    <th width="" scope="col">材质</th>
+    <th width="" scope="col">盒式</th>
+    <th width="" scope="col">单价</th>
+    <th width="" scope="col">订单总价</th>
+    <th width="" scope="col">订单交期</th>
+    <th width="" scope="col">输单时间</th>
+    <th width="" scope="col">版费+模具费</th>
+    <th width="" scope="col">是否加急</th>
+ 
+    <th width="" scope="col">操作</th>
+    
+  </tr>
+    <?php $i=0;?>
+      <?php foreach($list as $arr): ?>
+      
+      <?php $i++ ?>
+
+        <tr style="text-align: center;height:30px;" bgcolor="<?php echo $i%2==0?'#CCCCCC':''; ?>">
+          <th scope="row"><?php echo $arr['id']; ?></th>
+          <td><?php echo $arr['job_num']; ?>
+          </td> 
+          <td><?php echo $arr['mant_num']; ?>
+          </td>
+          <td><?php echo $arr['customer_name']; ?>
+          </td>
+          <td><?php echo $arr['shg_name']; ?>
+          </td>
+          <td><?php echo $arr['box_long'].'X'.$arr['box_width'].'X'.$arr['box_height']; ?>
+          </td>
+          <td><?php echo $arr['order_num']; ?>
+          </td>
+          <td><?php echo $arr['paper_property']; ?>
+          </td>
+          <td><?php echo $arr['box_prop']=='0'?'普通箱':''; ?>
+            <?php echo $arr['box_prop']=='1'?'上公差':''; ?>
+          </td>
+          <td><?php echo $arr['order_price']; ?>
+          </td>
+          <td><?php echo $arr['order_price']*$arr['order_num']; ?>
+          </td>
+          <td><?php echo $arr['del_date']; ?>
+          </td>
+          <td><?php echo $arr['up_date']; ?>
+          </td>
+          <td><?php echo $arr['order_otherprice']; ?>
+          </td>
+          <td><?php echo $arr['order_urgent']=='0'?'否':''; ?>
+            <?php echo $arr['order_urgent']=='1'?'是':''; ?>
+          </td>
+      	<td ><a href="<?php echo PUB; ?>Home/Order/editOrder/id/<?php echo $arr['id']; ?>" title="修改！" >修改</a>
+          </td>
+          
+        </tr>
+
+    	<?php endforeach; ?>
+</table>
+<?php echo $page; ?>
+</p>
+</div>
+</body>
+<script type="text/javascript">
+ function checkprop(){
+  
+ }
+ function checkAll(){
+
+ }
+
+</script>
+</html>

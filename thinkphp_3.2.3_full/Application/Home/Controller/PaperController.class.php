@@ -12,7 +12,6 @@ class PaperController extends FatherController {
 		
 		$Page->setConfig('first','第一页');
 		$Page->setConfig('last','最后一页');
-		
 		$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
 		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
 		$list = $User->order('id desc')->
@@ -91,6 +90,46 @@ class PaperController extends FatherController {
 				}
 			}
 		}
+	}
+	public function schPaper(){
+		if($_POST){
+			// dump($_POST);die;
+			$pdata=['sup_id'=>'0','paper_property'=>'0'];
+			if(I('post.sup_id')=='0'&& I('post.paper_property')!=''){
+				unset($pdata['sup_id']);
+				$pdata['paper_property']=I('post.paper_property');
+			}elseif(I('post.paper_property')==''&& I('post.sup_id')!='0'){
+				unset($pdata['paper_property']);
+				$pdata['sup_id']=intval(I('post.sup_id'));
+			}elseif(I('post.paper_property')!=''&& I('post.sup_id')!='0'){
+				$pdata['sup_id']=intval(I('post.sup_id'));
+				$pdata['paper_property']=I('post.paper_property');
+			}else{
+				$this->error('请提交数据！','/Home/Paper/index/',3);
+			}
+			// dump($pdata);die;
+			$sup = D('Supplier');
+			$suplist = $sup->getAll();
+			// dump($suplist);die;
+			$User = M('Paper');//对象
+			$count      = $User->where($pdata)->count();// 查询满足要求的总记录数
+			$Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+
+			$Page->setConfig('first','第一页');
+			$Page->setConfig('last','最后一页');
+			$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
+			// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+			$list = $User->where($pdata)->order('id desc')->
+			limit($Page->firstRow.','.$Page->listRows)->select();
+			$this->assign('list',$list);// 赋值数据集
+			$this->assign('page',$show);// 赋值分页输出
+			$this->assign('suplist',$suplist);
+			$this->assign('pdata',$pdata);
+			$this->display('Spaper');
+		}else{
+			$this->error('请提交数据！','/Home/Paper/index/',3);
+		}
+		
 	}
 	
 }
