@@ -4,11 +4,6 @@ use Think\Controller;
 
 class AjaxController extends Controller{
 
-/**
-是否有重码
-
-**/
-
 	public function checkcode(){
 	// dump($_POST);die;
 		$check=D("Customer");

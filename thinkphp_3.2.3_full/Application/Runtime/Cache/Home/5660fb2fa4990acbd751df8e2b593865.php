@@ -49,7 +49,7 @@
   
   <p>
     <input type="submit" name="button" id="button" value="提交" />
-	<input type="reset" name="button2" id="button2" value="重置" />
+	
   </p>
 </form>
 </div>

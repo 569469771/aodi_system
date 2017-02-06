@@ -107,8 +107,6 @@ class CustomerController extends FatherController {
 				}else{
 					$this->error('没有此客户！','/Home/Customer/index/',3);
 				}
-				
-				
 			}else{
 				$this->error('cookie过期！','/Home/Customer/index/',3);
 			}
@@ -120,16 +118,16 @@ class CustomerController extends FatherController {
 		}
 	}
 	/**
-	获取客户分页数据
-	**/
+	*
+	*获取客户分页数据
+	*
+	*/
 	public function cuslist(){
 		$User = M('Customer');//对象
 		$count      = $User->count();// 查询满足要求的总记录数
 		$Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
-		
 		$Page->setConfig('first','第一页');
 		$Page->setConfig('last','最后一页');
-		
 		$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
 		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
 		$list = $User->order('id')->where('`customer_state` = "1"')->
