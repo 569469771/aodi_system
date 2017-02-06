@@ -9,7 +9,6 @@ class OrderController extends FatherController {
 	*
 	*/
     public function index(){
-
 		// dump($suplist);die;
 		$User = D('Order');//对象
 		$count      = $User->countNum();
@@ -30,7 +29,20 @@ class OrderController extends FatherController {
 		$this->display('Index');
 	}
 	public function schOrder(){
+		
 		dump($_POST);die;
+		
 	}
+	public function addOrder(){
+		if($_POST){
+			dump($_POST);die;
 	
+		}else{
+			$this->display("Addorder");
+		}
+		
+	}
+	public function editOrder(){
+		dump($_GET);die;
+	}
 }
