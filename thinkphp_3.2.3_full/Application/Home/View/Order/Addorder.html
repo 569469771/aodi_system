@@ -41,25 +41,37 @@
   <p>添加订单</p>
   <p>
     客户编号：
-    <input type="text" name="customer_code" id="customer"  /><input id="image" disabled="disabled">
+    <input type="text" name="customer_code" id="customer"  />
+
+    <select name="order_urgent" id="order_urgent">
+    <option value="0">不加急</option>
+    <option value="1">加急</option>
+    <option value="2">其他</option>
+    </select>&nbsp;&nbsp;<input id="image" disabled="disabled">
     客户名称：
     <input type="text" name="customer_name" id="customer" disabled="disabled" value="" />
-    管理号：
-    <input type="text" name="mant_num" id="customer" />
+    <input id="image" disabled="disabled">
+    
    
   </p>
-  <p>
-   品名：
-    <input type="text" name="shg_name" id="name" />
-    </p>
-  </div>
+ <p>
+  管理号：
+    <input type="text" name="mant_num" id="customer" />&nbsp;<input id="image" disabled="disabled">&nbsp;&nbsp;
     盒式：<select name="box_prop" id="box_prop">
     <option value="0">普通箱</option>
     <option value="1">上公差</option>
     <option value="2">其他</option>
     </select>
+     </p>
+  <p>
+
+   品名：
+    <input type="text" name="shg_name" id="name" />
+    </p>
+  </div>
+    
     材质：
-    <input type="text" name="paper_property" id="customer" />&nbsp;
+    <input type="text" name="paper_property" id="customer" />&nbsp;<input id="image" disabled="disabled">
 
     是否加急：<select name="order_urgent" id="order_urgent">
     <option value="0">不加急</option>
@@ -67,7 +79,7 @@
     <option value="2">其他</option>
     </select>
 
-    楞别：<input type="text" name="paper_name"  id="box" />
+    楞别：<input type="text" name="paper_name"  id="box" /> <input id="image" disabled="disabled">
     <p>
       规格：长&nbsp;<input type="text" name="box_long"  id="box" />&nbsp;
       X&nbsp;宽&nbsp;<input type="text" name="box_width" id="box" />&nbsp;
@@ -80,8 +92,10 @@
      几色印刷：<input type="text" name="map_color"  id="box" />&nbsp;
      
     
-     版费+模具费： <input type="text" name="order_otherprice"  id="box" />
-    <p>
+    
+    <p> 
+    版费+模具费： <input type="text" name="order_otherprice"  id="box" />&nbsp;&nbsp;
+
      送货日期： <input type="text" name="del_date"  id="del_date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
   style='width:100px' readonly="readonly" />
     </p>
