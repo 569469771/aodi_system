@@ -119,10 +119,14 @@ class CustomerController extends FatherController {
 		if($_POST){
 			dump($_POST);die;
 		}else{
+			$cus = D('Customer');
+			$cusdata = $cus->getcusinfo();
+			
 			$sup = D('Supplier');
 			
 			$sdata=$sup->getAll();
 			if($sdata){
+				$this->assign('cusdata',$cusdata);
 				$this->assign('suplist',$sdata);
 				$this->display('Addpaprop');
 			}else{

@@ -5,11 +5,18 @@ class PaperModel extends Model {
 	// protected $tableName = 'categories';
 	
 	//实例化模型
-	public function getPaper($sup_id,$paper_property){
+	public function getPaper($sup_id="0",$paper_property){
 		$pa = M("Paper"); // 实例化User对象
-		$flag=$pa->
-		where("`sup_id` = '".$sup_id."' and `paper_property` = '".$paper_property."'")
-		->find();
+		
+		if($sup_id!="0"){
+			$flag=$pa->where("`sup_id` = '".$sup_id."' and `paper_property` = '".$paper_property."' and `paper_state` = '1'")
+			->find();
+		}else{
+			
+			$flag=$pa->where("`paper_property` = '".$paper_property."' and `paper_state` = '1'")->find();
+		}
+		
+		
 		// $result=$User->result();
 		// echo $this->getLastSql();die;
 		return $flag;

@@ -7,8 +7,16 @@
 
 </head>
 <style type="text/css">
-  div {
+  div{
     text-align: center;
+  }
+  #image{
+    border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;
+    width:23px;
+    height: 23px;
+    /*background-image:url(<?php echo PUB; ?>Public/image/no1.png);*/
+    background-color:white;
+    
   }
 </style>
 <script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
@@ -26,17 +34,30 @@
     <?php foreach ($suplist as $sup): ?>
       <option value="<?php echo $sup['id']?>"><?php echo $sup['sup_name']; ?></option>
    <?php endforeach; ?>
-    </select>
+    </select>&nbsp;
+     客户编号：
+    <input type="text" name="customer_t" id="customer_t" onblur="getCode();" style="width:100px" />
+
+    <select name="customer_s" id="customer_s" onchange="getCusCode();" >
+
+    <option value = "0" >请选择</option>
+    <?php foreach ($cusdata as $cusfo): ?>
+      <option class='<?php echo $cusfo['customer_code']; ?>'
+       value="<?php echo $cusfo['id']; ?>" ><?php echo $cusfo['customer_name']; ?>
+      </option>
+    <?php endforeach; ?>
+    </select>&nbsp;<input id="image" class='customer_code' disabled="disabled">
+
   </p>
   <p>
     纸板材质名称：
-    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style="width:100px" />
+    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style="width:100px" value="" />
 
     <select name="paper_id" id="paper_id" onchange="getName();" >
 
     <option value="0">请选择</option>
     
-    </select>
+    </select>&nbsp;<input id="image" class='paper_p' disabled="disabled">
   </p>
   <p>
     
@@ -45,7 +66,7 @@
     disabled="disabled" />
     纸板克重：
     <input type="text" name="gram_weight" id="gram_weight" style="width:50px" 
-    disabled="disabled" />
+    disabled="disabled" />&nbsp;g/㎡
   </p>
   <p>
     纸板价格：
@@ -56,10 +77,7 @@
     <option value="2">其他</option>
     </select>
   </p>
-   
-    
-    
-  
+  <input type="hidden" id="inflag" value="" >
   <p>
     <input type="submit" name="button" id="button" value="提交" />
     <input type="reset" name="button2" id="button2" value="重置" />
@@ -67,16 +85,30 @@
 </form>
 </div>
 </body>
-<SCRIPT TYPE="text/javascript">
+<script type="text/javascript">
 
 
 function checkprop(){
   var prop=$("#paper_property").val();
   var pval=prop.match(/\s+/g);
+  var sup_id=$("#sup_id").val();
   // console.log(pval);
   // console.log(prop.length);
-  if(pval==null && prop.length>0){
-     $("#flag").text('');
+  if(pval==null && prop.length > 0 && sup_id!='0'){
+    myAjax(prop,sup_id);
+    
+  
+    var fval = $("#paper_id option[id="+prop+"]").text();
+    $("#paper_id option[id="+prop+"]").attr("selected","selected");
+    // console.log(c_val);
+    // console.log(fval);
+    if(fval==undefined){
+      $(".paper_p").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+    }else{
+      $(".paper_p").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+    }
+
+    $("#flag").text('');
     return true;
   }else{
     
@@ -91,10 +123,36 @@ function getName(){
   // var te=$("#paper_id[id]");
   var prop=$("#paper_id option:selected").text();
   $("#paper_property").attr("value",prop);
+
+
+
+  var sup_id=$("#sup_id").val();
+  if(sup_id!='0'){
+    myAjax(prop,sup_id);
+  }
+  
   // console.log(prop); 
+}
+function getCode(){
+  var c_val = $("#customer_t").val(); 
+  
+  var fval = $("#customer_s option[class="+c_val+"]").attr("value");
+  $("#customer_s option[class="+c_val+"]").attr("selected","selected");
+  // console.log(c_val);
+  // console.log(fval);
+  if(fval==undefined){
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+  }else{
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+  }
+  
 }
 
 function checkSup(){
+  $("#gram_weight").attr("value",' ');        
+  $("#paper_name").attr("value",' ');        
+  $("#paper_price").attr("value",' '); 
+  $("#paper_property").attr("value",' '); 
   var sup_id=$("#sup_id").val();
   // console.log(sup_id);
   if(sup_id!=0){
@@ -134,15 +192,44 @@ function checkSup(){
     return false;
   }
 }
-function checkAll(){
-  if(checkprop() && checkSup()){
-    return true;
-  }else{
-    return false;
-  }
-
+function getCusCode(){
+  // var cusval=$("#customer_s option:selected").text();
+  // console.log(cusval);
+ 
+  var c_code=$("#customer_s option:selected").attr("class"); 
+  $("#customer_t").attr("value",c_code);
+  $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+  // console.log(c_code);
 }
+function checkAll(){
+  
+    return true;
+  
+}
+function myAjax(prop,sup_id){
+  $.ajax({
+      type: "POST",
+      url: "<?php echo PUB ; ?>Home/Ajax/getPaper",
+      data: "paper_py="+prop+"&sup_id="+sup_id,
+      success: function(msg){
+        // console.log(msg);
+        if(msg!='00'){
+          var arr = eval("("+msg+")");
+          $("#gram_weight").attr("value",arr['gram_weight']);        
+          $("#paper_name").attr("value",arr['paper_name']);        
+          $("#paper_price").attr("value",arr['paper_price']);        
+          $(".paper_property").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
+          $("#inflag").attr("value","yse");  
+        }else{
+          $("#gram_weight").attr("value",' ');        
+          $("#paper_name").attr("value",' ');        
+          $("#paper_price").attr("value",' '); 
+         $(".paper_property").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');  
+         $("#inflag").attr("value","no"); 
 
-</SCRIPT>
+        }
+      }
+    });
+}
+</script>
 </html>
-

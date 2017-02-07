@@ -61,6 +61,21 @@ class AjaxController extends Controller{
 			}
 		}
 	}
-
+	public function getPaper(){
+		
+		$paper_py = I('post.paper_py');
+		$sup_id = I('post.sup_id');
+		
+		if($paper_py){
+			$pstr = D("Paper");
+			$pdata = $pstr->getPaper($sup_id,$paper_py);
+			if($pdata){
+				echo json_encode($pdata);
+			}else{
+				echo '00';
+			}
+			
+		}
+	}
 		
 }

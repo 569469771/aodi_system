@@ -51,7 +51,7 @@ class CustomerModel extends Model {
 	}
 	public function getcusinfo(){
 		$mcus = M("Customer");
-		$data=$mcus->field('id,customer_name')->select();
+		$data=$mcus->field('id,customer_name,customer_code')->select();
 		return $data;
 	}
 }
