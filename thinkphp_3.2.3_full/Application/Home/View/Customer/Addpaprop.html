@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+
+</head>
+<style type="text/css">
+  div {
+    text-align: center;
+  }
+</style>
+<script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
+<body>
+  <div style="height: 50px;"></div>
+<div >
+<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Customer/addPaProp/id/<?php echo ''; ?>" 
+  onsubmit="return checkAll();">
+  <p>添加客户纸板</p>
+  <p id='flag' style="color:red;"></p>
+   <p>
+    
+    供应商：<select name="sup_id" id="sup_id" onchange="checkSup();" >
+    <option value="0">请选择</option>
+    <?php foreach ($suplist as $sup): ?>
+      <option value="<?php echo $sup['id']?>"><?php echo $sup['sup_name']; ?></option>
+   <?php endforeach; ?>
+    </select>
+  </p>
+  <p>
+    纸板材质名称：
+    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style="width:100px" />
+
+    <select name="paper_id" id="paper_id" onchange="getName();" >
+
+    <option value="0">请选择</option>
+    
+    </select>
+  </p>
+  <p>
+    
+    纸板瓦楞类型：
+    <input type="text" name="paper_name" id="paper_name" style="width:50px" 
+    disabled="disabled" />
+    纸板克重：
+    <input type="text" name="gram_weight" id="gram_weight" style="width:50px" 
+    disabled="disabled" />
+  </p>
+  <p>
+    纸板价格：
+    <input type="text" name="paper_price" id="paper_price" style="width:100px" disabled="disabled"  /> &nbsp;
+    可用与否：<select name="paper_state" id="paper_state">
+    <option value="0">不显示</option>
+    <option selected='selected' value="1">显示</option>
+    <option value="2">其他</option>
+    </select>
+  </p>
+   
+    
+    
+  
+  <p>
+    <input type="submit" name="button" id="button" value="提交" />
+    <input type="reset" name="button2" id="button2" value="重置" />
+  </p>
+</form>
+</div>
+</body>
+<SCRIPT TYPE="text/javascript">
+
+
+function checkprop(){
+  var prop=$("#paper_property").val();
+  var pval=prop.match(/\s+/g);
+  // console.log(pval);
+  // console.log(prop.length);
+  if(pval==null && prop.length>0){
+     $("#flag").text('');
+    return true;
+  }else{
+    
+    $("#flag").text('输入数字不能有空格!');
+    return false;
+  }
+
+}
+
+function getName(){
+  // var paper_id=$("#paper_id").val();
+  // var te=$("#paper_id[id]");
+  var prop=$("#paper_id option:selected").text();
+  $("#paper_property").attr("value",prop);
+  // console.log(prop); 
+}
+
+function checkSup(){
+  var sup_id=$("#sup_id").val();
+  // console.log(sup_id);
+  if(sup_id!=0){
+
+    $.ajax({
+      type: "POST",
+      url: "<?php echo PUB ; ?>Home/Ajax/getSupId",
+      data: "sup_id="+sup_id,
+      success: function(msg){
+        // console.log(msg);  
+
+        if(msg!='00'){
+          var arr = eval("("+msg+")");
+          // console.log(arr[0]['id']);  
+          // var obj = JSON.parse(msg);
+          // $('#pa').attr("value",obj.customer_name);
+          // $('#customer_credit').attr("value",obj.customer_credit);
+          // $('#customer_code').attr("value",obj.customer_code);
+          $("option").remove(".child");
+          for (var i=0;i<arr.length;i++){
+
+             $("#paper_id").append('"<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>"');
+          }
+         
+          
+        }else{
+          
+
+        }
+      }
+    });
+
+     $("#flag").text('');
+      return true;
+  }else{
+    $("#flag").text('请选择供应商！');
+    return false;
+  }
+}
+function checkAll(){
+  if(checkprop() && checkSup()){
+    return true;
+  }else{
+    return false;
+  }
+
+}
+
+</SCRIPT>
+</html>
+

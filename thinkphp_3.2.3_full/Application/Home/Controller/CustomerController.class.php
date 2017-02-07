@@ -38,9 +38,7 @@ class CustomerController extends FatherController {
 		}
 		
 	}
-	public function delCus(){
-		$this->display('Addqxian');
-	}
+	
 	
 	public function editCus($id='0'){
 		if($id!='0'){
@@ -116,6 +114,24 @@ class CustomerController extends FatherController {
 			$this->assign('arrs',$cusdata);
 			$this->display('Addcit');
 		}
+	}
+	public function addPaProp($id="0"){
+		if($_POST){
+			dump($_POST);die;
+		}else{
+			$sup = D('Supplier');
+			
+			$sdata=$sup->getAll();
+			if($sdata){
+				$this->assign('suplist',$sdata);
+				$this->display('Addpaprop');
+			}else{
+				$this->error('加载数据失败！','/Home/Customer/index/',3);
+			}
+			
+			
+		}
+		
 	}
 	/**
 	*

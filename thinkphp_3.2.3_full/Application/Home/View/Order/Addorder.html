@@ -46,7 +46,7 @@
     <input type="text" name="customer_code" id="customer"  />
 
     <select name="order_urgent" id="order_urgent">
-    <option value="0">不加急</option>
+    <option value="0">请选择</option>
     <option value="1">加急</option>
     <option value="2">其他</option>
     </select>&nbsp;<input id="image" disabled="disabled">
@@ -55,7 +55,13 @@
   </p>
  <p>
   管理号：
-    <input type="text" name="mant_num" id="customer" />&nbsp;<input id="image" disabled="disabled">&nbsp;&nbsp;
+    <input type="text" name="mant_num" id="customer" />&nbsp;<input id="image" disabled="disabled">&nbsp;
+
+    是否加急：<select name="order_urgent" id="order_urgent">
+    <option value="0">不加急</option>
+    <option value="1">加急</option>
+    <option value="2">其他</option>
+    </select>&nbsp;
     盒式：<select name="box_prop" id="box_prop">
     <option value="0">普通箱</option>
     <option value="1">上公差</option>
@@ -70,13 +76,13 @@
   </div>
     
     材质：
-    <input type="text" name="paper_property" id="customer" />&nbsp;<input id="image" disabled="disabled">
-
-    是否加急：<select name="order_urgent" id="order_urgent">
-    <option value="0">不加急</option>
+    <input type="text" name="paper_property" id="customer" />
+  
+    <select name="order_urgent" id="order_urgent">
+    <option value="0">请选择</option>
     <option value="1">加急</option>
     <option value="2">其他</option>
-    </select>
+    </select>&nbsp;<input id="image" disabled="disabled">&nbsp;
 
     楞别：<input type="text" name="paper_name" id="box" disabled="disabled" value="AB" /> 
     <p>
@@ -93,7 +99,8 @@
     <option value="2">双色印刷</option>
     <option value="3">三色印刷</option>
     <option value="4">四色印刷</option>
-    <option value="5">其他</option>
+    <option value="5">不印刷</option>
+    <option value="6">其他</option>
     </select>
      
     

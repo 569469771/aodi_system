@@ -29,4 +29,22 @@ class PaperModel extends Model {
 		$flag=$pa->where("`id` = '".$id."'")->data($data)->save();
 		return $flag;
 	}
+	public function getPaCus(){
+		$pa = M("Paper");
+		$data = $pa
+		->where('s.sup_state = "1"')
+		->join('aodi_supplier as s on s.id = p.sup_id')
+		->select();
+		/** select p.*,s.sup_name from aodi_paper as p INNER join 
+		*   aodi_supplier as s on s.id = p.sup_id where s.sup_state = "1"
+		**/
+		return $data;
+	}
+	public function getSupId($id){
+		$pa = M("Paper");
+		$data=$pa
+		->field('id,paper_property,gram_weight,paper_name')
+		->where("`sup_id` = '".$id."' and `paper_state` = '1'")->select();
+		return $data;
+	}
 }

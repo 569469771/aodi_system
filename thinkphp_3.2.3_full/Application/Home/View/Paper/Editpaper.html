@@ -43,6 +43,12 @@
     <?php echo $arr['paper_name']; ?> />
   </p>
   <p>
+    
+    纸板克重：
+    <input type="text" name="gram_weight" id="gram_weight" onblur="checkWeight();" value=
+    <?php echo $arr['gram_weight']; ?> />
+  </p>
+  <p>
     纸板价格：
     <input type="text" name="paper_price" id="paper_price" onblur="checkprice();" value=
     <?php echo $arr['paper_price']; ?> />
@@ -69,6 +75,21 @@ function checkprice(){
   // console.log(str);
   // console.log(str[0]);
   if (str) {
+     $("#flag").text('');
+    return true;
+  }else{
+    
+    $("#flag").text('输入价格的必须是纯数字！');
+    return false;
+  }
+
+}
+function checkWeight(){ 
+  var wt=$("#gram_weight").val();
+  var wts = wt.match(/^\d+$/);
+  // console.log(wt);
+  // console.log(wts[0]);
+  if (wts) {
      $("#flag").text('');
     return true;
   }else{
@@ -119,7 +140,7 @@ function checkSup(){
   }
 }
 function checkAll(){
-  if(checkprop() && checkname() && checkprice() && checkSup()){
+  if(checkprop() && checkname() && checkprice() && checkSup() &&checkWeight){
     return true;
   }else{
     return false;

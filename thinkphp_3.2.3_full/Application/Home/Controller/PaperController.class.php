@@ -29,6 +29,7 @@ class PaperController extends FatherController {
 			$data['paper_property']=I('post.paper_property');
 			$data['paper_name']=I('post.paper_name');
 			$data['paper_price']=floatval(I('post.paper_price'));
+			$data['gram_weight']=floatval(I('post.gram_weight'));
 			$data['paper_state']=I('post.paper_state');
 			$data['up_date'] = time();
 			// dump($data);die;
@@ -74,6 +75,7 @@ class PaperController extends FatherController {
 				$data['paper_property']=I('post.paper_property');
 				$data['paper_name']=I('post.paper_name');
 				$data['paper_price']=floatval(I('post.paper_price'));
+				$data['gram_weight']=floatval(I('post.gram_weight'));
 				$data['paper_state']=I('post.paper_state');
 				$data['up_date'] = time();
 				$pap= D('Paper');

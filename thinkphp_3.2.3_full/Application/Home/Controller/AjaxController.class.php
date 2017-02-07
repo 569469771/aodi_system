@@ -47,6 +47,20 @@ class AjaxController extends Controller{
 		}
 		
 	}
+	public function getSupId(){
+		
+		// echo json_encode($_POST);die;
+		$sup_id = intval(I('post.sup_id'));
+		if($sup_id){
+			$apa = D('Paper');
+			$adata = $apa->getSupId($sup_id);
+			if($adata){
+				echo json_encode($adata);
+			}else{
+				echo '00';
+			}
+		}
+	}
 
 		
 }
