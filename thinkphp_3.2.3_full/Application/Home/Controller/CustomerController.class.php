@@ -115,9 +115,30 @@ class CustomerController extends FatherController {
 			$this->display('Addcit');
 		}
 	}
-	public function addPaProp($id="0"){
+	public function addPaProp(){
 		if($_POST){
-			dump($_POST);die;
+			// echo I('post.paper_id');
+			// dump($_POST);die;
+			$cpdata=[];
+			$cpdata['paper_id']=intval(I('post.paper_id'));
+			$cpdata['customer_id']=intval(I('post.customer_s'));
+			$cpdata['cuspa_state']=intval(I('post.paper_state'));
+			$cpdata['u_id']=cookie('ud');
+			$cpdata['up_date']=time();
+			// dump($cpdata);die;
+			$cpobj = D('Cuspaper');
+			$sflag = $cpobj->getCpaper($cpdata['paper_id'],$cpdata['customer_id']);
+			if($sflag){
+				$this->error('此客户已经有了该纸板！','/Home/Customer/index/',3);
+			}else{
+				$cpflag = $cpobj->insertCus($cpdata);
+				if($cpflag){
+					$this->success('修改成功', '/Home/Customer/index/',2);
+				}else{
+					$this->error('添加失败','/Home/Customer/index/',3);
+				}
+			}
+			
 		}else{
 			$cus = D('Customer');
 			$cusdata = $cus->getcusinfo();

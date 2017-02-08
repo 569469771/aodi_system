@@ -101,6 +101,7 @@ function changecus(){
 
 function getcus(){
   var cuscode=$("#customer_code").val();
+   
   $.ajax({
     type: "POST",
     url: "<?php echo PUB ; ?>Home/Ajax/getCustomer",
@@ -110,6 +111,8 @@ function getcus(){
       if(msg == '00'){
 
         $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+        $("option[value='0']").attr("selected",true);
+        $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
         alert("客户数据不存在！");
        
       }else{
@@ -129,11 +132,21 @@ function getcus(){
 }
 function checkcit(){
   var cuscit=$("#new_credit").val();
+ 
+  var cusid=$("#customer_id").val();
   // var str=code.match(/^\w+/g);
   var str = cuscit.match(/^\d+(\.\d+)?$/);
-  if(str){
+  if(str ){
     $(".new_credit").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
-    return true;
+     if(cusid!='0'){
+      $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
+      return true;
+     }else{
+      $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)'); 
+    
+    return false;
+     }
+    
   }else{
    //$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.jpg" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 
     $(".new_credit").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)'); 

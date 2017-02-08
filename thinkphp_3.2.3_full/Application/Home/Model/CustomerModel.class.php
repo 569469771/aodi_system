@@ -7,11 +7,14 @@ class CustomerModel extends Model {
 	//实例化模型
 	public function insertCus($data){
 		$User = M("Customer"); // 实例化User对象
+		
 		$flag=$User->add($data);
+		
+		
 		// $result=$User->result();
-	
+		
 		return $flag;
-		// echo $this->getLastSql();die;
+		
 	}
 	public function getCus($code,$name,$id='0'){
 		$customer = M("Customer"); // 实例化User对象

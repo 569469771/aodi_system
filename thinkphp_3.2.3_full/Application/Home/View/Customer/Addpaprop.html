@@ -86,14 +86,28 @@
 </div>
 </body>
 <script type="text/javascript">
-
+function checkAll(){
+  var sid=$("#sup_id").val();
+  var cus=$("#customer_s").val();
+  var pid=$("#paper_id").val();
+  // console.log(sid);
+  // console.log(cus);
+  // console.log(pid);
+  if(sid!='0' && cus!='0' && pid!='0'){
+    return true;
+  }else{
+    return false;
+  }
+    
+  
+}
 
 function checkprop(){
   var prop=$("#paper_property").val();
   var pval=prop.match(/^\s+$/);
   var sup_id=$("#sup_id").val();
-  console.log(pval);
-  console.log(prop);
+  // console.log(pval);
+  // console.log(prop);
   
   console.log(sup_id);
   if(pval==null && prop.length > 0 && sup_id!='0'){
@@ -142,6 +156,9 @@ function getCode(){
   // console.log(fval);
   if(fval==undefined){
     $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+
+    $("#customer_s option[value='0']").attr("selected",true);
+
   }else{
     $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
   }
@@ -195,11 +212,7 @@ function getCusCode(){
   $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
   // console.log(c_code);
 }
-function checkAll(){
-  
-    return true;
-  
-}
+
 function myAjax(prop,sup_id){
   $.ajax({
       type: "POST",
@@ -218,6 +231,7 @@ function myAjax(prop,sup_id){
           $("#gram_weight").attr("value",' ');        
           $("#paper_name").attr("value",' ');        
           $("#paper_price").attr("value",' '); 
+          $("#paper_id option[value='0']").attr("selected",true);
           $(".paper_p").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');  
           $("#inflag").attr("value","no"); 
 
