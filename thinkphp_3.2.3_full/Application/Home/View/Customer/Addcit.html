@@ -7,7 +7,14 @@
 
 </head>
 <style type="text/css">
-  
+  #image{
+    border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;
+    width:23px;
+    height: 23px;
+    /*background-image:url(<?php echo PUB; ?>Public/image/no.png);*/
+    background-color:white;
+    
+  }
 </style>
 <script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 <body>
@@ -24,15 +31,16 @@
       <?php foreach($arrs as $arr): ?>
         <option value="<?php echo $arr['id']; ?>"><?php echo $arr['customer_name']; ?></option>
       <?php endforeach; ?>
-      </select>
+      </select>&nbsp;<input id="image" class='customer_id' disabled="disabled">
       </p>
     <p>
       客户编号：
-      <input type="text" name="customer_code" id="customer_code" onblur='getcus();' value='' />
+      <input type="text" name="customer_code" id="customer_code" onblur='getcus();' value='' style="width:100px" />
+      &nbsp;<input id="image" class='customer_code' disabled="disabled">
     </p>
     <p>
       添加信誉额：
-      <input type="text" name="new_credit" id="new_credit" onblur="checkcit();" value='' /><span id="apimg"></span>
+      <input type="text" name="new_credit" id="new_credit" onblur="checkcit();" value='' style="width:100px" /><span id="apimg"></span>&nbsp;<input id="image" class='new_credit' disabled="disabled">
     </p>
     <p>
       <input type="submit" name="button" id="button" value="提交" />
@@ -62,12 +70,15 @@
 
 function changecus(){
   var cusid=$("#customer_id").val();
-  $.ajax({
+  if(cusid!='0'){
+    $.ajax({
     type: "POST",
     url: "<?php echo PUB ; ?>Home/Ajax/getCustomer",
     data: "id="+cusid,
     success: function(msg){
       if(msg=='00'){
+        $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+
         alert("客户数据不存在！");
        
       }else{ 
@@ -75,10 +86,16 @@ function changecus(){
         $('#customer_name').attr("value",obj.customer_name);
         $('#customer_credit').attr("value",obj.customer_credit);
         $('#customer_code').attr("value",obj.customer_code);
-        // console.log(msg);    
+        // console.log(msg);  
+        $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
+        $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
       }
     }
-  });
+    });
+  }else{
+     $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+  }
+  
 }
 
 
@@ -92,6 +109,7 @@ function getcus(){
       
       if(msg == '00'){
 
+        $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
         alert("客户数据不存在！");
        
       }else{
@@ -101,6 +119,8 @@ function getcus(){
         $('#customer_name').attr("value",obj.customer_name);
         $('#customer_credit').attr("value",obj.customer_credit);
         $('#customer_code').attr("value",obj.customer_code);
+        $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');  
+        $(".customer_id").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
         // console.log(msg);  
 
       }
@@ -112,11 +132,12 @@ function checkcit(){
   // var str=code.match(/^\w+/g);
   var str = cuscit.match(/^\d+(\.\d+)?$/);
   if(str){
-
+    $(".new_credit").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)'); 
     return true;
   }else{
    //$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.jpg" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 
-    alert("输入的金额格式不对，要纯数字！");
+    $(".new_credit").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)'); 
+    
     return false;
   }
   
