@@ -8,6 +8,7 @@ class CustomerController extends FatherController {
 		$this->display('Index');
 		
 	}
+	
 	public function addCus($id='0'){
 		
 		if($_POST && cookie('name')){
@@ -38,7 +39,6 @@ class CustomerController extends FatherController {
 		}
 		
 	}
-	
 	
 	public function editCus($id='0'){
 		if($id!='0'){
@@ -85,6 +85,7 @@ class CustomerController extends FatherController {
 			// $this->error('操作失败','/Home/Customer/index/',3);
 		}
 	}
+	
 	public function addcit(){
 		if($_POST){
 			if(cookie('name') && cookie('ud')){
@@ -115,6 +116,7 @@ class CustomerController extends FatherController {
 			$this->display('Addcit');
 		}
 	}
+	
 	public function addPaProp(){
 		if($_POST){
 			// echo I('post.paper_id');
@@ -153,10 +155,10 @@ class CustomerController extends FatherController {
 			}else{
 				$this->error('加载数据失败！','/Home/Customer/index/',3);
 			}
-			
-			
 		}
-		
+	}
+	public function cusPaper(){
+		$this->display('Cuspaper');
 	}
 	/**
 	*
