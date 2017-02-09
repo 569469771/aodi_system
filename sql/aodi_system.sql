@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-02-07 09:20:54
+-- Generation Time: 2017-02-09 15:06:15
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -56,12 +56,24 @@ CREATE TABLE IF NOT EXISTS `aodi_cuspaper` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `paper_id` int(10) unsigned NOT NULL COMMENT '纸板表id',
   `customer_id` int(10) NOT NULL COMMENT '客户id',
+  `sup_id` int(10) NOT NULL DEFAULT '0' COMMENT '供应商表ID',
   `cuspa_state` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '0删除，1可用，2其他',
   `u_id` int(10) NOT NULL DEFAULT '0' COMMENT '添加者id',
   `up_date` int(10) NOT NULL DEFAULT '1' COMMENT '添加时间',
   PRIMARY KEY (`id`),
-  KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=1 ;
+  KEY `customer_id` (`customer_id`),
+  KEY `sup_id` (`sup_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `aodi_cuspaper`
+--
+
+INSERT INTO `aodi_cuspaper` (`id`, `paper_id`, `customer_id`, `sup_id`, `cuspa_state`, `u_id`, `up_date`) VALUES
+(1, 1, 1, 1, '1', 1, 1486646052),
+(2, 4, 1, 1, '1', 1, 1486646060),
+(3, 2, 2, 2, '1', 1, 1486646078),
+(4, 6, 2, 1, '1', 1, 1486646132);
 
 -- --------------------------------------------------------
 
@@ -86,16 +98,16 @@ CREATE TABLE IF NOT EXISTS `aodi_customer` (
   KEY `company_id` (`company_id`),
   KEY `customer_code` (`customer_code`),
   FULLTEXT KEY `customer_fname` (`customer_fname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户表' AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户表' AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `aodi_customer`
 --
 
 INSERT INTO `aodi_customer` (`id`, `customer_code`, `customer_adress`, `customer_credit`, `customer_name`, `customer_state`, `customer_fname`, `company_id`, `u_id`, `u_cit`, `up_date`) VALUES
-(1, 'D1', '安徽省望江县', '60000.000', '亚控', '1', '', 2, 0, 2, 0),
-(2, 'D43', '安徽省太湖县', '600000.000', '宏宇', '1', '安徽宏宇五洲医用器械有限公司', 2, 0, 2, 0),
-(3, 'D2', '安徽省太湖县', '123654.302', '大山', '1', '大山科技', 2, 2, 2, 1484730471),
+(1, 'D1', '安徽省望江县', '123456.000', '亚控', '1', '', 2, 0, 1, 0),
+(2, 'D43', '安徽省太湖县', '900000.000', '宏宇', '1', '安徽宏宇五洲医用器械有限公司', 2, 0, 1, 0),
+(3, 'D2', '安徽省太湖县', '2222.000', '大山', '1', '大山科技', 2, 2, 1, 1484730471),
 (4, 'D3', '望江', '65656.000', '聚达', '1', '聚达电商', 2, 2, 2, 1483345510),
 (5, 'D107', '安庆市', '5000.000', '美迪尔', '1', '安庆美迪尔吊顶', 2, 2, 0, 1484894927),
 (6, 'D118', '安徽省安庆市', '5000.000', '安心', '1', '安心纸业有限公司', 2, 2, 0, 1484728546);
@@ -196,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=85 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=95 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -286,7 +298,17 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (81, '李', 2, '127.0.0.1', 1486440086),
 (82, '李', 2, '127.0.0.1', 1486444734),
 (83, '李', 2, '127.0.0.1', 1486448520),
-(84, '李', 2, '127.0.0.1', 1486452166);
+(84, '李', 2, '127.0.0.1', 1486452166),
+(85, '王', 1, '127.0.0.1', 1486460936),
+(86, '王', 1, '127.0.0.1', 1486465363),
+(87, '王', 1, '127.0.0.1', 1486469504),
+(88, '王', 1, '127.0.0.1', 1486473263),
+(89, '王', 1, '127.0.0.1', 1486477315),
+(90, '王', 1, '127.0.0.1', 1486553102),
+(91, '王', 1, '127.0.0.1', 1486557219),
+(92, '王', 1, '127.0.0.1', 1486639462),
+(93, '王', 1, '127.0.0.1', 1486643511),
+(94, '王', 1, '127.0.0.1', 1486647259);
 
 -- --------------------------------------------------------
 
@@ -535,7 +557,7 @@ CREATE TABLE IF NOT EXISTS `aodi_qxian` (
   KEY `p_id` (`p_id`),
   KEY `group_id` (`group_id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=41 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=42 ;
 
 --
 -- 转存表中的数据 `aodi_qxian`
@@ -574,7 +596,8 @@ INSERT INTO `aodi_qxian` (`id`, `qx_name`, `p_id`, `action`, `group_id`, `state`
 (37, '添加订单', 7, 'Home/Order/addOrder/', '1', '1', 2, 1486362452),
 (38, '修改订单', 7, 'Home/Order/editOrder/', '1', '0', 2, 1486362500),
 (39, '搜索订单', 7, 'Home/Order/schOrder/', '1', '0', 2, 1486433149),
-(40, '添加客户材质', 3, 'Home/Customer/addPaProp/', '1', '1', 2, 1486435992);
+(40, '添加客户纸板', 3, 'Home/Customer/addPaProp/', '1', '1', 1, 1486560312),
+(41, '客户纸板', 3, 'Home/Customer/cusPaper/', '1', '1', 1, 1486640080);
 
 -- --------------------------------------------------------
 

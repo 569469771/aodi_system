@@ -123,6 +123,7 @@ class CustomerController extends FatherController {
 			// dump($_POST);die;
 			$cpdata=[];
 			$cpdata['paper_id']=intval(I('post.paper_id'));
+			$cpdata['sup_id']=intval(I('post.sup_id'));
 			$cpdata['customer_id']=intval(I('post.customer_s'));
 			$cpdata['cuspa_state']=intval(I('post.paper_state'));
 			$cpdata['u_id']=cookie('ud');
@@ -158,7 +159,22 @@ class CustomerController extends FatherController {
 		}
 	}
 	public function cusPaper(){
-		$this->display('Cuspaper');
+		if($_POST){
+			dump($_POST);die;
+			// $customer_code = 'D1';
+			// $cuspaper = D('Cuspaper');
+			// $cusdata = $cuspaper->getCusPaper();
+			// dump($cusdata);die;
+		}else{
+			$User = D('Customer');//对象
+			$udata = $User->getAble();
+			$cuspaper = D('Cuspaper');
+			$cpdata = $cuspaper->getCusPaper();
+			// dump($cpdata);die;
+			$this->assign('list',$cpdata);
+			$this->assign('cus',$udata);
+			$this->display('Cuspaper');
+		}
 	}
 	/**
 	*
