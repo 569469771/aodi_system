@@ -112,6 +112,7 @@ class CustomerController extends FatherController {
 		}else{
 			$cus = D('Customer');
 			$cusdata=$cus->getcusinfo();
+			
 			$this->assign('arrs',$cusdata);
 			$this->display('Addcit');
 		}
@@ -132,13 +133,13 @@ class CustomerController extends FatherController {
 			$cpobj = D('Cuspaper');
 			$sflag = $cpobj->getCpaper($cpdata['paper_id'],$cpdata['customer_id']);
 			if($sflag){
-				$this->error('此客户已经有了该纸板！','/Home/Customer/index/',3);
+				$this->error('此客户已经有了该纸板！','/Home/Customer/cusPaper/',3);
 			}else{
 				$cpflag = $cpobj->insertCus($cpdata);
 				if($cpflag){
-					$this->success('修改成功', '/Home/Customer/index/',2);
+					$this->success('修改成功', '/Home/Customer/cusPaper/',2);
 				}else{
-					$this->error('添加失败','/Home/Customer/index/',3);
+					$this->error('添加失败','/Home/Customer/cusPaper/',3);
 				}
 			}
 			
@@ -154,7 +155,7 @@ class CustomerController extends FatherController {
 				$this->assign('suplist',$sdata);
 				$this->display('Addpaprop');
 			}else{
-				$this->error('加载数据失败！','/Home/Customer/index/',3);
+				$this->error('加载数据失败！','/Home/Customer/cusPaper/',3);
 			}
 		}
 	}
@@ -169,9 +170,17 @@ class CustomerController extends FatherController {
 			$User = D('Customer');//对象
 			$udata = $User->getAble();
 			$cuspaper = D('Cuspaper');
-			$cpdata = $cuspaper->getCusPaper();
-			// dump($cpdata);die;
-			$this->assign('list',$cpdata);
+			// $User = M('Customer');//对象
+			$count      = $cuspaper->count();// 查询满足要求的总记录数
+			$Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+			$Page->setConfig('first','第一页');
+			$Page->setConfig('last','最后一页');
+			$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
+			
+			$list = $cuspaper->listCusPaper($Page->firstRow,$Page->listRows);
+			
+			$this->assign('page',$show);
+			$this->assign('list',$list);
 			$this->assign('cus',$udata);
 			$this->display('Cuspaper');
 		}
@@ -198,4 +207,6 @@ class CustomerController extends FatherController {
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 	}
+	
+
 }

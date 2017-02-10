@@ -47,5 +47,18 @@ class CuspaperModel extends Model {
 		// echo $this->getLastSql();die;
 		return $data;
 	}
+	public function listCusPaper($firstrow,$listrows){
+		$cuspaper = M('Cuspaper');
+		$list = $cuspaper
+		->field('cp.id as cpid,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
+		->table('aodi_cuspaper as cp')
+		->where('cp.`cuspa_state` = "1"')
+		->join('aodi_paper as p ON p.id = cp.paper_id')
+		->join('aodi_customer as c ON c.id = cp.customer_id')
+		->join('aodi_supplier as s ON s.id = cp.sup_id')
+		->limit($firstrow.','.$listrows)
+		->select();
+		return $list;
+	}
 	
 }
