@@ -50,6 +50,7 @@ class CuspaperModel extends Model {
 	public function listCusPaper($firstrow,$listrows){
 		$cuspaper = M('Cuspaper');
 		$list = $cuspaper
+		->order('cpid desc')
 		->field('cp.id as cpid,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
 		->table('aodi_cuspaper as cp')
 		->where('cp.`cuspa_state` = "1"')
