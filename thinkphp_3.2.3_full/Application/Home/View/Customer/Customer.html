@@ -14,9 +14,14 @@
 
 <div id='div1' align="center">
   <p align="center">公司：
-    <select name="" >
-      <option value="" >安庆</option>
-      <option value="" >宁波</option>
+   <select name="cname" id="cname" onchange="selectCom();">
+      <option value="0" >请选择</option>
+      <?php foreach ($comdata as $cpy): ?>
+      <option value="<?php echo $cpy['id']; ?>" <?php echo $cpy['id']==$cid?"selected=selected":''; ?> >
+        <?php echo $cpy['company_name']; ?>
+      </option>
+      <?php endforeach; ?>
+
 
     </select>
 
@@ -53,4 +58,14 @@
 <!-- <a target="_blank" href='http://www.baidu.com'>12221</a> -->
 </div>
 </body>
+<script type="text/javascript">
+function selectCom(){
+  var cnameval = $('#cname').val();
+  // console.log(cnameval);
+  if(cnameval != '0'){
+    window.location.href="<?php echo PUB; ?>Home/Customer/editCus/cid/"+cnameval;
+  }
+  
+}
+</script>
 </html>

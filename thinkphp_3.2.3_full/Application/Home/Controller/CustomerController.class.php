@@ -2,10 +2,26 @@
 namespace Home\Controller;
 // use Home\FatherController;
 class CustomerController extends FatherController {
-    public function index(){
-
-		$this->cuslist();
-		$this->display('Index');
+    public function index($cid="0"){
+		$cid = empty(I('get.cid'))?'0':I('get.cid');
+		
+		if($cid=='0'){
+			$this->cuslist();
+			$com = D('Company');
+			$comdata = $com->getCompany();
+			$this->assign('comdata',$comdata);
+			$this->display('Index');
+		}else{
+			// dump($id);die;
+			$this->cuslist($cid);
+			$com = D('Company');
+			$comdata = $com->getCompany();
+			
+			$this->assign('cid',$cid);
+			$this->assign('comdata',$comdata);
+			$this->display('Index');
+		}
+		
 		
 	}
 	
@@ -40,7 +56,7 @@ class CustomerController extends FatherController {
 		
 	}
 	
-	public function editCus($id='0'){
+	public function editCus($cid='0',$id='0'){
 		if($id!='0'){
 			if($_POST && cookie('name')){
 				// dump($_POST);die;
@@ -80,7 +96,12 @@ class CustomerController extends FatherController {
 				}
 			}
 		}else{
-			$this->cuslist();
+			$cid = empty(I('get.cid'))?'0':I('get.cid');
+			$com = D('Company');
+			$comdata = $com->getCompany();
+			$this->assign('comdata',$comdata);
+			$this->cuslist($cid);
+			$this->assign('cid',$cid);
 			$this->display('Customer');
 			// $this->error('操作失败','/Home/Customer/index/',3);
 		}
@@ -118,7 +139,7 @@ class CustomerController extends FatherController {
 		}
 	}
 	
-	public function addPaProp(){
+	public function addCusPaper(){
 		if($_POST){
 			// echo I('post.paper_id');
 			// dump($_POST);die;
@@ -159,6 +180,24 @@ class CustomerController extends FatherController {
 			}
 		}
 	}
+	public function editCusPaper(){
+		$cus = D('Customer');
+		$cusdata = $cus->getcusinfo();
+		
+		$sup = D('Supplier');
+		
+		$sdata=$sup->getAll();
+		if($sdata){
+			$this->assign('cusdata',$cusdata);
+			$this->assign('suplist',$sdata);
+			$this->display('Editcper');
+		}else{
+			$this->error('加载数据失败！','/Home/Customer/cusPaper/',3);
+		}
+		
+		
+		
+	}
 	public function cusPaper(){
 		if($_POST){
 			dump($_POST);die;
@@ -190,16 +229,28 @@ class CustomerController extends FatherController {
 	*获取客户分页数据
 	*
 	*/
-	public function cuslist(){
+	public function cuslist($cid='0'){
 		$User = M('Customer');//对象
-		$count      = $User->count();// 查询满足要求的总记录数
+		if($cid=='0'){
+			$count      = $User->count();
+		}else{
+			$count      = $User->where('`company_id` = "'.$cid.'"')->count();
+		}
+		// 查询满足要求的总记录数
+		
 		$Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
 		$Page->setConfig('first','第一页');
 		$Page->setConfig('last','最后一页');
 		$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
 		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-		$list = $User->order('id')->where('`customer_state` = "1"')->
-		limit($Page->firstRow.','.$Page->listRows)->select();
+		if($cid=='0'){
+			$list = $User->order('id')->where('`customer_state` = "1"')->
+			limit($Page->firstRow.','.$Page->listRows)->select();
+		}else{
+			$list = $User->order('id')->where('`customer_state` = "1" and `company_id` = "'.$cid.'"')->
+			limit($Page->firstRow.','.$Page->listRows)->select();
+		}
+		
 		// var_dump(array_keys($list[0])[0]); 
 		// var_dump($list);die;
 		// echo $show;
