@@ -13,6 +13,16 @@ class CuspaperModel extends Model {
 		return $flag;
 		
 	}
+	public function getPaperId($id){
+		$pa = M("Cuspaper");
+		$flag=$pa->field("cuspa_state")->where("`paper_id` = '".$id."'")->find();
+		return $flag;
+	}
+	public function editCusPaper($id,$data){
+		$pa = M("Cuspaper");
+		$flag=$pa->where("`paper_id` = '".$id."'")->data($data)->save();
+		return $flag;
+	}
 	public function getCpaper($paper_id,$customer_id){
 		$User = M("Cuspaper");
 		$flag = $User->where('`paper_id` = "'.$paper_id.'" and `customer_id` = "'.$customer_id.'" and `cuspa_state` = "1"')

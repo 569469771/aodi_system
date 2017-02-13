@@ -71,6 +71,7 @@ class PaperController extends FatherController {
 				}
 			}else{
 				$data=[];
+				$state=[];
 				$data['sup_id']=I('post.sup_id');
 				$data['paper_property']=I('post.paper_property');
 				$data['paper_name']=I('post.paper_name');
@@ -78,15 +79,36 @@ class PaperController extends FatherController {
 				$data['gram_weight']=floatval(I('post.gram_weight'));
 				$data['paper_state']=I('post.paper_state');
 				$data['up_date'] = time();
+				$state['cuspa_state']=I('post.paper_state');
 				$pap= D('Paper');
 				$pflag=$pap->getById($id);
 				if($pflag){
 					$inflag=$pap->editData($id,$data);
 					if($inflag){
-						$this->success('修改成功', '/Home/Paper/index/',1);	
+						
+						$cuspap= D('Cuspaper');
+						$cpdata = $cuspap->getPaperId($id);
+						
+						if($cpdata!=null){
+							if($cpdata['cuspa_state']!=$data['paper_state']){
+								$cpflag = $cuspap->editCusPaper($id,$state);
+								if($cpflag){
+									$this->success('修改成功', '/Home/Paper/index/',1);
+								}else{
+									$this->error('修改cuspaper表cuspa_state数据失败！','/Home/Paper/index/',3);
+								}	
+							}else{
+								$this->success('修改成功', '/Home/Paper/index/',1);
+							}
+
+						}else{
+							$this->success('修改成功', '/Home/Paper/index/',1);
+						}
 					}else{
 						$this->error('修改失败！','/Home/Paper/index/',3);
 					}
+			
+				
 				}else{
 					$this->error('ID不存在！','/Home/Paper/index/',3);
 				}
