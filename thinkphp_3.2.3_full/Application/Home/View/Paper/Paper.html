@@ -15,7 +15,7 @@
 <div id='div1' align="center">
   <div id="flag" style="color:red"></div>
   <p>
-  <form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Paper/schPaper" onsubmit="return checkAll();" >
+  <form id="form1" name="form1" method="get" action="<?php echo PUB; ?>Home/Paper/schPaper" onsubmit="return checkAll();" >
 供应商：<select name="sup_id" id="sup_id" onchange="checkprop();" >
     <option value="0">请选择</option>
     <?php foreach ($suplist as $sup): ?>
@@ -44,14 +44,12 @@
   </tr>
     <?php $i=0;?>
       <?php foreach($list as $arr): ?>
-      
-      <?php $i++ ?>
-        <?php foreach($suplist as $suparr): ?>
-          <?php if($arr['sup_id']==$suparr['id']): ?>
-   
+      <?php $i++; ?>
+
   <tr style="text-align: center;" bgcolor="<?php echo $i%2==0?'#CCCCCC':''; ?>">
-    <th scope="row"><?php echo $arr['id']; ?></th>
-    <td><?php echo $suparr['sup_name']; ?>
+    <th scope="row"><?php echo $arr['id']; ?>
+    </th>
+    <td><?php echo $arr['sup_name']; ?>
     </td> 
   
     <td><?php echo $arr['paper_property']; ?>
@@ -68,8 +66,7 @@
     </td>
     
   </tr>
-<?php endif; ?>
-    <?php endforeach; ?>
+
 	<?php endforeach;?>
 </table>
 <?php echo $page; ?>

@@ -14,8 +14,11 @@ class PaperController extends FatherController {
 		$Page->setConfig('last','最后一页');
 		$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
 		// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-		$list = $User->order('id desc')->
-		limit($Page->firstRow.','.$Page->listRows)->select();
+		$list = $User->order('id desc')
+		->field('sup.sup_name,aodi_paper.*')
+		->join('aodi_supplier as sup ON sup.id = aodi_paper.sup_id')
+		->limit($Page->firstRow.','.$Page->listRows)->select();
+		// dump($list);die;
 		$this->assign('list',$list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('suplist',$suplist);
@@ -116,18 +119,18 @@ class PaperController extends FatherController {
 		}
 	}
 	public function schPaper(){
-		if($_POST){
+		if($_GET){
 			// dump($_POST);die;
 			$pdata=['sup_id'=>'0','paper_property'=>'0'];
-			if(I('post.sup_id')=='0'&& I('post.paper_property')!=''){
+			if(I('get.sup_id')=='0'&& I('get.paper_property')!=''){
 				unset($pdata['sup_id']);
-				$pdata['paper_property']=I('post.paper_property');
-			}elseif(I('post.paper_property')==''&& I('post.sup_id')!='0'){
+				$pdata['paper_property']=I('get.paper_property');
+			}elseif(I('get.paper_property')==''&& I('get.sup_id')!='0'){
 				unset($pdata['paper_property']);
-				$pdata['sup_id']=intval(I('post.sup_id'));
-			}elseif(I('post.paper_property')!=''&& I('post.sup_id')!='0'){
-				$pdata['sup_id']=intval(I('post.sup_id'));
-				$pdata['paper_property']=I('post.paper_property');
+				$pdata['sup_id']=intval(I('get.sup_id'));
+			}elseif(I('get.paper_property')!=''&& I('get.sup_id')!='0'){
+				$pdata['sup_id']=intval(I('get.sup_id'));
+				$pdata['paper_property']=I('get.paper_property');
 			}else{
 				$this->error('请提交数据！','/Home/Paper/index/',3);
 			}
