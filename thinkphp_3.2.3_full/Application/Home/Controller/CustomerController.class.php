@@ -158,7 +158,7 @@ class CustomerController extends FatherController {
 			}else{
 				$cpflag = $cpobj->insertCus($cpdata);
 				if($cpflag){
-					$this->success('修改成功', '/Home/Customer/cusPaper/',2);
+					$this->success('添加成功', '/Home/Customer/cusPaper/',2);
 				}else{
 					$this->error('添加失败','/Home/Customer/cusPaper/',3);
 				}
@@ -174,7 +174,7 @@ class CustomerController extends FatherController {
 			if($sdata){
 				$this->assign('cusdata',$cusdata);
 				$this->assign('suplist',$sdata);
-				$this->display('Addpaprop');
+				$this->display('Addcuspaper');
 			}else{
 				$this->error('加载数据失败！','/Home/Customer/cusPaper/',3);
 			}
@@ -199,12 +199,46 @@ class CustomerController extends FatherController {
 		
 	}
 	public function cusPaper(){
-		if($_POST){
-			dump($_POST);die;
+		if($_GET['customer_s']){
+			// dump($_POST);die;
 			// $customer_code = 'D1';
 			// $cuspaper = D('Cuspaper');
 			// $cusdata = $cuspaper->getCusPaper();
 			// dump($cusdata);die;
+			
+			$customer_id= I('get.customer_s');
+			$customer_code= I('get.customer_t');
+			$User = D('Customer');//对象
+			$udata = $User->getAble();
+			$cuspaper = D('Cuspaper');
+			// $User = M('Customer');//对象
+			$count      = $cuspaper->where('customer_id = "'.$customer_id.'"')->count();// 查询满足要求的总记录数
+			$Page       = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+			$Page->setConfig('first','第一页');
+			$Page->setConfig('last','最后一页');
+			$show       = $Page->show();// 分页显示输出   共 %TOTAL_ROW% 条记录
+			
+			$list = $cuspaper
+			->order('cpid desc')
+			->field('cp.id as cpid,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
+			->table('aodi_cuspaper as cp')
+			->where('cp.`cuspa_state` = "1" and cp.`customer_id` = "'.$customer_id.'"')
+			->join('aodi_paper as p ON p.id = cp.paper_id')
+			->join('aodi_customer as c ON c.id = cp.customer_id')
+			->join('aodi_supplier as s ON s.id = cp.sup_id')
+			->limit($Page->firstRow.','.$Page->listRows)
+			->select();
+			
+			$this->assign('customer_id',$customer_id);
+			$this->assign('customer_code',$customer_code);
+			$this->assign('page',$show);
+			$this->assign('list',$list);
+			$this->assign('cus',$udata);
+			$this->display('Cuspaper');
+				
+			
+			
+			
 		}else{
 			$User = D('Customer');//对象
 			$udata = $User->getAble();

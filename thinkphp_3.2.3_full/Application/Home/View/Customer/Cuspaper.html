@@ -11,7 +11,7 @@
     border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;
     width:23px;
     height: 23px;
-    background-image:url(<?php echo PUB; ?>Public/image/no.png);
+    /*background-image:url(<?php echo PUB; ?>Public/image/no.png);*/
     background-color:white;
     
   }
@@ -21,22 +21,24 @@
 <body>
 
 <div id='div1' align="center">
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Customer/cusPaper/" >
+<form id="form1" name="form1" method="get" action="<?php echo PUB; ?>Home/Customer/cusPaper/" >
   <p align="center">客户：
-    <select name="costomer_code" >
+    <select name="customer_s" id="customer_s" onchange="getCode();" >
       <option value="0" >请选择</option>
       <?php foreach ($cus as $arr): ?>
-      <option value="<?php echo $arr['customer_code']; ?>" ><?php echo $arr['customer_name']; ?>
-      </option>
+      <option value="<?php echo $arr['id']; ?>" id="<?php echo $arr['customer_code']; ?>" 
+        <?php echo $arr['id']==$customer_id?"selected=selected":''; ?>
+        ><?php echo $arr['customer_name']; ?></option>
     <?php endforeach; ?>
 
     </select>
-    客户编码：<input type="text" style="width:100px" name="customer_code" >
+    客户编码：<input type="text" style="width:100px" name="customer_t" id="customer_t" onblur="checkCode();" 
+    value="<?php echo $customer_code; ?>" >
     &nbsp;<input id="image" class='customer_code' disabled="disabled">
-<input type="submit" name="button" id="button" value="提交" />
+    <input type="submit" name="button" id="button" value="提交" />
   </p>
 
-</from>
+</form>
 
 <table width="80%" height="" border="0" align="center">
   <tr width="" bgcolor="#CCCCCC">
@@ -74,4 +76,38 @@
 <!-- <a target="_blank" href='http://www.baidu.com'>12221</a> -->
 </div>
 </body>
+<script type="text/javascript">
+function checkCode(){
+  var c_val = $("#customer_t").val(); 
+  // var s_val = $("#customer_s").val(); 
+  $("#customer_s option[id="+c_val+"]").attr("selected","selected");
+  var fval = $("#customer_s option[id="+c_val+"]").text();
+  
+  // console.log(c_val);
+  // console.log(fval);
+  if(fval==''){
+    // console.log(111);
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+
+    $("#customer_s option[value='0']").attr("selected",true);
+
+  }else{
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+  }
+  
+}
+
+function getCode(){
+  var c_val = $("#customer_s").val(); 
+  var s_val = $("#customer_s option[value="+c_val+"]").attr('id');
+  // console.log(s_val);
+  if(s_val != undefined){
+    $("#customer_t").attr("value",s_val);
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+  }else{
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+  }
+}
+
+</script>
 </html>
