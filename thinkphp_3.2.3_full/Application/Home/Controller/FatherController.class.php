@@ -7,9 +7,14 @@ class FatherController extends Controller{
 	public function __construct(){
 		parent::__construct();
 		if(!$this->pregURL($_SERVER['REQUEST_URI'])){	
-			if(cookie('name')!=null){
-				$qxian = D('Qxian');
-				$this->groupname=$qxian->getQxian();
+			if(cookie('name')!=null&&cookie('gd')!=null&&cookie('ud')!=null){
+				if(empty(S('pro_groupname'))){
+					$qxian = D('Qxian');
+					$this->groupname=$qxian->getQxian();
+					S('pro_groupname',$this->groupname,array('type'=>'file','expire'=>10));
+				}else{
+					$this->groupname=S('pro_groupname');
+				}
 			}else{
 				echo '<script type="text/javascript">top.location.href="'.PUB.'";</script>';				
 			}
