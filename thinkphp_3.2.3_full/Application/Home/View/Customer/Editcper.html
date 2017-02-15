@@ -58,6 +58,16 @@
     <option value="0">请选择</option>
     
     </select>&nbsp;<input id="image" class='paper_p' disabled="disabled">
+    </p>
+    <p>
+    客户报价：
+    <input type="text" name="cuspa_price" id="cuspa_price" style="width:100px" onblur="checkCusPrice();"/>&nbsp;
+    <input id="image" class='cuspa_price' disabled="disabled">
+    可用与否：<select name="paper_state" id="paper_state">
+    <option value="0">不显示</option>
+    <option selected='selected' value="1">显示</option>
+    <option value="2">其他</option>
+    </select>
   </p>
   <p>
     
@@ -71,11 +81,7 @@
   <p>
     纸板价格：
     <input type="text" name="paper_price" id="paper_price" style="width:100px" disabled="disabled"  /> &nbsp;
-    可用与否：<select name="paper_state" id="paper_state">
-    <option value="0">不显示</option>
-    <option selected='selected' value="1">显示</option>
-    <option value="2">其他</option>
-    </select>
+    
   </p>
   <input type="hidden" id="inflag" value="" >
   <p>
@@ -90,16 +96,32 @@ function checkAll(){
   var sid=$("#sup_id").val();
   var cus=$("#customer_s").val();
   var pid=$("#paper_id").val();
+
   // console.log(sid);
   // console.log(cus);
   // console.log(pid);
-  if(sid!='0' && cus!='0' && pid!='0'){
+  if(sid!='0' && cus!='0' && pid!='0'&& checkCusPrice()){
     return true;
   }else{
     return false;
   }
     
   
+}
+function checkCusPrice(){
+  
+  var price=$("#cuspa_price").val();
+  var str = price.match(/^\d+(\.\d+)?$/);
+  // console.log(str);
+  // console.log(str[0]);
+  if (str) {
+    $(".cuspa_price").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+    return true;
+  }else{
+    
+    $(".cuspa_price").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+    return false;
+  }
 }
 
 function checkprop(){
