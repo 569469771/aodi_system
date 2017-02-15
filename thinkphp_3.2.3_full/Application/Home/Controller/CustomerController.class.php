@@ -148,6 +148,7 @@ class CustomerController extends FatherController {
 			$cpdata['sup_id']=intval(I('post.sup_id'));
 			$cpdata['customer_id']=intval(I('post.customer_s'));
 			$cpdata['cuspa_state']=intval(I('post.paper_state'));
+			$cpdata['cuspa_price']=I('post.cuspa_price');
 			$cpdata['u_id']=cookie('ud');
 			$cpdata['up_date']=time();
 			// dump($cpdata);die;
@@ -220,7 +221,7 @@ class CustomerController extends FatherController {
 			
 			$list = $cuspaper
 			->order('cpid desc')
-			->field('cp.id as cpid,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
+			->field('cp.id as cpid,cp.cuspa_price,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
 			->table('aodi_cuspaper as cp')
 			->where('cp.`cuspa_state` = "1" and cp.`customer_id` = "'.$customer_id.'"')
 			->join('aodi_paper as p ON p.id = cp.paper_id')
@@ -235,9 +236,6 @@ class CustomerController extends FatherController {
 			$this->assign('list',$list);
 			$this->assign('cus',$udata);
 			$this->display('Cuspaper');
-				
-			
-			
 			
 		}else{
 			$User = D('Customer');//对象

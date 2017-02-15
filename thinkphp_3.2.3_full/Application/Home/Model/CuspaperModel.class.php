@@ -61,7 +61,7 @@ class CuspaperModel extends Model {
 		$cuspaper = M('Cuspaper');
 		$list = $cuspaper
 		->order('cpid desc')
-		->field('cp.id as cpid,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
+		->field('cp.id as cpid,cp.cuspa_price,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
 		->table('aodi_cuspaper as cp')
 		->where('cp.`cuspa_state` = "1"')
 		->join('aodi_paper as p ON p.id = cp.paper_id')

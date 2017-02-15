@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-02-09 15:06:15
+-- Generation Time: 2017-02-15 10:17:35
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -57,23 +57,32 @@ CREATE TABLE IF NOT EXISTS `aodi_cuspaper` (
   `paper_id` int(10) unsigned NOT NULL COMMENT '纸板表id',
   `customer_id` int(10) NOT NULL COMMENT '客户id',
   `sup_id` int(10) NOT NULL DEFAULT '0' COMMENT '供应商表ID',
+  `cuspa_price` decimal(8,3) NOT NULL DEFAULT '0.000' COMMENT '客户纸板价格1平方米',
   `cuspa_state` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '0删除，1可用，2其他',
   `u_id` int(10) NOT NULL DEFAULT '0' COMMENT '添加者id',
   `up_date` int(10) NOT NULL DEFAULT '1' COMMENT '添加时间',
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
   KEY `sup_id` (`sup_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `aodi_cuspaper`
 --
 
-INSERT INTO `aodi_cuspaper` (`id`, `paper_id`, `customer_id`, `sup_id`, `cuspa_state`, `u_id`, `up_date`) VALUES
-(1, 1, 1, 1, '1', 1, 1486646052),
-(2, 4, 1, 1, '1', 1, 1486646060),
-(3, 2, 2, 2, '1', 1, 1486646078),
-(4, 6, 2, 1, '1', 1, 1486646132);
+INSERT INTO `aodi_cuspaper` (`id`, `paper_id`, `customer_id`, `sup_id`, `cuspa_price`, `cuspa_state`, `u_id`, `up_date`) VALUES
+(1, 1, 1, 1, '12.000', '1', 1, 1486646052),
+(2, 4, 1, 1, '10.000', '1', 1, 1486646060),
+(3, 2, 2, 2, '10.000', '1', 1, 1486646078),
+(4, 6, 2, 1, '11.000', '1', 1, 1486646132),
+(5, 3, 5, 2, '15.000', '1', 2, 1486796970),
+(6, 3, 2, 2, '30.000', '1', 2, 1486967991),
+(7, 4, 2, 1, '18.000', '1', 2, 1486968041),
+(8, 1, 2, 1, '20.000', '1', 2, 1486968130),
+(9, 7, 2, 2, '19.000', '1', 2, 1486968149),
+(10, 2, 1, 2, '21.000', '1', 2, 1486977601),
+(11, 5, 5, 1, '15.000', '1', 2, 1487149599),
+(12, 6, 5, 1, '50.000', '1', 2, 1487149913);
 
 -- --------------------------------------------------------
 
@@ -208,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=95 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=108 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -308,7 +317,20 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (91, '王', 1, '127.0.0.1', 1486557219),
 (92, '王', 1, '127.0.0.1', 1486639462),
 (93, '王', 1, '127.0.0.1', 1486643511),
-(94, '王', 1, '127.0.0.1', 1486647259);
+(94, '王', 1, '127.0.0.1', 1486647259),
+(95, '李', 2, '127.0.0.1', 1486796947),
+(96, '李', 2, '127.0.0.1', 1486950033),
+(97, '李', 2, '127.0.0.1', 1486954280),
+(98, '李', 2, '127.0.0.1', 1486959843),
+(99, '李', 2, '127.0.0.1', 1486960649),
+(100, '李', 2, '127.0.0.1', 1486960669),
+(101, '李', 2, '127.0.0.1', 1486964356),
+(102, '李', 2, '127.0.0.1', 1486967972),
+(103, '李', 2, '127.0.0.1', 1486977548),
+(104, '李', 2, '127.0.0.1', 1487052469),
+(105, '李', 2, '127.0.0.1', 1487128962),
+(106, '李', 2, '127.0.0.1', 1487137995),
+(107, '李', 2, '127.0.0.1', 1487146707);
 
 -- --------------------------------------------------------
 
@@ -460,13 +482,13 @@ CREATE TABLE IF NOT EXISTS `aodi_paper` (
 
 INSERT INTO `aodi_paper` (`id`, `sup_id`, `paper_property`, `gram_weight`, `paper_name`, `paper_price`, `paper_state`, `up_date`) VALUES
 (1, 1, 'N3N5Q', 620, 'AB', '15.000', '1', 1486442288),
-(2, 2, 'N3Q3N', 600, 'AB', '7.000', '1', 0),
+(2, 2, 'N3Q3N', 600, 'AB', '7.000', '1', 1486980881),
 (3, 2, 'F3N1T4Q', 1000, 'ABC', '12.000', '1', 0),
 (4, 1, 'N3N5T', 580, 'AB', '18.000', '1', 0),
 (5, 1, 'N3N5W', 610, 'AB', '18.320', '1', 0),
 (6, 1, 'N5T3T', 580, 'AB', '10.000', '1', 0),
 (7, 2, 'N3N5T', 580, 'AB', '12.000', '1', 0),
-(8, 3, 'N3N5T', 580, 'AB', '12.000', '1', 0),
+(8, 3, 'N3N5T', 580, 'AB', '12.000', '1', 1486980852),
 (9, 4, 'N3N5T', 580, 'AB', '12.000', '1', 1486195324),
 (10, 5, 'N3N5T', 580, 'AB', '12.000', '1', 1486195348),
 (11, 3, 'N3N5W', 610, 'AB', '13.000', '1', 1486195450),
@@ -596,7 +618,7 @@ INSERT INTO `aodi_qxian` (`id`, `qx_name`, `p_id`, `action`, `group_id`, `state`
 (37, '添加订单', 7, 'Home/Order/addOrder/', '1', '1', 2, 1486362452),
 (38, '修改订单', 7, 'Home/Order/editOrder/', '1', '0', 2, 1486362500),
 (39, '搜索订单', 7, 'Home/Order/schOrder/', '1', '0', 2, 1486433149),
-(40, '添加客户纸板', 3, 'Home/Customer/addPaProp/', '1', '1', 1, 1486560312),
+(40, '添加客户纸板', 3, 'Home/Customer/addCusPaper/', '1', '1', 2, 1486960752),
 (41, '客户纸板', 3, 'Home/Customer/cusPaper/', '1', '1', 1, 1486640080);
 
 -- --------------------------------------------------------
