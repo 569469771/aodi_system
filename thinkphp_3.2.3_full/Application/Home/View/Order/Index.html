@@ -19,7 +19,7 @@
   
   <p >
   <form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Order/schOrder" onsubmit="return checkAll();" >
-客户名称：<input type="text" name="customer_name" id="customer_name" onblur="checkprop();" style='width:70px' />
+客户编号：<input type="text" name="customer_code" id="customer_code" onblur="checkprop();" style='width:70px' />
 
   &nbsp;纸板材质：<input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style='width:70px'/>
   &nbsp;管理号：<input type="text" name="mant_num" id="mant_num" onblur="checkprop();" style='width:70px'/>
@@ -96,7 +96,7 @@
           </td>
           <td><?php echo $arr['up_date']; ?>
           </td>
-          <td><?php echo $arr['order_otherprice']; ?>
+          <td><?php echo $arr['other_price']; ?>
           </td>
           <td><?php echo $arr['order_urgent']=='0'?'否':''; ?>
             <?php echo $arr['order_urgent']=='1'?'是':''; ?>

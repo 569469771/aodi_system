@@ -71,5 +71,19 @@ class CuspaperModel extends Model {
 		->select();
 		return $list;
 	}
+	public function getById($id){
+		$cuspaper = M('Cuspaper');
+		$list = $cuspaper
+		
+		->field('cp.id as cpid,cp.customer_id,cp.cuspa_price,cp.cuspa_state,p.*,c.customer_name,c.customer_code,s.sup_name')
+		->table('aodi_cuspaper as cp')
+		->where('cp.`id` = "'.$id.'"')
+		->join('aodi_paper as p ON p.id = cp.paper_id')
+		->join('aodi_customer as c ON c.id = cp.customer_id')
+		->join('aodi_supplier as s ON s.id = cp.sup_id')
+		
+		->find();
+		return $list;
+	}
 	
 }

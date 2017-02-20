@@ -23,7 +23,7 @@
 <body>
   <div style="height: 50px;"></div>
 <div >
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Customer/addCusPaper/id/<?php echo ''; ?>" 
+<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Customer/editCusPaper/id/<?php echo $cpdata['cpid']; ?>" 
   onsubmit="return checkAll();">
   <p>添加客户纸板</p>
   <p id='flag' style="color:red;"></p>
@@ -32,55 +32,56 @@
     供应商：<select name="sup_id" id="sup_id" onchange="checkSup();" >
     <option value="0">请选择</option>
     <?php foreach ($suplist as $sup): ?>
-      <option value="<?php echo $sup['id']?>"><?php echo $sup['sup_name']; ?></option>
+      <option value="<?php echo $sup['id']?>" 
+        <?php echo $cpdata['sup_id'] == $sup['id']?"selected='selected'":''; ?> ><?php echo $sup['sup_name']; ?></option>
    <?php endforeach; ?>
     </select>&nbsp;
      客户编号：
-    <input type="text" name="customer_t" id="customer_t" onblur="getCode();" style="width:100px" />
+    <input type="text" name="customer_t" id="customer_t" onblur="getCode();" style="width:100px" 
+    readonly="readonly" value="<?php echo $cpdata['customer_code']; ?>" />
 
-    <select name="customer_s" id="customer_s" onchange="getCusCode();" >
+    <select name="customer_s" id="customer_s" onchange="getCusCode();"  >
 
-    <option value = "0" >请选择</option>
-    <?php foreach ($cusdata as $cusfo): ?>
-      <option class='<?php echo $cusfo['customer_code']; ?>'
-       value="<?php echo $cusfo['id']; ?>" ><?php echo $cusfo['customer_name']; ?>
-      </option>
-    <?php endforeach; ?>
-    </select>&nbsp;<input id="image" class='customer_code' disabled="disabled">
+    <option value = "<?php echo $cpdata['customer_id']; ?>" ><?php echo $cpdata['customer_name']; ?></option>
+    
+    </select>&nbsp;
 
   </p>
   <p>
     纸板材质名称：
-    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style="width:100px" value="" />
+    <input type="text" name="paper_property" id="paper_property" onblur="checkprop();" style="width:100px" value="<?php echo $cpdata['paper_property']; ?>" />
 
     <select name="paper_id" id="paper_id" onchange="getName();" >
 
     <option value="0">请选择</option>
-    
+    <?php if($cpdata): ?>
+      <option value="<?php echo $cpdata['id']; ?>" 
+        selected="selected" ><?php echo $cpdata['paper_property']; ?></option>
+    <?php endif; ?>
     </select>&nbsp;<input id="image" class='paper_p' disabled="disabled">
     </p>
     <p>
     客户报价：
-    <input type="text" name="cuspa_price" id="cuspa_price" style="width:100px" onblur="checkCusPrice();"/>&nbsp;
+    <input type="text" name="cuspa_price" id="cuspa_price" style="width:100px" onblur="checkCusPrice();" value="<?php echo $cpdata['cuspa_price']; ?>" />&nbsp;
     <input id="image" class='cuspa_price' disabled="disabled">
     可用与否：<select name="paper_state" id="paper_state">
-    <option value="0">不显示</option>
-    <option selected='selected' value="1">显示</option>
-    <option value="2">其他</option>
+    <option value="0" <?php echo $cpdata['cuspa_state'] == '0'?"selected='selected'":''; ?> >不显示</option>
+    <option <?php echo $cpdata['cuspa_state'] == '1'?"selected='selected'":''; ?> value="1" >显示</option>
+    <option value="2" <?php echo $cpdata['cuspa_state'] == '2'?"selected='selected'":''; ?> >其他</option>
     </select>
   </p>
   <p>
     
     纸板瓦楞类型：
     <input type="text" name="paper_name" id="paper_name" style="width:50px" 
-    disabled="disabled" />
+    disabled="disabled" value="<?php echo $cpdata['paper_name']; ?>" />
     纸板克重：
     <input type="text" name="gram_weight" id="gram_weight" style="width:50px" 
-    disabled="disabled" />&nbsp;g/㎡
+    disabled="disabled" value="<?php echo $cpdata['gram_weight']; ?>" />&nbsp;g/㎡
   </p>
   <p>
     纸板价格：
-    <input type="text" name="paper_price" id="paper_price" style="width:100px" disabled="disabled"  /> &nbsp;
+    <input type="text" name="paper_price" id="paper_price" style="width:100px" disabled="disabled"  value="<?php echo $cpdata['paper_price']; ?>" /> &nbsp;
     
   </p>
   <input type="hidden" id="inflag" value="" >
@@ -209,7 +210,7 @@ function checkSup(){
           $("option").remove(".child");
           for (var i=0;i<arr.length;i++){
 
-             $("#paper_id").append('"<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>"');
+             $("#paper_id").append('<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>');
           }
            
         }else{

@@ -54,7 +54,9 @@ class CustomerModel extends Model {
 	}
 	public function getcusinfo(){
 		$mcus = M("Customer");
-		$data=$mcus->field('id,customer_name,customer_code')->select();
+		$data=$mcus->field('id,customer_name,customer_code')
+		->where("`customer_state` = '1'")
+		->select();
 		return $data;
 	}
 	public function getAble(){

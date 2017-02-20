@@ -25,6 +25,9 @@
   #box{
     width:50px;
   }
+  #order_price{
+    width:60px;
+  }
   #name{
     width:400px;
   }
@@ -41,6 +44,7 @@
 <form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Order/addOrder/">
    <div>
   <p>添加订单</p>
+  
   <p>
     客户编号：
     <input type="text" name="customer_code" id="customer"  />
@@ -51,7 +55,7 @@
     <option value="2">其他</option>
     </select>&nbsp;<input id="image" disabled="disabled">
     客户名称：
-    <input type="text" name="customer_name" id="customer" disabled="disabled" value="112" />
+    <input type="text" name="customer_name" id="customer" readonly="readonly" value="112" />
   </p>
  <p>
   管理号：
@@ -84,6 +88,10 @@
     <option value="2">其他</option>
     </select>&nbsp;<input id="image" disabled="disabled">&nbsp;
 
+    统板：<select name="is_paper" id="is_paper">
+    <option value="0">不用</option>
+    <option value="1">用</option>
+    </select>&nbsp;
     楞别：<input type="text" name="paper_name" id="box" disabled="disabled" value="AB" /> 
     <p>
       规格：长&nbsp;<input type="text" name="box_long"  id="box" />&nbsp;
@@ -92,7 +100,7 @@
     </p>
      订单数量： <input type="text" name="order_num"  id="box" />&nbsp;
 
-     单价： <input type="text" name="order_price"  id="box" />&nbsp;
+     单价： <input type="text" name="order_price"  id="order_price" readonly="readonly" />&nbsp;
 
      几色印刷：<select name="map_color" id="map_color">
     <option value="1">单色印刷</option>
@@ -105,10 +113,9 @@
      
     
     
-    <p> 
+    <p> 版费+模具费： <input type="text" name="order_otherprice"  id="box" />&nbsp;<span style="color:red;">元</span>&nbsp;
 	送货日期： <input type="text" name="del_date"  id="del_date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
-  style='width:100px' readonly="readonly" />&nbsp;
-    版费+模具费： <input type="text" name="order_otherprice"  id="box" />&nbsp;<span style="color:red;">元</span>
+  style='width:100px' readonly="readonly" />    
     </p> 
     <p>
   送货地址：<input type="text" name="customer_adress"  id="name" disabled="disabled" value="1235545" />

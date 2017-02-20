@@ -63,7 +63,7 @@
     客户报价：
     <input type="text" name="cuspa_price" id="cuspa_price" style="width:100px" onblur="checkCusPrice();"/>&nbsp;
     <input id="image" class='cuspa_price' disabled="disabled">
-    可用与否：<select name="paper_state" id="paper_state">
+    可用与否：<select name="paper_state" id="paper_state" >
     <option value="0">不显示</option>
     <option selected='selected' value="1">显示</option>
     <option value="2">其他</option>
@@ -209,7 +209,7 @@ function checkSup(){
           $("option").remove(".child");
           for (var i=0;i<arr.length;i++){
 
-             $("#paper_id").append('"<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>"');
+             $("#paper_id").append('<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>');
           }
            
         }else{

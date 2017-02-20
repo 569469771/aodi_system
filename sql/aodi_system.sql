@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-02-15 10:17:35
+-- Generation Time: 2017-02-20 15:57:20
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `aodi_cuspaper` (
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
   KEY `sup_id` (`sup_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `aodi_cuspaper`
@@ -82,7 +82,10 @@ INSERT INTO `aodi_cuspaper` (`id`, `paper_id`, `customer_id`, `sup_id`, `cuspa_p
 (9, 7, 2, 2, '19.000', '1', 2, 1486968149),
 (10, 2, 1, 2, '21.000', '1', 2, 1486977601),
 (11, 5, 5, 1, '15.000', '1', 2, 1487149599),
-(12, 6, 5, 1, '50.000', '1', 2, 1487149913);
+(12, 6, 5, 1, '50.000', '1', 2, 1487149913),
+(13, 8, 2, 3, '10.000', '1', 1, 1487246605),
+(14, 11, 1, 3, '12.000', '1', 1, 1487246627),
+(15, 11, 3, 3, '12.000', '1', 1, 1487252236);
 
 -- --------------------------------------------------------
 
@@ -217,14 +220,14 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=108 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=116 ;
 
 --
 -- 转存表中的数据 `aodi_log`
 --
 
 INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
-(1, '王', 0, '127.0.0.1', 1483160532),
+(114, '王', 1, '127.0.0.1', 1487597434),
 (2, '李', 0, '192.168.1.205', 1483160676),
 (3, '王', 0, '127.0.0.1', 1483160854),
 (4, '王', 0, '127.0.0.1', 1483160875),
@@ -330,7 +333,14 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (104, '李', 2, '127.0.0.1', 1487052469),
 (105, '李', 2, '127.0.0.1', 1487128962),
 (106, '李', 2, '127.0.0.1', 1487137995),
-(107, '李', 2, '127.0.0.1', 1487146707);
+(107, '李', 2, '127.0.0.1', 1487146707),
+(108, '王', 1, '127.0.0.1', 1487161187),
+(109, '王', 1, '127.0.0.1', 1487246277),
+(110, '王', 1, '127.0.0.1', 1487250367),
+(111, '王', 1, '127.0.0.1', 1487478818),
+(112, '王', 1, '127.0.0.1', 1487588297),
+(113, '王', 1, '127.0.0.1', 1487593300),
+(115, '王', 1, '127.0.0.1', 1487601702);
 
 -- --------------------------------------------------------
 
@@ -391,16 +401,15 @@ INSERT INTO `aodi_notlog` (`id`, `log_ip`, `up_date`) VALUES
 
 CREATE TABLE IF NOT EXISTS `aodi_orderone` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `customer_id` int(10) unsigned NOT NULL COMMENT '客户id',
-  `customer_name` varchar(50) NOT NULL COMMENT '客户名称',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '客户id',
+  `customer_name` varchar(50) NOT NULL DEFAULT '0' COMMENT '客户名称',
   `company_id` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '公司id （1是总部）',
-  `mant_num` varchar(50) NOT NULL COMMENT '管理号',
-  `job_num` varchar(20) NOT NULL COMMENT '工单号',
+  `purch_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '采购纸板表id，0没采购',
+  `produce_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '生产表id，0没加入排程',
+  `mant_num` varchar(20) NOT NULL DEFAULT '0' COMMENT '管理号',
+  `job_num` varchar(20) NOT NULL DEFAULT '0' COMMENT '工单号',
   `order_urgent` enum('0','1') NOT NULL DEFAULT '0' COMMENT '加急与否（0不加急）',
-  `order_state` enum('0','1') NOT NULL DEFAULT '1' COMMENT '取消与否',
-  `order_num` int(10) unsigned NOT NULL COMMENT '订单数量',
-  `order_price` decimal(8,3) unsigned NOT NULL COMMENT '订单单个纸箱价格',
-  `order_otherprice` decimal(8,3) unsigned NOT NULL DEFAULT '0.000' COMMENT '版费+模具费',
+  `order_state` enum('0','1') NOT NULL DEFAULT '0' COMMENT '取消与否,0不取消',
   `is_paper` enum('0','1') NOT NULL DEFAULT '0' COMMENT '是否是用统板，0不是',
   `del_date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '送货日期',
   PRIMARY KEY (`id`),
@@ -415,9 +424,9 @@ CREATE TABLE IF NOT EXISTS `aodi_orderone` (
 -- 转存表中的数据 `aodi_orderone`
 --
 
-INSERT INTO `aodi_orderone` (`id`, `customer_id`, `customer_name`, `company_id`, `mant_num`, `job_num`, `order_urgent`, `order_state`, `order_num`, `order_price`, `order_otherprice`, `is_paper`, `del_date`) VALUES
-(1, 1, '宏宇', 1, 'D43-226-550', '22222222222222222', '1', '1', 300, '10.000', '500.000', '0', 455545455),
-(2, 2, '宏宇', 2, 'D43-88', '1232353236121408', '0', '1', 100, '10.000', '560.000', '0', 2121335454);
+INSERT INTO `aodi_orderone` (`id`, `customer_id`, `customer_name`, `company_id`, `purch_id`, `produce_id`, `mant_num`, `job_num`, `order_urgent`, `order_state`, `is_paper`, `del_date`) VALUES
+(1, 1, '宏宇', 1, 0, 0, 'D43-226-550', 'D43111111111109', '1', '1', '0', 455545455),
+(2, 2, '宏宇', 2, 0, 0, 'D43-88', '1111111111', '0', '1', '0', 2121335454);
 
 -- --------------------------------------------------------
 
@@ -427,33 +436,32 @@ INSERT INTO `aodi_orderone` (`id`, `customer_id`, `customer_name`, `company_id`,
 
 CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
   `orderone_id` int(10) unsigned NOT NULL COMMENT '订单表一id',
-  `order_product` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '是否已加入排程0没加入，1已加入，2其他',
-  `paper_oder` enum('0','1','3') NOT NULL DEFAULT '0' COMMENT '纸板是否已订购，0没订购',
-  `shg_name` varchar(100) NOT NULL COMMENT '品名',
-  `today_price` decimal(6,3) NOT NULL DEFAULT '0.000' COMMENT '实时1平方价格',
-  `box_long` smallint(5) unsigned NOT NULL COMMENT '纸箱长',
-  `box_width` smallint(5) NOT NULL COMMENT '纸箱宽',
-  `box_height` smallint(5) unsigned NOT NULL COMMENT '箱高',
-  `paper_property` varchar(50) NOT NULL COMMENT '材质',
+  `shg_name` varchar(100) NOT NULL DEFAULT '0' COMMENT '品名',
+  `other_price` decimal(9,3) NOT NULL DEFAULT '0.000' COMMENT '版费+模具费用等',
+  `box_long` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '纸箱长',
+  `box_width` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '纸箱宽',
+  `box_height` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '箱高',
+  `paper_property` varchar(20) NOT NULL DEFAULT '0' COMMENT '材质',
+  `order_price` decimal(8,3) unsigned NOT NULL DEFAULT '0.000' COMMENT '1平方米纸板价格',
+  `order_num` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '订单数量',
   `box_prop` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '0是普通箱，2上公差',
-  `order_map` enum('0','1') CHARACTER SET armscii8 NOT NULL DEFAULT '0' COMMENT '是否需要制图（0不需要）',
+  `order_map` enum('0','1') NOT NULL DEFAULT '0' COMMENT '是否需要制图（0不需要）',
   `map_color` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '几色印刷',
   `up_date` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`orderone_id`),
   KEY `shg_name` (`shg_name`),
   KEY `up_date` (`up_date`),
   KEY `orderone_id` (`orderone_id`),
-  KEY `order_map` (`order_map`),
-  KEY `order_product` (`order_product`)
+  KEY `order_map` (`order_map`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表2';
 
 --
 -- 转存表中的数据 `aodi_ordertwo`
 --
 
-INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `box_prop`, `order_map`, `map_color`, `up_date`) VALUES
-(1, '0', '0', '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '0', '0', 1, 1245637891),
-(2, '0', '0', '针头', '3.000', 580, 480, 380, 'ntf321', '0', '0', 4, 0);
+INSERT INTO `aodi_ordertwo` (`orderone_id`, `shg_name`, `other_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `order_price`, `order_num`, `box_prop`, `order_map`, `map_color`, `up_date`) VALUES
+(1, '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '10.000', 400, '0', '0', 2, 1245637891),
+(2, '针头', '3.000', 580, 480, 380, 'ntf321', '8.750', 100, '0', '0', 4, 2215);
 
 -- --------------------------------------------------------
 
@@ -464,9 +472,9 @@ INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_
 CREATE TABLE IF NOT EXISTS `aodi_paper` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `sup_id` int(10) unsigned NOT NULL COMMENT '工厂id',
-  `paper_property` varchar(50) NOT NULL COMMENT '纸板材质名称',
+  `paper_property` varchar(20) NOT NULL COMMENT '纸板材质名称',
   `gram_weight` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT '克重（g/㎡）',
-  `paper_name` varchar(50) NOT NULL COMMENT '纸板瓦楞类型',
+  `paper_name` varchar(20) NOT NULL COMMENT '纸板瓦楞类型',
   `paper_price` decimal(8,3) unsigned NOT NULL COMMENT '纸板价格（㎡/元）',
   `paper_state` enum('0','1') NOT NULL DEFAULT '1' COMMENT '1存在，0不存在',
   `up_date` int(10) NOT NULL DEFAULT '0',

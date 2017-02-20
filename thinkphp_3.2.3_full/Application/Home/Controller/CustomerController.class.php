@@ -182,18 +182,37 @@ class CustomerController extends FatherController {
 		}
 	}
 	public function editCusPaper(){
-		$cus = D('Customer');
-		$cusdata = $cus->getcusinfo();
-		
-		$sup = D('Supplier');
-		
-		$sdata=$sup->getAll();
-		if($sdata){
-			$this->assign('cusdata',$cusdata);
-			$this->assign('suplist',$sdata);
-			$this->display('Editcper');
+		// dump($_GET);die;
+		if(empty($_POST)){
+			$id = intval(I('get.id'));
+			if($id > 0){
+				$cpaper = D('Cuspaper');
+				$cpdata = $cpaper->getById($id);
+				// dump($cpdata);die;
+				if($cpdata){
+					$cus = D('Customer');
+					$cusdata = $cus->getcusinfo();
+					
+					$sup = D('Supplier');
+					
+					$sdata=$sup->getAll();
+					if($sdata){
+						$this->assign('cpdata',$cpdata);
+						$this->assign('cusdata',$cusdata);
+						$this->assign('suplist',$sdata);
+						$this->display('Editcper');
+					}else{
+						$this->error('加载数据失败！','/Home/Customer/cusPaper/',3);
+					}
+				}else{
+					$this->error('ID错误，加载数据失败！','/Home/Customer/cusPaper/',3);
+				}
+			}else{
+				$this->error('ID错误，加载数据失败！','/Home/Customer/cusPaper/',3);
+			}
 		}else{
-			$this->error('加载数据失败！','/Home/Customer/cusPaper/',3);
+			dump($_GET);
+			dump($_POST);die;
 		}
 		
 		
