@@ -6,7 +6,7 @@
 <title>后台系统</title>
 <link rel="shortcut icon" href="<?php echo PUB; ?>Public/image/favicon.ico" type="image/x-ico">
 </head>
-<frameset rows="122,*" cols="*" frameborder="no" border="0" framespacing="0">
+<frameset rows="125,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="<?php echo PUB; ?>Home/Index/ftop" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame" />
   <frameset rows="*" cols="200,*" framespacing="0" frameborder="no" border="0">
     <frame src="<?php echo PUB; ?>Home/Index/fleft" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame" title="leftFrame" />
