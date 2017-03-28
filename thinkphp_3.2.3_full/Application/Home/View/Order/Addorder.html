@@ -18,7 +18,7 @@
     border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;
     width:23px;
     height: 23px;
-    background-image:url(<?php echo PUB; ?>Public/image/no.png);
+    /*background-image:url(<?php echo PUB; ?>Public/image/no.png);*/
     background-color:white;
     
   }
@@ -47,19 +47,22 @@
   
   <p>
     客户编号：
-    <input type="text" name="customer_code" id="customer"  />
+    <input type="text" name="customer_code" id="customer_code" onblur="getCode();" />
 
-    <select name="order_urgent" id="order_urgent">
-    <option value="0">请选择</option>
-    <option value="1">加急</option>
-    <option value="2">其他</option>
-    </select>&nbsp;<input id="image" disabled="disabled">
-    客户名称：
-    <input type="text" name="customer_name" id="customer" readonly="readonly" value="112" />
+    <select name="customer_s" id="customer_s" onchange="getCusCode();" >
+      <option value="0" >请选择</option>
+      <?php foreach ($cus as $value): ?>
+    <option value="<?php echo $value['id']; ?>" class="<?php echo $value['customer_code']; ?>" >
+      <?php echo $value['customer_name']; ?>
+    </option>
+    <?php  endforeach; ?>
+    </select>&nbsp;<input id="image" class="customer_code" disabled="disabled">
+    客户状态：
+    <input type="text" name="customer_name" id="customer_name" readonly="readonly" value="D43" />
   </p>
  <p>
   管理号：
-    <input type="text" name="mant_num" id="customer" />&nbsp;<input id="image" disabled="disabled">&nbsp;
+    <input type="text" name="mant_num" id="mant_num" />&nbsp;<input id="image" disabled="disabled">&nbsp;
 
     是否加急：<select name="order_urgent" id="order_urgent">
     <option value="0">不加急</option>
@@ -83,8 +86,8 @@
     <input type="text" name="paper_property" id="customer" />
   
     <select name="order_urgent" id="order_urgent">
-    <option value="0">请选择</option>
-    <option value="1">加急</option>
+    <option value="0">普通箱</option>
+    <option value="1">上公差</option>
     <option value="2">其他</option>
     </select>&nbsp;<input id="image" disabled="disabled">&nbsp;
 
@@ -129,5 +132,66 @@
 </form>
 </div>
 </body>
+<script type="text/javascript">
+function getCode(){
+  var c_val = $("#customer_code").val(); 
+  
+  var fval = $("#customer_s option[class="+c_val+"]").attr("value");
+  $("#customer_s option[class="+c_val+"]").attr("selected","selected");
+  // console.log(c_val);
+  // console.log(fval);
+  if(fval==undefined){
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+
+    $("#customer_s option[value='0']").attr("selected",true);
+    return false;
+
+  }else{
+    $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+    getCusPaper();
+  
+  }
+  
+}
+function getCusCode(){
+  // var cusval=$("#customer_s option:selected").text();
+  // console.log(cusval);
+ 
+  var c_code=$("#customer_s option:selected").attr("class"); 
+  $("#customer_code").attr("value",c_code);
+  $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+  getCusPaper();
+  // console.log(c_code);
+}
+function getCusPaper(){
+    var sup_id=$("#customer_s").val();
+  // console.log(sup_id);
+    if(sup_id!=0){
+
+      $.ajax({
+        type: "POST",
+        url: "<?php echo PUB ; ?>Home/Ajax/getSupId",
+        data: "sup_id="+sup_id,
+        success: function(msg){
+          // console.log(msg);  
+
+          if(msg!='00'){
+            var arr = eval("("+msg+")");
+            
+            $("option").remove(".child");
+            for (var i=0;i<arr.length;i++){
+
+               $("#paper_id").append('<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>');
+            }
+             
+          }else{
+            
+          }
+        }
+      });
+
+    }
+}
+</script>
 </html>
 

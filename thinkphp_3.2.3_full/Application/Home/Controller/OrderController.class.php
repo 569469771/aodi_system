@@ -38,6 +38,10 @@ class OrderController extends FatherController {
 			dump($_POST);die;
 	
 		}else{
+			$o_cus = D('Customer');
+			$cusinfo = $o_cus->getAble();
+			// dump($cusinfo);die;
+			$this->assign('cus',$cusinfo);
 			$this->display("Addorder");
 		}
 		
