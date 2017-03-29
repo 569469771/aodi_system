@@ -62,7 +62,8 @@
   </p>
  <p>
   管理号：
-    <input type="text" name="mant_num" id="mant_num" />&nbsp;<input id="image" disabled="disabled">&nbsp;
+    <input type="text" name="mant_num" id="mant_num" value="" />&nbsp;
+    <input id="image" disabled="disabled">&nbsp;
 
     是否加急：<select name="order_urgent" id="order_urgent">
     <option value="0">不加急</option>
@@ -85,10 +86,9 @@
     材质：
     <input type="text" name="paper_property" id="customer" />
   
-    <select name="order_urgent" id="order_urgent">
-    <option value="0">普通箱</option>
-    <option value="1">上公差</option>
-    <option value="2">其他</option>
+    <select name="property_s" id="property_s">
+    <option value="0">请选择</option>
+    
     </select>&nbsp;<input id="image" disabled="disabled">&nbsp;
 
     统板：<select name="is_paper" id="is_paper">
@@ -148,7 +148,9 @@ function getCode(){
 
   }else{
     $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
-    getCusPaper();
+    $("#mant_num").attr("value",c_val+"-");
+    $("option").remove(".child");
+    getCP();
   
   }
   
@@ -159,19 +161,21 @@ function getCusCode(){
  
   var c_code=$("#customer_s option:selected").attr("class"); 
   $("#customer_code").attr("value",c_code);
+  $("#mant_num").attr("value",c_code+"-");
   $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
-  getCusPaper();
+  $("option").remove(".child");
+  getCP();
   // console.log(c_code);
 }
-function getCusPaper(){
-    var sup_id=$("#customer_s").val();
+function getCP(){
+    var cus_code=$("#customer_code").val();
   // console.log(sup_id);
-    if(sup_id!=0){
+    if(cus_code){
 
       $.ajax({
         type: "POST",
-        url: "<?php echo PUB ; ?>Home/Ajax/getSupId",
-        data: "sup_id="+sup_id,
+        url: "<?php echo PUB ; ?>Home/Ajax/getCusPaper",
+        data: "customer_code="+cus_code,
         success: function(msg){
           // console.log(msg);  
 
@@ -181,7 +185,7 @@ function getCusPaper(){
             $("option").remove(".child");
             for (var i=0;i<arr.length;i++){
 
-               $("#paper_id").append('<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>');
+               $("#property_s").append('<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>');
             }
              
           }else{

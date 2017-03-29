@@ -77,5 +77,21 @@ class AjaxController extends Controller{
 			
 		}
 	}
+	public function getCusPaper(){
+		// dump(I("get.customer_code"));
+		// die('123');
+		$check=D("Customer");
+		if(I("post.customer_code")){
+			// die('12355');
+			$customer_code=I("post.customer_code")?I("post.customer_code"):null;
+			$getcpd=$check->CusPaper($customer_code);
+			if($getcpd){
+				echo json_encode($getcpd);
+			}else{
+				echo '00';
+			}
+		}
+		
+	}
 		
 }

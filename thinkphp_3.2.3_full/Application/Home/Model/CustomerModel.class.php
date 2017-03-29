@@ -67,4 +67,19 @@ class CustomerModel extends Model {
 
 		return $data;
 	}
+	public function CusPaper($customer_code){
+		$mcus = M("Customer");
+		$data=$mcus->field('p.id,p.paper_property')
+		->join('aodi_cuspaper as cp ON aodi_customer.id = cp.customer_id')
+		->join('aodi_paper as p ON p.id = cp.paper_id')
+		->where("aodi_customer.customer_state = '1' AND aodi_customer.customer_code ='".$customer_code."'")
+		->select();
+		/*
+		select * from aodi_customer as c left join aodi_cuspaper as p on c.id = p.customer_id 
+		left join aodi_paper pa on p.paper_id = pa.id
+		
+		*/
+		// echo $this->getLastSql();die;
+		return $data;
+	}
 }
