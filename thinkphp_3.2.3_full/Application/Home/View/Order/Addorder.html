@@ -47,7 +47,7 @@
   
   <p>
     客户编号：
-    <input type="text" name="customer_code" id="customer_code" onblur="getCode();" />
+    <input type="text" name="customer_code" id="customer_code" onblur="getCode();" style="width:70px" />
 
     <select name="customer_s" id="customer_s" onchange="getCusCode();" >
       <option value="0" >请选择</option>
@@ -57,12 +57,13 @@
     </option>
     <?php  endforeach; ?>
     </select>&nbsp;<input id="image" class="customer_code" disabled="disabled">
-    客户状态：
-    <input type="text" name="customer_name" id="customer_name" readonly="readonly" value="D43" />
+    客户余额：
+    <input type="text" name="customer_name" id="customer_name" style="width:100px"
+    readonly="readonly" value="8000元" />
   </p>
  <p>
   管理号：
-    <input type="text" name="mant_num" id="mant_num" value="" />&nbsp;
+    <input type="text" name="mant_num" id="mant_num" value="" onblur="checkmnum();" />&nbsp;
     <input id="image" disabled="disabled">&nbsp;
 
     是否加急：<select name="order_urgent" id="order_urgent">
@@ -84,7 +85,8 @@
   </div>
     
     材质：
-    <input type="text" name="paper_property" id="paper_property" onblur="getpro();" />
+    <input type="text" name="paper_property" id="paper_property" onblur="getpro();" style="width:100px"
+    />
   
     <select name="property_s" id="property_s" onchange="getpro_s();">
     <option value="0">请选择</option>
@@ -220,6 +222,9 @@ function getpro_s(){
   $("#paper_property").attr("value",p_val);
   // console.log(c_val);
   $(".paper_property").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+}
+function checkmnum(){
+
 }
 </script>
 </html>
