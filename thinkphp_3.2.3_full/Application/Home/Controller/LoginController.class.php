@@ -104,11 +104,7 @@ class LoginController extends FatherController{
 		$verify = new \Think\Verify();
 		return $verify->check($code, $id);
 	}
-	
-	public function top(){
-		// $this->display();
-		var_dump(session('verify_code')); die;
-	}
+	//qq
 	private function authcode($str){
         $key = substr(md5($this->seKey2), 5, 8);
         $str = substr(md5($str), 8, 10);
