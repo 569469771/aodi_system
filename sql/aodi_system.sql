@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-03-17 10:25:42
+-- Generation Time: 2017-04-22 10:43:48
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `aodi_system`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `aodi_account`
+--
+
+CREATE TABLE IF NOT EXISTS `aodi_account` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `month` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '月份',
+  `customer_id` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '客户表id',
+  `customer_account` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '月份订单价格',
+  `u_id` int(10) unsigned NOT NULL DEFAULT '1',
+  `date` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MRG_MyISAM DEFAULT CHARSET=armscii8;
 
 -- --------------------------------------------------------
 
@@ -42,9 +58,9 @@ CREATE TABLE IF NOT EXISTS `aodi_company` (
 --
 
 INSERT INTO `aodi_company` (`id`, `company_name`, `company_adress`, `company_state`, `company_area`, `u_id`, `up_date`) VALUES
-(1, '宁波奥迪斯丹有限责任公司', '浙江省宁波市北仑区', '1', '浙江省', 2, 122),
-(2, '安庆奥迪斯丹有限责任公司', '安徽省安庆市望江县', '1', '安徽省', 2, 545455),
-(3, '连云港奥迪斯丹有限责任公司', '连云港经济开发区', '1', '连云港', 1, 0);
+(1, '宁波奥迪斯丹有限责任公司', '浙江省宁波市北仑区', '1', '浙江省', 2, 1484730471),
+(2, '安庆奥迪斯丹有限责任公司', '安徽省安庆市望江县', '1', '安徽省', 2, 1484730481),
+(3, '连云港奥迪斯丹有限责任公司', '连云港经济开发区', '1', '连云港', 1, 1484731471);
 
 -- --------------------------------------------------------
 
@@ -71,18 +87,18 @@ CREATE TABLE IF NOT EXISTS `aodi_cuspaper` (
 --
 
 INSERT INTO `aodi_cuspaper` (`id`, `paper_id`, `customer_id`, `sup_id`, `cuspa_price`, `cuspa_state`, `u_id`, `up_date`) VALUES
-(1, 1, 1, 1, '12.000', '1', 1, 1486646052),
-(2, 4, 1, 1, '10.000', '1', 1, 1486646060),
-(3, 2, 2, 2, '10.000', '1', 1, 1486646078),
-(4, 6, 2, 1, '11.000', '1', 1, 1486646132),
-(5, 3, 5, 2, '15.000', '1', 2, 1486796970),
-(6, 3, 2, 2, '30.000', '1', 2, 1486967991),
-(7, 4, 2, 1, '18.000', '1', 2, 1486968041),
-(8, 1, 2, 1, '20.000', '1', 2, 1486968130),
-(9, 7, 2, 2, '19.000', '1', 2, 1486968149),
-(10, 2, 1, 2, '21.000', '1', 2, 1486977601),
-(11, 5, 5, 1, '15.000', '1', 2, 1487149599),
-(12, 6, 5, 1, '50.000', '1', 2, 1487149913);
+(1, 1, 1, 1, '7.000', '1', 1, 1486646052),
+(2, 4, 1, 1, '8.200', '1', 1, 1486646060),
+(3, 2, 2, 2, '6.200', '1', 1, 1486646078),
+(4, 6, 2, 1, '7.100', '1', 1, 1486646132),
+(5, 3, 5, 2, '6.500', '1', 2, 1486796970),
+(6, 3, 2, 2, '8.200', '1', 2, 1486967991),
+(7, 4, 2, 1, '8.500', '1', 2, 1486968041),
+(8, 1, 2, 1, '7.600', '1', 2, 1486968130),
+(9, 7, 2, 2, '6.300', '1', 2, 1486968149),
+(10, 2, 1, 2, '6.700', '1', 2, 1486977601),
+(11, 5, 5, 1, '8.300', '1', 2, 1487149599),
+(12, 6, 5, 1, '7.560', '1', 2, 1487149913);
 
 -- --------------------------------------------------------
 
@@ -217,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=115 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=125 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -337,7 +353,17 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (111, '李', 2, '127.0.0.1', 1489459423),
 (112, '李', 2, '127.0.0.1', 1489466163),
 (113, '王', 1, '127.0.0.1', 1489727103),
-(114, '王', 1, '127.0.0.1', 1489727798);
+(114, '王', 1, '127.0.0.1', 1489727798),
+(115, '王', 1, '127.0.0.1', 1489812729),
+(116, '王', 1, '127.0.0.1', 1489821845),
+(117, '王', 1, '127.0.0.1', 1490675608),
+(118, '王', 1, '127.0.0.1', 1490679268),
+(119, '王', 1, '127.0.0.1', 1490683268),
+(120, '王', 1, '127.0.0.1', 1490761223),
+(121, '王', 1, '127.0.0.1', 1490770339),
+(122, '王', 1, '127.0.0.1', 1490776789),
+(123, '王', 1, '127.0.0.1', 1491293627),
+(124, '王', 1, '127.0.0.1', 1492847526);
 
 -- --------------------------------------------------------
 
@@ -423,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `aodi_orderone` (
 --
 
 INSERT INTO `aodi_orderone` (`id`, `customer_id`, `customer_name`, `company_id`, `mant_num`, `job_num`, `order_urgent`, `order_state`, `order_num`, `order_price`, `order_otherprice`, `is_paper`, `del_date`) VALUES
-(1, 1, '宏宇', 1, 'D43-226-550', '22222222222222222', '1', '1', 300, '10.000', '500.000', '0', 455545455),
+(1, 2, '宏宇', 2, 'D43-226-550', '22222222222222222', '1', '1', 300, '10.000', '500.000', '0', 455545455),
 (2, 2, '宏宇', 2, 'D43-88', '1232353236121408', '0', '1', 100, '10.000', '560.000', '0', 2121335454);
 
 -- --------------------------------------------------------
@@ -446,6 +472,7 @@ CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
   `box_volume` decimal(5,3) NOT NULL DEFAULT '0.000' COMMENT '纸箱成形单个体积㎥',
   `order_map` enum('0','1') CHARACTER SET armscii8 NOT NULL DEFAULT '0' COMMENT '是否需要制图（0不需要）',
   `map_color` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '几色印刷',
+  `u_id` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '添加者id',
   `up_date` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`orderone_id`),
   KEY `shg_name` (`shg_name`),
@@ -459,9 +486,9 @@ CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
 -- 转存表中的数据 `aodi_ordertwo`
 --
 
-INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `box_prop`, `box_volume`, `order_map`, `map_color`, `up_date`) VALUES
-(1, '0', '0', '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '0', '0.000', '0', 1, 1245637891),
-(2, '0', '0', '针头', '3.000', 580, 480, 380, 'ntf321', '0', '0.000', '0', 4, 0);
+INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `box_prop`, `box_volume`, `order_map`, `map_color`, `u_id`, `up_date`) VALUES
+(1, '0', '0', '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '0', '0.000', '0', 1, 1, 1245637891),
+(2, '0', '0', '针头', '3.000', 580, 480, 380, 'ntf321', '0', '0.000', '0', 4, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -489,18 +516,33 @@ CREATE TABLE IF NOT EXISTS `aodi_paper` (
 --
 
 INSERT INTO `aodi_paper` (`id`, `sup_id`, `paper_property`, `gram_weight`, `paper_name`, `paper_price`, `paper_state`, `up_date`) VALUES
-(1, 1, 'N3N5Q', 620, 'AB', '15.000', '1', 1486442288),
-(2, 2, 'N3Q3N', 600, 'AB', '7.000', '1', 1486980881),
-(3, 2, 'F3N1T4Q', 1000, 'ABC', '12.000', '1', 0),
-(4, 1, 'N3N5T', 580, 'AB', '18.000', '1', 0),
-(5, 1, 'N3N5W', 610, 'AB', '18.320', '1', 0),
-(6, 1, 'N5T3T', 580, 'AB', '10.000', '1', 0),
-(7, 2, 'N3N5T', 580, 'AB', '12.000', '1', 0),
-(8, 3, 'N3N5T', 580, 'AB', '12.000', '1', 1486980852),
-(9, 4, 'N3N5T', 580, 'AB', '12.000', '1', 1486195324),
-(10, 5, 'N3N5T', 580, 'AB', '12.000', '1', 1486195348),
-(11, 3, 'N3N5W', 610, 'AB', '13.000', '1', 1486195450),
-(12, 1, 'N315Q', 610, 'AB', '12.000', '1', 1486441180);
+(1, 1, 'N3N5Q', 620, 'AB', '4.120', '1', 1486442288),
+(2, 2, 'N3Q3N', 600, 'AB', '3.200', '1', 1486980881),
+(3, 2, 'F3N1T4Q', 1000, 'ABC', '8.350', '1', 0),
+(4, 1, 'N3N5T', 580, 'AB', '4.100', '1', 0),
+(5, 1, 'N3N5W', 610, 'AB', '3.200', '1', 0),
+(6, 1, 'N5T3T', 580, 'AB', '5.200', '1', 0),
+(7, 2, 'N3N5T', 580, 'AB', '4.850', '1', 0),
+(8, 3, 'N3N5T', 580, 'AB', '4.250', '1', 1486980852),
+(9, 4, 'N3N5T', 580, 'AB', '4.650', '1', 1486195324),
+(10, 5, 'N3N5T', 580, 'AB', '5.320', '1', 1486195348),
+(11, 3, 'N3N5W', 610, 'AB', '4.560', '1', 1486195450),
+(12, 1, 'N315Q', 610, 'AB', '4.250', '1', 1486441180);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `aodi_payment`
+--
+
+CREATE TABLE IF NOT EXISTS `aodi_payment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` int(10) unsigned NOT NULL COMMENT '客户表id',
+  `payment` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '付款',
+  `u_id` int(10) unsigned NOT NULL,
+  `u_date` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
