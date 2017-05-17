@@ -4,14 +4,16 @@ namespace Home\Controller;
 class KesuController extends FatherController {
     public function index(){
 
-		$this->display('Qxian');
+		$this->display('Index');
 		
 	}
-	public function qxgroup(){
-		if(I('post.qxname') && $_POST){
-			
+	public function addKs(){
+		
+		if($_POST){
+			dump(I('post'));
+			dump($_POST);
 		}else{
-			$this->display('Qxian');
+			$this->display('Kesuadd');
 		}
 		
 	}
