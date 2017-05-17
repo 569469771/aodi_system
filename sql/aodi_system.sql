@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-04-22 10:43:48
+-- Generation Time: 2017-05-17 09:52:44
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `aodi_system` 
+-- Database: `aodi_system`
 --
 
 -- --------------------------------------------------------
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=125 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=132 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -363,7 +363,14 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (121, '王', 1, '127.0.0.1', 1490770339),
 (122, '王', 1, '127.0.0.1', 1490776789),
 (123, '王', 1, '127.0.0.1', 1491293627),
-(124, '王', 1, '127.0.0.1', 1492847526);
+(124, '王', 1, '127.0.0.1', 1492847526),
+(125, '王', 1, '127.0.0.1', 1493429906),
+(126, '王', 1, '127.0.0.1', 1494461584),
+(127, '王', 1, '127.0.0.1', 1494577643),
+(128, '王', 1, '127.0.0.1', 1495000942),
+(129, '王', 1, '127.0.0.1', 1495001762),
+(130, '王', 1, '127.0.0.1', 1495001844),
+(131, '王', 1, '127.0.0.1', 1495005533);
 
 -- --------------------------------------------------------
 
@@ -542,7 +549,7 @@ CREATE TABLE IF NOT EXISTS `aodi_payment` (
   `u_id` int(10) unsigned NOT NULL,
   `u_date` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COMMENT='客户付款表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -629,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `aodi_qxian` (
   KEY `p_id` (`p_id`),
   KEY `group_id` (`group_id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=42 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=43 ;
 
 --
 -- 转存表中的数据 `aodi_qxian`
@@ -669,7 +676,8 @@ INSERT INTO `aodi_qxian` (`id`, `qx_name`, `p_id`, `action`, `group_id`, `state`
 (38, '修改订单', 7, 'Home/Order/editOrder/', '1', '0', 2, 1486362500),
 (39, '搜索订单', 7, 'Home/Order/schOrder/', '1', '0', 2, 1486433149),
 (40, '添加客户纸板', 3, 'Home/Customer/addCusPaper/', '1', '1', 2, 1486960752),
-(41, '客户纸板', 3, 'Home/Customer/cusPaper/', '1', '1', 1, 1486640080);
+(41, '客户纸板', 3, 'Home/Customer/cusPaper/', '1', '1', 1, 1486640080),
+(42, '添加客诉', 8, 'Home/Kesu/addKs/', '1', '1', 1, 1495001668);
 
 -- --------------------------------------------------------
 
