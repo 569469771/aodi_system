@@ -83,7 +83,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 		<span id="apimg">
 		</span>
 		<image onclick="javascrt:this.src='<?php echo PUB ; ?>Home/Login/verify/<?php echo rand(1,100)?>'" src="<?php echo PUB ; ?>Home/Login/verify " 
-		style="cursor:pointer;background:white;width:150px;height:37px;"/>
+		style="cursor:pointer;background:white;width:110px;height:37px;position: absolute;right: 0px;"/>
 		
 		<button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
 	</form>
@@ -106,16 +106,16 @@ function apimg(){
 			// console.log( "Data Saved: " + msg );  
 			if(msg=='11'){
 				$("span > image").remove();
-				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/right.jpg" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 
+				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/right.jpg" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
 			}else{
 				$("span > image").remove();
-				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.jpg" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 
+				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.jpg" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
 
 			}
 		}
 	});
 	
-	<!-- $("#apimg").html('<image id="flag" src="./Public/image/run.gif" style="margin-bottom:-10px;margin-left:110px;width:30px;height:30px;"/>'); 
+	<!-- $("#apimg").html('<image id="flag" src="./Public/image/run.gif" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
 	-->
 
 }
