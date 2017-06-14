@@ -9,24 +9,8 @@ class LoginController extends FatherController {
 		
 	// }
 	public function login(){
-		$User = D('User');
-		// 相当于 $User = new \Home\Model\UserModel();
-		// 执行具体的数据操作
-		$data=$User->getUser();
-		$this->assign('data',$data);
-		if($_POST==null)
-			$this->display();
-		else{
-			print_r($_POST);
-		}
+		echo '2333';
 		
 	}
-	public function verify(){
-		$Verify = new \Think\Verify();
-		$Verify->length   = 4;
-		// $Verify->useZh = true; 
-		// 设置验证码字符
-		//$Verify->zhSet = '们以我到他会作时要动国部民可出能方进在了不和有大这';
-		$Verify->entry();
-	}
+	
 }

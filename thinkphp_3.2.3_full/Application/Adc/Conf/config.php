@@ -5,9 +5,9 @@ return array(
 	'URL_MODEL'             =>  1,  
 	'DB_TYPE'               =>  'Mysql',     // 数据库类型
 	'DB_HOST'               =>  '127.0.0.1', // 服务器地址
-	'DB_NAME'               =>  'my_demo',          // 数据库名
+	'DB_NAME'               =>  'aodi_system',          // 数据库名
 	'DB_USER'               =>  'root',      // 用户名
-	'DB_PWD'                =>  '',          // 密码
+	'DB_PWD'                =>  '123',          // 密码
 	'DB_PORT'               =>  '3306',        // 端口
-	'DB_PREFIX'             =>  'my_' 
+	'DB_PREFIX'             =>  'aodi_' 
 );

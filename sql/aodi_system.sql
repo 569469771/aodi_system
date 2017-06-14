@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-05-17 09:52:44
+-- Generation Time: 2017-06-14 10:21:33
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -30,11 +30,13 @@ CREATE TABLE IF NOT EXISTS `aodi_account` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `month` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '月份',
   `customer_id` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '客户表id',
-  `customer_account` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '月份订单价格',
+  `order_account` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '月份订单总价格',
   `u_id` int(10) unsigned NOT NULL DEFAULT '1',
   `date` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MRG_MyISAM DEFAULT CHARSET=armscii8;
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `month` (`month`)
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -80,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `aodi_cuspaper` (
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
   KEY `sup_id` (`sup_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='客户报价表' AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `aodi_cuspaper`
@@ -109,7 +111,7 @@ INSERT INTO `aodi_cuspaper` (`id`, `paper_id`, `customer_id`, `sup_id`, `cuspa_p
 CREATE TABLE IF NOT EXISTS `aodi_customer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `customer_code` varchar(30) NOT NULL COMMENT '客户编号',
-  `customer_adress` varchar(100) DEFAULT NULL COMMENT '客户地址',
+  `customer_adress` varchar(255) DEFAULT NULL COMMENT '客户地址',
   `customer_credit` decimal(12,3) NOT NULL DEFAULT '5000.000' COMMENT '客户信用额',
   `customer_name` varchar(50) NOT NULL COMMENT '客户名称',
   `customer_state` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '客户是否可用，0不存在，1存在',
@@ -233,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=132 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=140 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -370,7 +372,15 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (128, '王', 1, '127.0.0.1', 1495000942),
 (129, '王', 1, '127.0.0.1', 1495001762),
 (130, '王', 1, '127.0.0.1', 1495001844),
-(131, '王', 1, '127.0.0.1', 1495005533);
+(131, '王', 1, '127.0.0.1', 1495005533),
+(132, '王', 1, '127.0.0.1', 1495011218),
+(133, '王', 1, '127.0.0.1', 1495074114),
+(134, '王', 1, '127.0.0.1', 1495074782),
+(135, '王', 1, '127.0.0.1', 1495081828),
+(136, '王', 1, '127.0.0.1', 1495095395),
+(137, '王', 1, '127.0.0.1', 1497235595),
+(138, '王', 1, '127.0.0.1', 1497256380),
+(139, '王', 1, '127.0.0.1', 1497400082);
 
 -- --------------------------------------------------------
 
@@ -510,7 +520,7 @@ CREATE TABLE IF NOT EXISTS `aodi_paper` (
   `gram_weight` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT '克重（g/㎡）',
   `paper_name` varchar(50) NOT NULL COMMENT '纸板瓦楞类型',
   `paper_price` decimal(8,3) unsigned NOT NULL COMMENT '纸板价格（㎡/元）',
-  `paper_state` enum('0','1') NOT NULL DEFAULT '1' COMMENT '1存在，0不存在',
+  `paper_state` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '1存在，0不存在',
   `up_date` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `paper_name` (`paper_property`),
@@ -525,8 +535,8 @@ CREATE TABLE IF NOT EXISTS `aodi_paper` (
 INSERT INTO `aodi_paper` (`id`, `sup_id`, `paper_property`, `gram_weight`, `paper_name`, `paper_price`, `paper_state`, `up_date`) VALUES
 (1, 1, 'N3N5Q', 620, 'AB', '4.120', '1', 1486442288),
 (2, 2, 'N3Q3N', 600, 'AB', '3.200', '1', 1486980881),
-(3, 2, 'F3N1T4Q', 1000, 'ABC', '8.350', '1', 0),
-(4, 1, 'N3N5T', 580, 'AB', '4.100', '1', 0),
+(3, 2, 'F3N1T4Q', 1000, 'ABC', '8.350', '1', 4566656),
+(4, 1, 'N3N5T', 580, 'AB', '4.100', '1', 32333),
 (5, 1, 'N3N5W', 610, 'AB', '3.200', '1', 0),
 (6, 1, 'N5T3T', 580, 'AB', '5.200', '1', 0),
 (7, 2, 'N3N5T', 580, 'AB', '4.850', '1', 0),
@@ -535,6 +545,20 @@ INSERT INTO `aodi_paper` (`id`, `sup_id`, `paper_property`, `gram_weight`, `pape
 (10, 5, 'N3N5T', 580, 'AB', '5.320', '1', 1486195348),
 (11, 3, 'N3N5W', 610, 'AB', '4.560', '1', 1486195450),
 (12, 1, 'N315Q', 610, 'AB', '4.250', '1', 1486441180);
+
+--
+-- 触发器 `aodi_paper`
+--
+DROP TRIGGER IF EXISTS `paper_state`;
+DELIMITER //
+CREATE TRIGGER `paper_state` AFTER UPDATE ON `aodi_paper`
+ FOR EACH ROW begin  
+if new.paper_state!=old.paper_state then  
+update aodi_cuspaper set aodi_cuspaper.cuspa_state=new.paper_state where aodi_cuspaper.paper_id=old.id;  
+end if;  
+end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -545,10 +569,12 @@ INSERT INTO `aodi_paper` (`id`, `sup_id`, `paper_property`, `gram_weight`, `pape
 CREATE TABLE IF NOT EXISTS `aodi_payment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` int(10) unsigned NOT NULL COMMENT '客户表id',
-  `payment` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '付款',
+  `payment` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '付款金额',
+  `payment_method` enum('1','2','3') NOT NULL DEFAULT '1' COMMENT '支付方式:1汇款，2现金，3其他',
   `u_id` int(10) unsigned NOT NULL,
   `u_date` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COMMENT='客户付款表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -572,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `aodi_produce` (
   KEY `customer_id` (`customer_id`),
   KEY `is_produce` (`is_produce`),
   KEY `up_date` (`up_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -594,7 +620,7 @@ CREATE TABLE IF NOT EXISTS `aodi_purchaseone` (
   `paper_downline` smallint(5) NOT NULL DEFAULT '0' COMMENT '下压线宽',
   `purchase_state` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '是否是取消的订单',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='纸板订购表1' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='纸板订购表1' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

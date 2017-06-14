@@ -93,5 +93,8 @@ class AjaxController extends Controller{
 		}
 		
 	}
+	public function test_soap(){
+		
+	}
 		
 }

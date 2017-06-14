@@ -6,6 +6,9 @@ class FatherController extends Controller{
 		parent::__construct();
 		// echo "hello!";
 	}
+	public function getName(){
+		return "1";
+	}
 
 
 }
