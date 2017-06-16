@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-06-14 10:21:33
+-- Generation Time: 2017-06-16 10:04:09
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `aodi_log` (
   `up_date` int(10) NOT NULL DEFAULT '0' COMMENT '登陆时间',
   PRIMARY KEY (`id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=140 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户登陆信息表' AUTO_INCREMENT=142 ;
 
 --
 -- 转存表中的数据 `aodi_log`
@@ -380,7 +380,9 @@ INSERT INTO `aodi_log` (`id`, `log_name`, `u_id`, `log_ip`, `up_date`) VALUES
 (136, '王', 1, '127.0.0.1', 1495095395),
 (137, '王', 1, '127.0.0.1', 1497235595),
 (138, '王', 1, '127.0.0.1', 1497256380),
-(139, '王', 1, '127.0.0.1', 1497400082);
+(139, '王', 1, '127.0.0.1', 1497400082),
+(140, '王', 1, '127.0.0.1', 1497594153),
+(141, '王', 1, '127.0.0.1', 1497595776);
 
 -- --------------------------------------------------------
 
@@ -452,6 +454,7 @@ CREATE TABLE IF NOT EXISTS `aodi_orderone` (
   `order_price` decimal(8,3) unsigned NOT NULL COMMENT '订单单个纸箱价格',
   `order_otherprice` decimal(8,3) unsigned NOT NULL DEFAULT '0.000' COMMENT '版费+模具费',
   `is_paper` enum('0','1') NOT NULL DEFAULT '0' COMMENT '是否是用统板，0不是',
+  `up_uid` int(10) unsigned NOT NULL COMMENT '修改者id',
   `del_date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '送货日期',
   PRIMARY KEY (`id`),
   KEY `mant_num` (`mant_num`),
@@ -465,9 +468,9 @@ CREATE TABLE IF NOT EXISTS `aodi_orderone` (
 -- 转存表中的数据 `aodi_orderone`
 --
 
-INSERT INTO `aodi_orderone` (`id`, `customer_id`, `customer_name`, `company_id`, `mant_num`, `job_num`, `order_urgent`, `order_state`, `order_num`, `order_price`, `order_otherprice`, `is_paper`, `del_date`) VALUES
-(1, 2, '宏宇', 2, 'D43-226-550', '22222222222222222', '1', '1', 300, '10.000', '500.000', '0', 455545455),
-(2, 2, '宏宇', 2, 'D43-88', '1232353236121408', '0', '1', 100, '10.000', '560.000', '0', 2121335454);
+INSERT INTO `aodi_orderone` (`id`, `customer_id`, `customer_name`, `company_id`, `mant_num`, `job_num`, `order_urgent`, `order_state`, `order_num`, `order_price`, `order_otherprice`, `is_paper`, `up_uid`, `del_date`) VALUES
+(1, 2, '宏宇', 2, 'D43-226-550', '22222222222222222', '1', '1', 300, '10.000', '500.000', '0', 0, 455545455),
+(2, 2, '宏宇', 2, 'D43-88', '1232353236121408', '0', '1', 100, '10.000', '560.000', '0', 0, 2121335454);
 
 -- --------------------------------------------------------
 
@@ -489,7 +492,7 @@ CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
   `box_volume` decimal(5,3) NOT NULL DEFAULT '0.000' COMMENT '纸箱成形单个体积㎥',
   `order_map` enum('0','1') CHARACTER SET armscii8 NOT NULL DEFAULT '0' COMMENT '是否需要制图（0不需要）',
   `map_color` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '几色印刷',
-  `u_id` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '添加者id',
+  `in_uid` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '添加者id',
   `up_date` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`orderone_id`),
   KEY `shg_name` (`shg_name`),
@@ -503,7 +506,7 @@ CREATE TABLE IF NOT EXISTS `aodi_ordertwo` (
 -- 转存表中的数据 `aodi_ordertwo`
 --
 
-INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `box_prop`, `box_volume`, `order_map`, `map_color`, `u_id`, `up_date`) VALUES
+INSERT INTO `aodi_ordertwo` (`orderone_id`, `order_product`, `paper_oder`, `shg_name`, `today_price`, `box_long`, `box_width`, `box_height`, `paper_property`, `box_prop`, `box_volume`, `order_map`, `map_color`, `in_uid`, `up_date`) VALUES
 (1, '0', '0', '50ml注射器', '0.000', 650, 380, 450, 'Ntf313', '0', '0.000', '0', 1, 1, 1245637891),
 (2, '0', '0', '针头', '3.000', 580, 480, 380, 'ntf321', '0', '0.000', '0', 4, 1, 0);
 
@@ -571,7 +574,8 @@ CREATE TABLE IF NOT EXISTS `aodi_payment` (
   `customer_id` int(10) unsigned NOT NULL COMMENT '客户表id',
   `payment` decimal(12,3) NOT NULL DEFAULT '0.000' COMMENT '付款金额',
   `payment_method` enum('1','2','3') NOT NULL DEFAULT '1' COMMENT '支付方式:1汇款，2现金，3其他',
-  `u_id` int(10) unsigned NOT NULL,
+  `in_uid` int(10) unsigned NOT NULL COMMENT '添加者id',
+  `up_uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改者id',
   `u_date` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`)
