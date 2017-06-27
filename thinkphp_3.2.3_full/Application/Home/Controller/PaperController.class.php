@@ -55,6 +55,12 @@ class PaperController extends FatherController {
 			$this->display('Addpaper');
 		}
 	}
+	/**
+	*
+	*修改纸板
+	*
+	*
+	*/
 	public function editPaper($id='0'){
 		$id=intval(I('get.id'));
 		if($id=='0'){
@@ -89,24 +95,24 @@ class PaperController extends FatherController {
 					$inflag=$pap->editData($id,$data);
 					if($inflag){
 						
-						$cuspap= D('Cuspaper');
-						$cpdata = $cuspap->getPaperId($id);
+						// $cuspap= D('Cuspaper');
+						// $cpdata = $cuspap->getPaperId($id);
 						
-						if($cpdata!=null){
-							if($cpdata['cuspa_state']!=$data['paper_state']){
-								$cpflag = $cuspap->editCusPaper($id,$state);
-								if($cpflag){
-									$this->success('修改成功', '/Home/Paper/index/',1);
-								}else{
-									$this->error('修改cuspaper表cuspa_state数据失败！','/Home/Paper/index/',3);
-								}	
-							}else{
-								$this->success('修改成功', '/Home/Paper/index/',1);
-							}
+						// if($cpdata!=null){
+							// if($cpdata['cuspa_state']!=$data['paper_state']){
+								// $cpflag = $cuspap->editCusPaper($id,$state);
+								// if($cpflag){
+									// $this->success('修改成功', '/Home/Paper/index/',1);
+								// }else{
+									// $this->error('修改cuspaper表cuspa_state数据失败！','/Home/Paper/index/',3);
+								// }	
+							// }else{
+								// $this->success('修改成功', '/Home/Paper/index/',1);
+							// }
 
-						}else{
+						// }else{
 							$this->success('修改成功', '/Home/Paper/index/',1);
-						}
+						// }
 					}else{
 						$this->error('修改失败！','/Home/Paper/index/',3);
 					}
