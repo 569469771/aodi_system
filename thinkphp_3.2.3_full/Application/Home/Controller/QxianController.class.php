@@ -35,6 +35,7 @@ class QxianController extends FatherController {
 		$this->display('Index');	
 	}
 	public function qxadd(){
+		// var_dump($_POST);die;
 		if($_POST){
 			if(cookie('ud')){
 				$data =[];

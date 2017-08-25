@@ -14,7 +14,9 @@
 <script src="<?php echo PUB; ?>Public/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 <body>
 <div>
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Qxian/qxadd/">
+<form id="form1" name="form1" method="post"
+ onsubmit="return checkinfo();" 
+ action="<?php echo PUB; ?>Home/Qxian/qxadd/">
   <p>
     权限名称：
     <input type="text" name="qxname" id="textfield" />
@@ -48,6 +50,21 @@
 	<input type="reset" name="button2" id="button2" value="重置" />
   </p>
 </form>
+<script type="text/javascript" >
+function checkinfo(){
+	var checkval = $("#textfield").val();
+	var checkval_1 = $("#textfield2").val();
+	//console.log(checkval);
+	// console.log(checkval.match(/\s/));
+	if(checkval.match(/\s/g) || checkval=='' || checkval_1==''){
+		alert("输入信息错误！");
+		return false;
+	}
+	
+	return true;
+}
+
+</script>
 </div>
 </body>
 </html>
