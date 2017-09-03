@@ -45,7 +45,9 @@
 <body>
  
 <div id="div1" >
-<form id="form1" name="form1" method="post" action="<?php echo PUB; ?>Home/Order/addOrder/">
+<form id="form1" name="form1" method="post" 
+onsubmit="return checkfrom();" 
+action="<?php echo PUB; ?>Home/Order/addOrder/">
    <div>
   <p>添加订单</p>
   
@@ -68,7 +70,8 @@
  <p>
   管理号：
     <input type="text" name="mant_num" id="mant_num" value="" onblur="checkmnum();" />&nbsp;
-    <input id="image" disabled="disabled">&nbsp;
+    <input id="image" disabled="disabled" style="background-image: url('HTTP://www.st.cc/Public/image/yes.png');"
+	>&nbsp;
 
     是否加急：<select name="order_urgent" id="order_urgent">
     <option value="0">不加急</option>
@@ -105,7 +108,9 @@
     <p>
       规格：长&nbsp;<input type="text" name="box_long"  id="box" />&nbsp;
       X&nbsp;宽&nbsp;<input type="text" name="box_width" id="box" />&nbsp;
-      X&nbsp;高&nbsp;<input type="text" name="box_height" id="box" />&nbsp;MM&nbsp;<input id="image" disabled="disabled">
+      X&nbsp;高&nbsp;<input type="text" name="box_height" id="box" />&nbsp;MM&nbsp;
+	  <input id="image" class="box_p" disabled="disabled" 
+	   style="background-image: url('HTTP://www.st.cc/Public/image/yes.png');">
     </p>
      订单数量： <input type="text" name="order_num"  id="box" />&nbsp;
 
@@ -126,7 +131,10 @@
     </select>&nbsp;
 
 	送货日期： <input type="text" name="del_date"  id="del_date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
-  style='width:100px' readonly="readonly" />    
+  style='width:100px' readonly="readonly" />&nbsp;
+
+<input id="image" class="del_date" disabled="disabled"
+ style="background-image: url(HTTP://www.st.cc/Public/image/yes.png);">  
     </p> 
     <p>
   送货地址：<input type="text" name="customer_adress"  id="name" disabled="disabled" value="1235545" />
@@ -139,6 +147,24 @@
 </div>
 </body>
 <script type="text/javascript">
+
+
+//检查数据可靠性
+function checkfrom(){
+	var c_val = $("#customer_code").val(); 
+	var p_ppy = $("#paper_property").val(); 
+	var box_long = $("input[name='box_long']").val();
+	var box_width = $("input[name='box_width']").val();
+	var box_height = $("input[name='box_height']").val();
+	var order_num = $("input[name='order_num']").val();
+	var del_date = $("#del_date").val();
+	//box_height==''?console.log("0000"):console.log("11111");
+	//console.log(box);
+	return false;
+
+}
+
+
 function getCode(){
   var c_val = $("#customer_code").val(); 
   

@@ -33,6 +33,11 @@ class OrderController extends FatherController {
 		dump($_POST);die;
 		
 	}
+	/*
+	**
+	*添加订单
+	*	
+	*/
 	public function addOrder(){
 		if($_POST){
 			dump($_POST);die;

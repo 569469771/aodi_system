@@ -49,10 +49,10 @@ class LoginController extends FatherController{
 			if($userinfo && $userinfo['u_passward'] == $user_pass_input && $this->check_ip($_SERVER['REMOTE_ADDR'])){
 				// exit('333333');
 				// echo $userinfo['full_name'];die('2211');
-				cookie('name',$userinfo['full_name'],array('expire'=>3600));
-				cookie('gd',$userinfo['group_id'],array('expire'=>3600));
-				cookie('cd',$userinfo['company_id'],array('expire'=>3600));
-				cookie('ud',$userinfo['id'],array('expire'=>3600));
+				cookie('name',$userinfo['full_name'],array('expire'=>7200));
+				cookie('gd',$userinfo['group_id'],array('expire'=>7200));
+				cookie('cd',$userinfo['company_id'],array('expire'=>7200));
+				cookie('ud',$userinfo['id'],array('expire'=>7200));
 				$logdata=D('Log');
 				// dump($_SERVER);die;
 				$loginfo=[];
