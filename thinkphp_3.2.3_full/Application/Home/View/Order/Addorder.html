@@ -151,16 +151,31 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
 
 //检查数据可靠性
 function checkfrom(){
-	var c_val = $("#customer_code").val(); 
+	
 	var p_ppy = $("#paper_property").val(); 
 	var box_long = $("input[name='box_long']").val();
 	var box_width = $("input[name='box_width']").val();
 	var box_height = $("input[name='box_height']").val();
 	var order_num = $("input[name='order_num']").val();
 	var del_date = $("#del_date").val();
-	//box_height==''?console.log("0000"):console.log("11111");
-	//console.log(box);
-	return false;
+  var mant_num = $("#mant_num").val();
+  var customer_code = $("#customer_code").val();
+
+
+  // console.log(box_long.match(/^[1-9]\d*$/g)[0]);
+	if(mant_num.length>3&&customer_code.length>0&&p_ppy.length>0&&box_long.length>0&&box_width.length>0&&box_height.length>0&&order_num.length>0){
+    if(box_long.match(/^[1-9]\d*$/g)[0]>0&&box_width.match(/^[1-9]\d*$/g)[0]>0&&box_height.match(/^[1-9]\d*$/g)[0]>0){
+      return true;
+
+    }else{
+      return false;
+    }
+
+  }else{
+      return false;
+  }
+	
+	
 
 }
 

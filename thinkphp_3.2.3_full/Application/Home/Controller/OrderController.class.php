@@ -28,6 +28,10 @@ class OrderController extends FatherController {
 
 		$this->display('Index');
 	}
+	/*
+	*搜索订单
+	*
+	*/
 	public function schOrder(){
 		
 		dump($_POST);die;
@@ -38,6 +42,7 @@ class OrderController extends FatherController {
 	*添加订单
 	*	
 	*/
+	/*  */
 	public function addOrder(){
 		if($_POST){
 			dump($_POST);die;
@@ -51,6 +56,10 @@ class OrderController extends FatherController {
 		}
 		
 	}
+	/* 
+	*
+	*
+	*/
 	public function editOrder(){
 		dump($_GET);die;
 	}
