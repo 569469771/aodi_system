@@ -106,10 +106,10 @@ function apimg(){
 			// console.log( "Data Saved: " + msg );  
 			if(msg=='11'){
 				$("span > image").remove();
-				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/right.jpg" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
+				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/right.gif" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
 			}else{
 				$("span > image").remove();
-				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.jpg" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
+				$("#apimg").html('<image id="flag" src="<?php echo PUB ; ?>/Public/image/run.gif" style="margin-bottom:-10px;width:30px;height:30px;"/>'); 
 
 			}
 		}
