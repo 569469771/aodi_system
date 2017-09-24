@@ -32,4 +32,12 @@ class OrderModel extends Model {
 		limit($firstRow.','.$listRows)->select();
 		return $list;
 	}
+	public function getOrder($mantnum){
+		$User = M("Orderone");
+		$list = $User
+		->table($tableName)
+		->where("`mant_num` = '".$mantnum."'")->find();
+		return $list;
+		
+	}
 }

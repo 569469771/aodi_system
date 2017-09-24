@@ -64,6 +64,7 @@ body,td,th {
 .topys03 {
 	color: #F00;
 	text-align: right;
+	margin-top: -10px
 }
 .topys01 {
 	font-size: 18px;

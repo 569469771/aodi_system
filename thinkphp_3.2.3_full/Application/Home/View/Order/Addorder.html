@@ -48,8 +48,8 @@
 <form id="form1" name="form1" method="post" 
 onsubmit="return checkfrom();" 
 action="<?php echo PUB; ?>Home/Order/addOrder/">
-   <div>
-  <p>添加订单</p>
+   <div><p>&nbsp;</p>
+  <p style="font-size:20px;font-weight:bold;" >添加订单</p>
   
   <p>
     客户编号：
@@ -62,15 +62,19 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
       <?php echo $value['customer_name']; ?>
     </option>
     <?php  endforeach; ?>
-    </select>&nbsp;<input id="image" class="customer_code" disabled="disabled">
+    </select>&nbsp;<input id="image" class="customer_code" 
+    style="background-image: url('HTTP://www.st.cc/Public/image/no.png');"
+    disabled="disabled">
+    <input id="cus_name" type="hidden" value="vvvv" name="cus_name" />
     客户余额：
-    <input type="text" name="customer_name" id="customer_name" style="width:100px"
+    <input type="text" name="cus_balance" id="cus_balance" style="width:100px"
     readonly="readonly" value="8000.000" />&nbsp;元
   </p>
  <p>
   管理号：
     <input type="text" name="mant_num" id="mant_num" value="" onblur="checkmnum();" />&nbsp;
-    <input id="image" disabled="disabled" style="background-image: url('HTTP://www.st.cc/Public/image/yes.png');"
+    <input id="image" class="m_num" disabled="disabled" 
+    style="background-image: url('HTTP://www.st.cc/Public/image/no.png');"
 	>&nbsp;
 
     是否加急：<select name="order_urgent" id="order_urgent">
@@ -98,7 +102,9 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
     <select name="property_s" id="property_s" onchange="getpro_s();">
     <option value="0">请选择</option>
     
-    </select>&nbsp;<input id="image" class="paper_property" disabled="disabled">&nbsp;
+    </select>&nbsp;<input id="image" class="paper_property" 
+    style="background-image: url('HTTP://www.st.cc/Public/image/no.png');"
+    disabled="disabled">&nbsp;
 
     统板：<select name="is_paper" id="is_paper">
     <option value="0">不用</option>
@@ -110,7 +116,7 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
       X&nbsp;宽&nbsp;<input type="text" name="box_width" id="box" />&nbsp;
       X&nbsp;高&nbsp;<input type="text" name="box_height" id="box" />&nbsp;MM&nbsp;
 	  <input id="image" class="box_p" disabled="disabled" 
-	   style="background-image: url('HTTP://www.st.cc/Public/image/yes.png');">
+	   style="background-image: url('HTTP://www.st.cc/Public/image/no.png');">
     </p>
      订单数量： <input type="text" name="order_num"  id="box" />&nbsp;
 
@@ -153,18 +159,21 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
 function checkfrom(){
 	
 	var p_ppy = $("#paper_property").val(); 
-	var box_long = $("input[name='box_long']").val();
-	var box_width = $("input[name='box_width']").val();
-	var box_height = $("input[name='box_height']").val();
-	var order_num = $("input[name='order_num']").val();
+	var box_long = $.trim($("input[name='box_long']").val());
+	var box_width = $.trim($("input[name='box_width']").val());
+	var box_height = $.trim($("input[name='box_height']").val());
+	var order_num = $.trim($("input[name='order_num']").val());
 	var del_date = $("#del_date").val();
   var mant_num = $("#mant_num").val();
   var customer_code = $("#customer_code").val();
-
-
-  // console.log(box_long.match(/^[1-9]\d*$/g)[0]);
+  // var cus_name = $("#cus_name").val();
+  //console.log(cus_name);
+  var qq = box_long.match(/^[1-9]\d*$/g);
+   console.log(qq);
+  // return false;
 	if(mant_num.length>3&&customer_code.length>0&&p_ppy.length>0&&box_long.length>0&&box_width.length>0&&box_height.length>0&&order_num.length>0){
-    if(box_long.match(/^[1-9]\d*$/g)[0]>0&&box_width.match(/^[1-9]\d*$/g)[0]>0&&box_height.match(/^[1-9]\d*$/g)[0]>0){
+    if(box_long.match(/^[1-9]\d*$/g)!=null&&box_width.match(/^[1-9]\d*$/g)!=null&&box_height.match(/^[1-9]\d*$/g)!=null&&order_num.match(/^[1-9]\d*$/g)!=null){
+
       return true;
 
     }else{
@@ -174,8 +183,6 @@ function checkfrom(){
   }else{
       return false;
   }
-	
-	
 
 }
 
@@ -185,7 +192,9 @@ function getCode(){
   
   var fval = $("#customer_s option[class="+c_val+"]").attr("value");
   $("#customer_s option[class="+c_val+"]").attr("selected","selected");
-  // console.log(c_val);
+  var c_name = $('#customer_s option:selected').html();
+  $("#cus_name").val($.trim(c_name));
+  // console.log($.trim(c_name));
   // console.log(fval);
   if(fval==undefined){
     $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
@@ -207,6 +216,9 @@ function getCusCode(){
   // console.log(cusval);
  
   var c_code=$("#customer_s option:selected").attr("class"); 
+  var c_name = $('#customer_s option:selected').html();
+  $("#cus_name").val($.trim(c_name));
+  // console.log($.trim(c_name));
   $("#customer_code").attr("value",c_code);
   $("#mant_num").attr("value",c_code+"-");
   $(".customer_code").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
@@ -269,7 +281,30 @@ function getpro_s(){
   $(".paper_property").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
 }
 function checkmnum(){
+  var mant_num = $("#mant_num").val();
+  if(mant_num.length>3){
+    $(".m_num").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+    $.ajax({
+        type: "POST",
+        url: "<?php echo PUB ; ?>Home/Ajax/getCusMantnum",
+        data: "mant_num="+mant_num,
+        success: function(msg){
+          // console.log(msg);  
 
+          if(msg!='00'){
+            $(".m_num").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+            // var arr = eval("("+msg+")");
+
+          }else{
+            alert('管理号重复了！');
+            $(".m_num").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+            var mant_num = $("#mant_num").val("");
+          }
+        }
+    });
+ }else{
+    $(".m_num").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+  }
 }
 </script>
 </html>

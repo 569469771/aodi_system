@@ -46,6 +46,35 @@ class OrderController extends FatherController {
 	public function addOrder(){
 		if($_POST){
 			dump($_POST);die;
+			//表1
+			// $customer_code = I("post.customer_code");
+			// $customer_id = 
+			// $customer_name =
+			// $company_id = 
+			// $mant_num = 
+			// $job_num =
+			// $order_urgent =
+			// $order_state =
+			// $order_num =
+			// $order_price =
+			// $order_otherprice =
+			// $is_paper =
+			// $up_uid =
+			// $del_date = 
+			//表2
+			// $orderone_id =
+			// $shg_name =
+			// $today_price =
+			// $box_long =
+			// $box_height =
+			// $box_width =
+			// $paper_property
+			// $box_prop =
+			// $box_volume =
+			// $map_color =
+			// $in_uid =
+			// $up_date =
+			// $order_map =
 	
 		}else{
 			$o_cus = D('Customer');
@@ -58,7 +87,7 @@ class OrderController extends FatherController {
 	}
 	/* 
 	*
-	*
+	*修改订单
 	*/
 	public function editOrder(){
 		dump($_GET);die;

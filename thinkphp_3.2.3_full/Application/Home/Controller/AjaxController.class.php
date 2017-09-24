@@ -93,7 +93,18 @@ class AjaxController extends Controller{
 		}
 		
 	}
-	public function test_soap(){
+	public function getCusMantnum(){
+		
+		$mantnum = trim(I("post.mant_num"));
+		if($mantnum){
+			$orderadd=D("Order");
+			$falginfo = $orderadd->getOrder($mantnum);
+			if($falginfo){
+				echo "00";
+			}else{
+				echo "11";
+			}
+		}
 		
 	}
 		
