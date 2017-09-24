@@ -48,14 +48,14 @@ class OrderController extends FatherController {
 			dump($_POST);die;
 			//表1
 			// $customer_code = I("post.customer_code");
-			// $customer_id = 
-			// $customer_name =
-			// $company_id = 
-			// $mant_num = 
+			// $customer_id = I("post.customer_s");
+			// $customer_name = I("post.cus_name");
+			// $company_id = cookie('cd');
+			// $mant_num = I("post.mant_num");
 			// $job_num =
-			// $order_urgent =
+			// $order_urgent = I("post.order_urgent");
 			// $order_state =
-			// $order_num =
+			// $order_num = I("post.order_num");
 			// $order_price =
 			// $order_otherprice =
 			// $is_paper =
