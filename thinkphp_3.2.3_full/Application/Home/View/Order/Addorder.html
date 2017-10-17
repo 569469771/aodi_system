@@ -110,11 +110,11 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
     <option value="0">不用</option>
     <option value="1">用</option>
     </select>&nbsp;
-    楞别：<input type="text" name="paper_name" id="box" disabled="disabled" value="AB" /> 
+    楞别：<input type="text" name="paper_name" id="box" readonly="readonly" value="AB" /> 
     <p>
       规格：长&nbsp;<input type="text" name="box_long"  id="box" />&nbsp;
       X&nbsp;宽&nbsp;<input type="text" name="box_width" id="box" />&nbsp;
-      X&nbsp;高&nbsp;<input type="text" name="box_height" id="box" />&nbsp;MM&nbsp;
+      X&nbsp;高&nbsp;<input type="text" name="box_height" id="box" onblur="checkBox();" />&nbsp;MM&nbsp;
 	  <input id="image" class="box_p" disabled="disabled" 
 	   style="background-image: url('HTTP://www.st.cc/Public/image/no.png');">
     </p>
@@ -174,6 +174,7 @@ function checkfrom(){
 	if(mant_num.length>3&&customer_code.length>0&&p_ppy.length>0&&box_long.length>0&&box_width.length>0&&box_height.length>0&&order_num.length>0){
     if(box_long.match(/^[1-9]\d*$/g)!=null&&box_width.match(/^[1-9]\d*$/g)!=null&&box_height.match(/^[1-9]\d*$/g)!=null&&order_num.match(/^[1-9]\d*$/g)!=null){
 
+      
       return true;
 
     }else{
@@ -182,6 +183,26 @@ function checkfrom(){
 
   }else{
       return false;
+  }
+
+}
+function checkBox(){
+  var box_long = $.trim($("input[name='box_long']").val());
+  var box_width = $.trim($("input[name='box_width']").val());
+  var box_height = $.trim($("input[name='box_height']").val());
+  if(box_long.length>0&&box_width.length>0&&box_height.length>0){
+    console.log("11");
+    if(box_long.match(/^[1-9]\d*$/g)!=null&&box_width.match(/^[1-9]\d*$/g)!=null&&box_height.match(/^[1-9]\d*$/g)!=null){
+
+      $(".box_p").css("background-image",'url(<?php echo PUB; ?>Public/image/yes.png)');
+    }else{
+
+      $(".box_p").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+    }
+    
+  }else{
+    $(".box_p").css("background-image",'url(<?php echo PUB; ?>Public/image/no.png)');
+
   }
 
 }
