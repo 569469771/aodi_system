@@ -82,7 +82,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 		<input type="text" style="width:150px;" name="code" placeholder="验证码" required="required" onblur='apimg();' />
 		<span id="apimg">
 		</span>
-		<image onclick="javascrt:this.src='<?php echo PUB ; ?>Home/Login/verify/<?php echo rand(1,100)?>'" src="<?php echo PUB ; ?>Home/Login/verify " 
+		<image onclick="javascrt:this.src='<?php echo PUB ; ?>Home/Login/verify/'+Math.random()" src="<?php echo PUB ; ?>Home/Login/verify " 
 		style="cursor:pointer;background:white;width:110px;height:37px;position: absolute;right: 0px;"/>
 		
 		<button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
