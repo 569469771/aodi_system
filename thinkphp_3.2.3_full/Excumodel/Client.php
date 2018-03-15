@@ -8,13 +8,13 @@ try{
      
      //non-wsdl方式调用web service    
     //在non-wsdl方式中option location系必须提供的,而服务端的location是选择性的，可以不提供
-$soap =new SoapClient(null,array('location'=>"http://www.st.cc/Excumodel/Soap.php",'uri'=>'test.php'));
+	$soap =new SoapClient(null,array('location'=>"http://www.st.cc/Excumodel/Soap.php",'uri'=>'test.php'));
     
-//两种调用方式，直接调用方法，和用__soapCall简接调用
-$result1 = $soap->getName();
-// $result2 = $soap->__soapCall("getName",$arr);
-var_dump($result1);
-//echo $result2;
+	//两种调用方式，直接调用方法，和用__soapCall简接调用
+	$result1 = $soap->getName();
+	// $result2 = $soap->__soapCall("getName",$arr);
+	var_dump($result1);
+	//echo $result2;
     
 }catch(SoapFault $e){
     echo $e->getMessage();
