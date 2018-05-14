@@ -69,7 +69,7 @@ class CustomerModel extends Model {
 	}
 	public function CusPaper($customer_code){
 		$mcus = M("Customer");
-		$data=$mcus->field('p.id,p.paper_property')
+		$data=$mcus->field('p.id,p.paper_property,customer_credit,customer_adress')
 		->join('aodi_cuspaper as cp ON aodi_customer.id = cp.customer_id')
 		->join('aodi_paper as p ON p.id = cp.paper_id')
 		->where("aodi_customer.customer_state = '1' AND aodi_customer.customer_code ='".$customer_code."'")

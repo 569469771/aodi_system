@@ -32,9 +32,10 @@
   #order_price{
     width:60px;
   }
-  #name{
+  #name,#customer_adress{
     width:400px;
   }
+ 
 	#button{
 	width:70px;
 	height:30px;
@@ -67,8 +68,8 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
     disabled="disabled">
     <input id="cus_name" type="hidden" value="vvvv" name="cus_name" />
     客户余额：
-    <input type="text" name="cus_balance" id="cus_balance" style="width:100px"
-    readonly="readonly" value="8000.000" />&nbsp;元
+    <input type="text" name="cus_balance1" id="cus_credit" style="width:100px"
+    readonly="readonly" />&nbsp;元
   </p>
  <p>
   管理号：
@@ -143,7 +144,7 @@ action="<?php echo PUB; ?>Home/Order/addOrder/">
  style="background-image: url(HTTP://www.st.cc/Public/image/yes.png);">  
     </p> 
     <p>
-  送货地址：<input type="text" name="customer_adress"  id="name" disabled="disabled" value="1235545" />
+  送货地址：<input type="text" name="customer_adress"  id="customer_adress" disabled="disabled" value="" />
   </p>
   <p>
     <input type="submit" name="button" id="button" value="提交" />&nbsp;
@@ -257,12 +258,16 @@ function getCP(){
         url: "<?php echo PUB ; ?>Home/Ajax/getCusPaper",
         data: "customer_code="+cus_code,
         success: function(msg){
-          // console.log(msg);  
+          //console.log(msg);
 
           if(msg!='00'){
             var arr = eval("("+msg+")");
-            
+            //console.log(arr[0]['customer_credit']);
             $("option").remove(".child");
+            //console.log(arr[0]["customer_adress"]);
+            $("#cus_credit").val(arr[0]['customer_credit']);
+            $("#customer_adress").val(arr[0]["customer_adress"]);
+
             for (var i=0;i<arr.length;i++){
 
                $("#property_s").append('<option class="child" id="'+arr[i]['paper_property']+'" value='+arr[i]['id']+' >'+arr[i]['paper_property']+'</option>');
@@ -295,6 +300,7 @@ function getpro(){
   }
   
 }
+//获取客户纸板
 function getpro_s(){
   var p_val = $("#property_s option:selected").attr("id"); 
   $("#paper_property").attr("value",p_val);

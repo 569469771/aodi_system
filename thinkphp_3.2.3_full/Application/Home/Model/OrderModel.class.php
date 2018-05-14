@@ -3,7 +3,7 @@ namespace Home\Model;
 use Think\Model;
 class OrderModel extends Model {
 	protected $tableName = 'orderone';
-	
+	protected $tableName2 = 'ordertwo';
 	//实例化模型
 	public function getUser(){
 		$User = M("User"); // 实例化User对象
