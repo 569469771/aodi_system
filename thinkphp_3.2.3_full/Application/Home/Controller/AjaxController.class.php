@@ -1,8 +1,8 @@
 <?php
 namespace Home\Controller;
-use Think\Controller;
 
-class AjaxController extends Controller{
+
+class AjaxController extends FatherController{
 
 	public function checkcode(){
 	// dump($_POST);die;
