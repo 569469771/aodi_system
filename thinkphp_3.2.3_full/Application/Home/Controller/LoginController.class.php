@@ -3,6 +3,11 @@ namespace Home\Controller;
 	
 class LoginController extends FatherController{
     protected $seKey2 = 'ThinkPHP.CN';
+
+    // public function __construct(){
+
+    // }
+
 	public function login(){
 		// die('222');
 		// $User = D('User');

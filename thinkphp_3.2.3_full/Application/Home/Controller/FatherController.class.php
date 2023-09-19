@@ -11,7 +11,7 @@ class FatherController extends Controller{
 				if(empty(S('pro_groupname'))){
 					$qxian = D('Qxian');
 					$this->groupname=$qxian->getQxian();
-					S('pro_groupname',$this->groupname,array('type'=>'file','expire'=>10));
+					S('pro_groupname',$this->groupname,array('type'=>'file','expire'=>100));
 				}else{
 					$this->groupname=S('pro_groupname');
 				}
